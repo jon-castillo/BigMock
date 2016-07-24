@@ -1,44 +1,143 @@
-# preprocess.py
+#!/usr/bin/env python
+#  BigMock.py
 # convert headers to google mock v1
 # jonCastillo July 23 2016
 
 import sys
 import os
-import re
-import collections
 import datetime
-import StringIO
 
-from Rules import Rule_MainBlock
-from Rules import Rule_ClassBlock
-from Rules import Rule_EnumBlock
-from Rules import Rule_MethodBlock
+#from Rules import Rule_MainBlock
+#from Rules import Rule_ClassBlock
+#from Rules import Rule_EnumBlock
+#from Rules import Rule_MethodBlock
 
-from Utilities.RemoveComments import remove_comments
-from Utilities.RemoveLineContinuation import removeLineContinuation
-from RegexPatterns.Regex_Hpp import *
 from LexerDataStructures.LexerStack import Stack
 from LexerDataStructures.LexerStack import leveltype
 
+sys.path.append('Clang/bindings/python')
+
+from clang.cindex import Config
+from clang.cindex import Index
+from clang.cindex import TranslationUnit
+from clang.cindex import CursorKind
+
+from pprint import pprint
+from optparse import OptionParser, OptionGroup
+
+global opts
+
+def get_cursor_id(cursor, cursor_list = []):
+    if cursor is None:
+        return None
+
+    # FIXME: This is really slow. It would be nice if the index API exposed
+    # something that let us hash cursors.
+    for i,c in enumerate(cursor_list):
+        if cursor == c:
+            return i
+    cursor_list.append(cursor)
+    return len(cursor_list) - 1
+
+def get_info(node, depth=0):
+    if node.kind is CursorKind.CXX_METHOD:
+        spelling = str(node.spelling)
+        tokens = [str(token.spelling) for token in node.get_tokens()]
+        print str(spelling)
+        print str(tokens)
+
+    children = [get_info(c, depth+1)
+                    for c in node.get_children()]
+
+
+    return {'id': get_cursor_id(node),
+            'kind': node.kind,
+            'usr': node.get_usr(),
+            'spelling': node.spelling,
+            'location': node.location,
+            'extent.start': node.extent.start,
+            'extent.end': node.extent.end,
+            'is_definition': node.is_definition(),
+            'definition id': get_cursor_id(node.get_definition()),
+            'displayname': node.get_arguments(),
+            'children': children}
+'''
+    return { 'id' : get_cursor_id(node),
+             'kind' : node.kind,
+             'usr' : node.get_usr(),
+             'spelling' : node.spelling,
+             'is_definition' : node.is_definition(),
+             'children' : children }
+'''
+
+
+
+class flag_heading:
+    def __init__(self):
+        self.noHeader = False;
+        self.noSource = False;
+        self.noDateTime = False
+
+class settings:
+    def __init__(self):
+        oFlag_Heading = flag_heading()
+
+
+
 def main():
-     if len(sys.argv) is not 2:
-         print "Please provide source header to process."
-         print "example:"
-         print (sys.argv)[0] + " c:\sources\source.hpp"
-         return
-     else:
-         filename = (sys.argv)[1]
-         if not os.path.isfile(filename):
-             print "not a file!"
-             return
+    global opts
+    oSettings = settings()
+    parser = OptionParser("usage: %prog [options] {filename}")
+    parser.add_option("-a", "--add-author", dest="str_author",
+                      help="Add author to output header",
+                      default="joncastillo@ieee.org")
+    parser.add_option("-n", "--no-header",
+                      action="store_true", dest="oSettings.oFlag_Heading.noHeader", default=False,
+                      help="Don't add heading comment to output file")
+    parser.add_option("-s", "--no-source",
+                      action="store_true", dest="oSettings.oFlag_Heading.noSource", default=False,
+                      help="Don't add source to output file heading comment")
+    parser.add_option("-d", "--no-datetime",
+                      action="store_true", dest="oSettings.oFlag_Heading.noDateTime", default=False,
+                      help="Don't add source to output file heading comment")
 
-         code_w_comments = open(filename).read()
-         code_wo_comments  = remove_comments(code_w_comments)
-         code_wo_LineContinuation = removeLineContinuation(code_wo_comments)
-         processHeader(filename, code_wo_LineContinuation)
-         return
+    (opts, args) = parser.parse_args()
+    print opts
+    print args
+    if len(args) is not 1:
+        print "Please provide source header to process."
+        print "example:"
+        print (sys.argv)[0] + " c:\sources\source.hpp"
+        return
+    else:
+        filename = (args)[0]
+        if not os.path.isfile(filename):
+            print filename
+            print "not a file!"
+            return
 
-def printHeader(filename, basename, fwrite):
+    Config.set_library_file('Clang/bin/libclang.dll')
+    Config.set_library_path('Clang/bin')
+    Config.set_compatibility_check(False)
+    #args.append(TranslationUnit.PARSE_INCOMPLETE)
+    #args.append(TranslationUnit.PARSE_SKIP_FUNCTION_BODIES)
+    args.append("-Xclang")
+    args.append("-ast-dump")
+
+    index = Index.create()
+    tu = index.parse(None, args)
+    if not tu:
+        parser.error("unable to load input")
+    get_info(tu.cursor)
+    #pprint(('nodes', get_info(tu.cursor)))
+    code_w_comments = open(filename).read()
+   #code_wo_comments  = remove_comments(code_w_comments)
+   #code_wo_LineContinuation = removeLineContinuation(code_wo_comments)
+   #processHeader(filename, code_wo_LineContinuation)
+
+
+
+def printHeader(filename, basename, fwrite, oSettings):
      fwrite.write( "/****************************************************************************************************/\n" )
      fwrite.write( ("/* " + basename).ljust(100) + "*/\n" )
      fwrite.write( "/****************************************************************************************************/\n" )
@@ -48,7 +147,7 @@ def printHeader(filename, basename, fwrite):
      fwrite.write( ("/* generated: " + datetime.datetime.now().strftime('%d %b %Y, %H:%M')).ljust(100) +"*/\n" )
      fwrite.write( "/****************************************************************************************************/\n" )
 
-def processHeader(filename, code_wo_comments):
+def processHeader(filename, code_wo_comments, ):
     basename = os.path.basename(filename)
     fwrite = open(".\\"+basename,'w')
 
@@ -57,25 +156,26 @@ def processHeader(filename, code_wo_comments):
     mystack = Stack()
     mystack.push(leveltype.type_root)
 
-    nextindex = 0
-    result = True
-    strlen = len(code_wo_comments)
 
-    while (nextindex < strlen):
-        if mystack.parent() == leveltype.type_root:
-            result, nextindex = Rule_MainBlock.seekEntity(code_wo_comments, nextindex ,mystack)
-        elif mystack.parent() == leveltype.type_namespace:
-            result, nextindex = Rule_MainBlock.seekEntity(code_wo_comments, nextindex ,mystack)
-        elif mystack.parent() == leveltype.type_class:
-            result, nextindex = Rule_ClassBlock.seekEntity(code_wo_comments, nextindex ,mystack)
-        elif mystack.parent() == leveltype.type_struct:
-            result, nextindex = Rule_ClassBlock.seekEntity(code_wo_comments, nextindex ,mystack)
-        elif mystack.parent() == leveltype.type_method:
-            result, nextindex = Rule_MethodBlock.seekEntity(code_wo_comments, nextindex ,mystack)
-        elif mystack.parent() == leveltype.type_enum:
-            result, nextindex = Rule_MethodBlock.seekEntity(code_wo_comments, nextindex ,mystack)
-        else:
-            print ("not root:" + str(mystack.parent()))
+
+    '''
+        while (nextindex < strlen):
+            if mystack.parent() == leveltype.type_root:
+                result, nextindex = Rule_MainBlock.seekEntity(code_wo_comments, nextindex ,mystack)
+            elif mystack.parent() == leveltype.type_namespace:
+                result, nextindex = Rule_MainBlock.seekEntity(code_wo_comments, nextindex ,mystack)
+            elif mystack.parent() == leveltype.type_class:
+                result, nextindex = Rule_ClassBlock.seekEntity(code_wo_comments, nextindex ,mystack)
+            elif mystack.parent() == leveltype.type_struct:
+                result, nextindex = Rule_ClassBlock.seekEntity(code_wo_comments, nextindex ,mystack)
+            elif mystack.parent() == leveltype.type_method:
+                result, nextindex = Rule_MethodBlock.seekEntity(code_wo_comments, nextindex ,mystack)
+            elif mystack.parent() == leveltype.type_enum:
+                result, nextindex = Rule_EnumBlock.seekEntity(code_wo_comments, nextindex ,mystack)
+            else:
+                print ("not root:" + str(mystack.parent()))
+    '''
 
 if __name__ == '__main__':
+    print "done"
     main()

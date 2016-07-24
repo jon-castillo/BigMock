@@ -1,0 +1,2080 @@
+TranslationUnitDecl 0xabba38 <<invalid sloc>> <invalid sloc>
+|-CXXRecordDecl 0xabbd00 <<invalid sloc>> <invalid sloc> implicit class type_info
+| `-TypeVisibilityAttr 0xabbd70 <<invalid sloc>> Implicit Default
+|-TypedefDecl 0xabbdb0 <<invalid sloc>> <invalid sloc> implicit referenced size_t 'unsigned int'
+| `-BuiltinType 0xabbb10 'unsigned int'
+|-TypedefDecl 0xabbe08 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'char *'
+| `-PointerType 0xabbde0 'char *'
+|   `-BuiltinType 0xabba90 'char'
+|-NamespaceDecl 0xabbe78 <WFC_Widget.hpp:47:1, line:1520:1> line:47:11 HMI
+| |-NamespaceDecl 0xabbeb8 <line:50:5, line:53:5> line:50:15 WSMS
+| | `-CXXRecordDecl 0xabbef8 <line:52:9, col:15> col:15 referenced class ControllerStrategy
+| |-NamespaceDecl 0xabbf70 <line:55:5, line:58:5> line:55:15 WMMS
+| | `-CXXRecordDecl 0xabbfb0 <line:57:9, col:15> col:15 referenced class Allocator
+| |-NamespaceDecl 0xabc020 <line:62:5, line:65:5> line:62:15 WAS
+| | `-CXXRecordDecl 0xabc060 <line:64:9, col:16> col:16 referenced struct WidgetDescription
+| `-NamespaceDecl 0xabc0d0 <line:69:5, line:1518:5> line:69:15 WFC
+|   |-CXXRecordDecl 0xabc110 <line:72:9, col:15> col:15 referenced class WarningWidget
+|   `-CXXRecordDecl 0xabc1a0 <line:94:9, line:1516:9> line:94:15 invalid class Widget definition
+|     |-MSInheritanceAttr 0xb37ee0 <col:9, col:15> Implicit __single_inheritance BestCase
+|     |-FullComment 0xb38758 <line:75:10, line:92:45>
+|     | |-ParagraphComment 0xb386a8 <line:75:10, line:90:73>
+|     | | |-TextComment 0xb384e8 <line:75:10, col:77> Text="* Widget defines generic widget properties and mechanisms, and thus,"
+|     | | |-TextComment 0xb38500 <line:76:10, col:72> Text="  all other widgets must derive from it directly or indirectly."
+|     | | |-TextComment 0xb38518 <line:77:10, col:56> Text="* Widget defines the following base properties:"
+|     | | |-TextComment 0xb38530 <line:78:10, col:40> Text=" 1. Index in WidgetHelper array"
+|     | | |-TextComment 0xb38548 <line:79:10, col:22> Text=" 2. Window ID"
+|     | | |-TextComment 0xb38560 <line:80:10, col:25> Text=" 3. FinalHook ID"
+|     | | |-TextComment 0xb38578 <line:81:10, col:80> Text=" 4. Attributes: Focusable, Focused, Visible, Enable, DoUpdate, Focused,"
+|     | | |-TextComment 0xb38590 <line:82:10, col:79> Text="                CommonWidget, HasFirstAPIUpdate, HasFirstTreeBuildDone"
+|     | | |-TextComment 0xb385a8 <line:83:10, col:77> Text=" 5. Window properties: PosX, PosY, PosZ, Width, Height, Transparency"
+|     | | |-TextComment 0xb385c0 <line:84:10, col:72> Text="* Getter/Setter methods for these properties are provided here."
+|     | | |-TextComment 0xb385d8 <line:85:10, col:83> Text="* The generic message handling and drawing methods are also provided here."
+|     | | |-TextComment 0xb385f0 <line:86:10, col:81> Text="* Moreover, widget or any derived class of widget allow logical grouping"
+|     | | |-TextComment 0xb38608 <line:87:10, col:83> Text="  some widgets as children. Besides having a window space allocated to it,"
+|     | | |-TextComment 0xb38620 <line:88:10, col:81> Text="  which is shared and drawn on by its children, Widget does not have any"
+|     | | |-TextComment 0xb38638 <line:89:10, col:30> Text="  visuals of its own."
+|     | | `-TextComment 0xb38650 <line:90:10, col:73> Text="* Methods for adding or accessing children widgets are provided."
+|     | `-ParagraphComment 0xb38738 <line:92:10, col:45>
+|     |   |-TextComment 0xb386c0 <col:10> Text=" "
+|     |   |-InlineCommandComment 0xb386f8 <col:11, col:21> Name="stereotype" RenderNormal
+|     |   `-TextComment 0xb38710 <col:22, col:45> Text=" polymophic, noncopyable"
+|     |-CXXRecordDecl 0xabc270 <line:94:9, col:15> col:15 implicit referenced class Widget
+|     |-AccessSpecDecl 0xabc2f0 <line:98:9, col:15> col:9 public
+|     |-CXXConstructorDecl 0xabc490 <line:115:13, col:118> col:13 invalid Widget 'void (const int, const int, const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xabc318 <col:21, col:34> col:34 invalid u16HelperIndex_ 'const int'
+|     | |-ParmVarDecl 0xabc360 <col:52, col:65> col:65 invalid u16WindowID_ 'const int'
+|     | |-ParmVarDecl 0xabc3a8 <col:80, col:93> col:93 invalid u16WidgetDescriptorIndex_ 'const int'
+|     | `-FullComment 0xb38a20 <line:105:14, line:113:100>
+|     |   |-ParagraphComment 0xb38860 <line:105:14, line:111:14>
+|     |   | |-TextComment 0xb38798 <line:105:14, col:98> Text=" Constructor with arguments: WidgetHelper index, Window ID and WidgetDescriptor index"
+|     |   | |-TextComment 0xb387b0 <line:106:14, col:64> Text=" 1. First the widget class members are initialised."
+|     |   | |-TextComment 0xb387c8 <line:107:14, col:170> Text=" 2. If widget window belongs to widget, it is created and attached, while if it is a CIA window, surface assembly is requested and window is simply attached."
+|     |   | |-TextComment 0xb387e0 <line:108:14, col:81> Text=" 3. The ID received by the constructor is a WRS generated Window ID."
+|     |   | |-TextComment 0xb387f8 <line:109:14, col:143> Text="   - For windows belonging to widgets, this WRS ID is first mapped to an ID generated by CIA which allows getting the window fast."
+|     |   | |-TextComment 0xb38810 <line:110:14, col:98> Text="   - For CIA windows, WRS IDs and CIA IDs are the same thing, so it is directly used."
+|     |   | `-TextComment 0xb38828 <line:111:14> Text=" "
+|     |   |-ParamCommandComment 0xb38878 <col:15, line:112:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb388f0 <line:111:36, line:112:14>
+|     |   |   |-TextComment 0xb388b8 <line:111:36, col:95> Text=" u16HelperIndex_. Index of associated WidgetHelper instance."
+|     |   |   `-TextComment 0xb388d0 <line:112:14> Text=" "
+|     |   |-ParamCommandComment 0xb38908 <col:15, line:113:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb38980 <line:112:36, line:113:14>
+|     |   |   |-TextComment 0xb38948 <line:112:36, col:75> Text=" u16WindowID_. Window ID. WRS Window ID."
+|     |   |   `-TextComment 0xb38960 <line:113:14> Text=" "
+|     |   `-ParamCommandComment 0xb38998 <col:15, col:100> [in] explicitly Param="uint16"
+|     |     `-ParagraphComment 0xb389f8 <col:36, col:100>
+|     |       `-TextComment 0xb389d8 <col:36, col:100> Text=" u16WidgetDescriptorIndex_. Index of associated WidgetDescriptor."
+|     |-CXXMethodDecl 0xb2bdc0 <line:124:13, col:131> col:26 invalid operator new 'void *(const size_t, WMMS::Allocator *const, const int)' static
+|     | |-ParmVarDecl 0xabc568 <col:40, col:53> col:53 Size_ 'const size_t':'const unsigned int'
+|     | |-ParmVarDecl 0xabc640 <col:60, col:83> col:83 poAllocator_ 'WMMS::Allocator *const'
+|     | |-ParmVarDecl 0xabc688 <col:97, col:110> col:110 invalid u16WidgetHelperIndex_ 'const int'
+|     | `-FullComment 0xb34cd8 <line:118:14, line:122:136>
+|     |   |-ParagraphComment 0xb38a98 <line:118:14, line:119:14>
+|     |   | |-TextComment 0xb38a60 <line:118:14, col:130> Text=" Overriden new operator. Instead of using default memory allocation by compiler, allocate to specific memory address."
+|     |   | `-TextComment 0xb38a78 <line:119:14> Text=" "
+|     |   |-ParamCommandComment 0xb38ab0 <col:15, line:120:14> [in] explicitly Param="size_t"
+|     |   | `-ParagraphComment 0xb38b28 <line:119:36, line:120:14>
+|     |   |   |-TextComment 0xb38af0 <line:119:36, col:64> Text=" Size_. Size of memory needed"
+|     |   |   `-TextComment 0xb38b08 <line:120:14> Text=" "
+|     |   |-ParamCommandComment 0xb38b40 <col:15, line:121:14> [in] explicitly Param="WMMS::Allocator*"
+|     |   | `-ParagraphComment 0xb34bc0 <line:120:46, line:121:14>
+|     |   |   |-TextComment 0xb34b88 <line:120:46, col:114> Text=" u16WidgetHelperIndex_. Pointer to WMMS::Allocator to allocate memory"
+|     |   |   `-TextComment 0xb34ba0 <line:121:14> Text=" "
+|     |   |-ParamCommandComment 0xb34bd8 <col:15, line:122:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb34c50 <line:121:36, line:122:14>
+|     |   |   |-TextComment 0xb34c18 <line:121:36, col:91> Text=" u16WidgetHelperIndex_. Index of associated WidgetHelper"
+|     |   |   `-TextComment 0xb34c30 <line:122:14> Text=" "
+|     |   `-BlockCommandComment 0xb34c68 <col:15, col:136> Name="return"
+|     |     `-ParagraphComment 0xb34ca8 <col:22, col:136>
+|     |       `-TextComment 0xb34c88 <col:22, col:136> Text="  void*. A pointer to allocated memory address. If no memory is allocated for this instance, NULL pointer returned."
+|     |-CXXMethodDecl 0xb2bfe0 <line:133:13, col:136> col:25 invalid operator delete 'void (void *const, WMMS::Allocator *const, const int) noexcept' static
+|     | |-ParmVarDecl 0xb2be70 <col:42, col:54> col:54 poWidget_ 'void *const'
+|     | |-ParmVarDecl 0xb2bed8 <col:65, col:88> col:88 poAllocator_ 'WMMS::Allocator *const'
+|     | |-ParmVarDecl 0xb2bf20 <col:102, col:115> col:115 invalid u16WidgetHelperIndex_ 'const int'
+|     | `-FullComment 0xb34f98 <line:127:14, line:131:26>
+|     |   |-ParagraphComment 0xb34d50 <line:127:14, line:128:14>
+|     |   | |-TextComment 0xb34d18 <line:127:14, col:73> Text=" Overriden delete operator. Free memory allocated to widget."
+|     |   | `-TextComment 0xb34d30 <line:128:14> Text=" "
+|     |   |-ParamCommandComment 0xb34d68 <col:15, line:129:14> [in] explicitly Param="void*"
+|     |   | `-ParagraphComment 0xb34de0 <line:128:35, line:129:14>
+|     |   |   |-TextComment 0xb34da8 <line:128:35, col:85> Text=" const poWidget_. A void pointer to widget instance"
+|     |   |   `-TextComment 0xb34dc0 <line:129:14> Text=" "
+|     |   |-ParamCommandComment 0xb34df8 <col:15, line:130:14> [in] explicitly Param="WMMS::Allocator*"
+|     |   | `-ParagraphComment 0xb34e80 <line:129:46, line:130:14>
+|     |   |   |-TextComment 0xb34e48 <line:129:46, col:120> Text=" poAllocator_. Pointer to WMMS::Allocator which allocated the memory before"
+|     |   |   `-TextComment 0xb34e60 <line:130:14> Text=" "
+|     |   |-ParamCommandComment 0xb34e98 <col:15, line:131:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb34f10 <line:130:36, line:131:14>
+|     |   |   |-TextComment 0xb34ed8 <line:130:36, col:91> Text=" u16WidgetHelperIndex_. Index of associated WidgetHelper"
+|     |   |   `-TextComment 0xb34ef0 <line:131:14> Text=" "
+|     |   `-BlockCommandComment 0xb34f28 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb34f68 <col:22, col:26>
+|     |       `-TextComment 0xb34f48 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2c130 <line:140:13, col:55> col:25 operator delete 'void (void *const) noexcept' static
+|     | |-ParmVarDecl 0xb2c0b8 <col:43, col:47> col:55 'void *const'
+|     | `-FullComment 0xb35120 <line:136:14, line:138:26>
+|     |   |-ParagraphComment 0xb35010 <line:136:14, line:137:14>
+|     |   | |-TextComment 0xb34fd8 <line:136:14, col:43> Text=" Non-placement delete operator"
+|     |   | `-TextComment 0xb34ff0 <line:137:14> Text=" "
+|     |   |-ParamCommandComment 0xb35028 <col:15, line:138:14> [in] explicitly Param="void*"
+|     |   | `-ParagraphComment 0xb350a0 <line:137:35, line:138:14>
+|     |   |   |-TextComment 0xb35068 <line:137:35, col:73> Text=" const: pointer to object to be deleted"
+|     |   |   `-TextComment 0xb35080 <line:138:14> Text=" "
+|     |   `-BlockCommandComment 0xb350b8 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb350f8 <col:22, col:26>
+|     |       `-TextComment 0xb350d8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2c2c0 <line:149:13, col:73> col:26 vDestroy 'void (WMMS::Allocator *const) __attribute__((thiscall))' virtual
+|     | |-ParmVarDecl 0xb2c220 <col:37, col:60> col:60 poAllocator_ 'WMMS::Allocator *const'
+|     | `-FullComment 0xb352f0 <line:143:14, line:147:26>
+|     |   |-ParagraphComment 0xb351d0 <line:143:14, line:146:14>
+|     |   | |-TextComment 0xb35160 <line:143:14, col:88> Text=" Destroy widget instance. Deinialises and frees memory allocated to widget."
+|     |   | |-TextComment 0xb35178 <line:144:14, col:33> Text=" 1. Calls destructor"
+|     |   | |-TextComment 0xb35190 <line:145:14, col:39> Text=" 2. Frees allocated memory"
+|     |   | `-TextComment 0xb351a8 <line:146:14> Text=" "
+|     |   |-ParamCommandComment 0xb351e8 <col:15, line:147:14> [in] explicitly Param="WMMS::Allocator*"
+|     |   | `-ParagraphComment 0xb35270 <line:146:46, line:147:14>
+|     |   |   |-TextComment 0xb35238 <line:146:46, col:120> Text=" poAllocator_. Pointer to WMMS::Allocator which allocated the memory before"
+|     |   |   `-TextComment 0xb35250 <line:147:14> Text=" "
+|     |   `-BlockCommandComment 0xb35288 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb352c8 <col:22, col:26>
+|     |       `-TextComment 0xb352a8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2c3d8 <line:156:13, col:50> col:20 invalid u16GetDataMemoryPoolID 'int (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb35460 <line:152:14, line:154:82>
+|     |   |-ParagraphComment 0xb35368 <line:152:14, line:153:14>
+|     |   | |-TextComment 0xb35330 <line:152:14, col:82> Text=" Helps derived widgets to retreive the memory pool ID for Widget data"
+|     |   | `-TextComment 0xb35348 <line:153:14> Text=" "
+|     |   |-ParamCommandComment 0xb35380 <col:15, line:154:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb353e0 <col:14>
+|     |   |   `-TextComment 0xb353c0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb353f8 <col:15, col:82> Name="return"
+|     |     `-ParagraphComment 0xb35438 <col:22, col:82>
+|     |       `-TextComment 0xb35418 <col:22, col:82> Text=" uint16. Pool ID to use for allocating memory for widget data"
+|     |-CXXMethodDecl 0xb2c4e0 <line:165:13, col:43> col:26 vInitialize 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb35640 <line:159:14, line:163:27>
+|     |   |-ParagraphComment 0xb35548 <line:159:14, line:162:14>
+|     |   | |-TextComment 0xb354a0 <line:159:14, col:31> Text=" Internal use only"
+|     |   | |-TextComment 0xb354b8 <line:160:14, col:91> Text=" In base widget, propagates parent properties to children, reverts child list "
+|     |   | |-TextComment 0xb354d0 <col:92> Text="&"
+|     |   | |-TextComment 0xb354e8 <col:93, col:121> Text=" sets state to Init/InitAgain"
+|     |   | |-TextComment 0xb35500 <line:161:14, col:95> Text=" In visibility controller, sets visibility of state as per state of the controller"
+|     |   | `-TextComment 0xb35518 <line:162:14> Text=" "
+|     |   |-ParamCommandComment 0xb35560 <col:15, line:163:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb355c0 <col:14>
+|     |   |   `-TextComment 0xb355a0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb355d8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb35618 <col:22, col:27>
+|     |       `-TextComment 0xb355f8 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb2c660 <line:175:13, col:70> col:18 invalid vSetPos 'void (const int, const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2c580 <col:27, col:39> col:39 invalid i16PosX_ 'const int'
+|     | |-ParmVarDecl 0xb2c5c8 <col:49, col:61> col:61 invalid i16PosY_ 'const int'
+|     | `-FullComment 0xb35858 <line:170:14, line:173:26>
+|     |   |-ParagraphComment 0xb356b8 <line:170:14, line:171:14>
+|     |   | |-TextComment 0xb35680 <line:170:14, col:41> Text=" Setter for Window position."
+|     |   | `-TextComment 0xb35698 <line:171:14> Text=" "
+|     |   |-ParamCommandComment 0xb356d0 <col:15, line:172:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb35748 <line:171:35, line:172:14>
+|     |   |   |-TextComment 0xb35710 <line:171:35, col:92> Text=" i16PosX_. X-position of window, it use relative position."
+|     |   |   `-TextComment 0xb35728 <line:172:14> Text=" "
+|     |   |-ParamCommandComment 0xb35760 <col:15, line:173:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb357d8 <line:172:35, line:173:14>
+|     |   |   |-TextComment 0xb357a0 <line:172:35, col:92> Text=" i16PosY_. Y-position of window, it use relative position."
+|     |   |   `-TextComment 0xb357b8 <line:173:14> Text=" "
+|     |   `-BlockCommandComment 0xb357f0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb35830 <col:22, col:26>
+|     |       `-TextComment 0xb35810 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2c7a8 <line:183:13, col:76> col:18 invalid vSetSize 'void (const int, const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2c708 <col:28, col:41> col:41 invalid u16Width_ 'const int'
+|     | |-ParmVarDecl 0xb2c750 <col:52, col:65> col:65 invalid u16Height_ 'const int'
+|     | `-FullComment 0xb35a70 <line:178:14, line:181:26>
+|     |   |-ParagraphComment 0xb358d0 <line:178:14, line:179:14>
+|     |   | |-TextComment 0xb35898 <line:178:14, col:37> Text=" Setter for Window size."
+|     |   | `-TextComment 0xb358b0 <line:179:14> Text=" "
+|     |   |-ParamCommandComment 0xb358e8 <col:15, line:180:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb35960 <line:179:36, line:180:14>
+|     |   |   |-TextComment 0xb35928 <line:179:36, col:62> Text=" u16Width_. Width of window"
+|     |   |   `-TextComment 0xb35940 <line:180:14> Text=" "
+|     |   |-ParamCommandComment 0xb35978 <col:15, line:181:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb359f0 <line:180:36, line:181:14>
+|     |   |   |-TextComment 0xb359b8 <line:180:36, col:64> Text=" u16Height_. Height of window"
+|     |   |   `-TextComment 0xb359d0 <line:181:14> Text=" "
+|     |   `-BlockCommandComment 0xb35a08 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb35a48 <col:22, col:26>
+|     |       `-TextComment 0xb35a28 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2c9e0 <line:193:13, col:123> col:18 invalid vSetPosSize 'void (const int, const int, const int, const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2c850 <col:31, col:43> col:43 invalid i16PosX_ 'const int'
+|     | |-ParmVarDecl 0xb2c898 <col:53, col:65> col:65 invalid i16PosY_ 'const int'
+|     | |-ParmVarDecl 0xb2c8e0 <col:75, col:88> col:88 invalid u16Width_ 'const int'
+|     | |-ParmVarDecl 0xb2c928 <col:99, col:112> col:112 invalid u16Height_ 'const int'
+|     | `-FullComment 0xb38de0 <line:186:14, line:191:26>
+|     |   |-ParagraphComment 0xb35ae8 <line:186:14, line:187:14>
+|     |   | |-TextComment 0xb35ab0 <line:186:14, col:50> Text=" Setter for Window position and size."
+|     |   | `-TextComment 0xb35ac8 <line:187:14> Text=" "
+|     |   |-ParamCommandComment 0xb35b00 <col:15, line:188:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb38ba8 <line:187:35, line:188:14>
+|     |   |   |-TextComment 0xb35b40 <line:187:35, col:65> Text=" i16PosX_. X-position of window"
+|     |   |   `-TextComment 0xb35b58 <line:188:14> Text=" "
+|     |   |-ParamCommandComment 0xb38bc0 <col:15, line:189:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb38c38 <line:188:35, line:189:14>
+|     |   |   |-TextComment 0xb38c00 <line:188:35, col:65> Text=" i16PosY_. Y-position of window"
+|     |   |   `-TextComment 0xb38c18 <line:189:14> Text=" "
+|     |   |-ParamCommandComment 0xb38c50 <col:15, line:190:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb38cc8 <line:189:36, line:190:14>
+|     |   |   |-TextComment 0xb38c90 <line:189:36, col:62> Text=" u16Width_. Width of window"
+|     |   |   `-TextComment 0xb38ca8 <line:190:14> Text=" "
+|     |   |-ParamCommandComment 0xb38ce0 <col:15, line:191:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb38d58 <line:190:36, line:191:14>
+|     |   |   |-TextComment 0xb38d20 <line:190:36, col:64> Text=" u16Height_. Height of window"
+|     |   |   `-TextComment 0xb38d38 <line:191:14> Text=" "
+|     |   `-BlockCommandComment 0xb38d70 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb38db0 <col:22, col:26>
+|     |       `-TextComment 0xb38d90 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb28b28 <line:200:13, col:50> col:18 invalid vSetPosX 'void (const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2ca90 <col:29, col:41> col:41 invalid i16PosX_ 'const int'
+|     | `-FullComment 0xb38f68 <line:196:14, line:198:26>
+|     |   |-ParagraphComment 0xb38e58 <line:196:14, line:197:14>
+|     |   | |-TextComment 0xb38e20 <line:196:14, col:43> Text=" Setter for Window position X."
+|     |   | `-TextComment 0xb38e38 <line:197:14> Text=" "
+|     |   |-ParamCommandComment 0xb38e70 <col:15, line:198:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb38ee8 <line:197:35, line:198:14>
+|     |   |   |-TextComment 0xb38eb0 <line:197:35, col:92> Text=" i16PosX_. X-position of window, it use relative position."
+|     |   |   `-TextComment 0xb38ec8 <line:198:14> Text=" "
+|     |   `-BlockCommandComment 0xb38f00 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb38f40 <col:22, col:26>
+|     |       `-TextComment 0xb38f20 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb28c58 <line:207:13, col:38> col:19 invalid i16GetPosX 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb390d8 <line:203:14, line:205:61>
+|     |   |-ParagraphComment 0xb38fe0 <line:203:14, line:204:14>
+|     |   | |-TextComment 0xb38fa8 <line:203:14, col:43> Text=" Getter for Window X-position."
+|     |   | `-TextComment 0xb38fc0 <line:204:14> Text=" "
+|     |   |-ParamCommandComment 0xb38ff8 <col:15, line:205:14> [in] explicitly Param="void."
+|     |   | `-ParagraphComment 0xb39058 <col:14>
+|     |   |   `-TextComment 0xb39038 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb39070 <col:15, col:61> Name="return"
+|     |     `-ParagraphComment 0xb390b0 <col:22, col:61>
+|     |       `-TextComment 0xb39090 <col:22, col:61> Text=" int16. This is the X-position of window"
+|     |-CXXMethodDecl 0xb28d50 <line:214:13, col:47> col:18 invalid vSetPosY 'void (const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb28cf8 <col:27, col:39> col:39 invalid i16PosY_ 'const int'
+|     | `-FullComment 0xb39260 <line:210:14, line:212:26>
+|     |   |-ParagraphComment 0xb39150 <line:210:14, line:211:14>
+|     |   | |-TextComment 0xb39118 <line:210:14, col:43> Text=" Setter for Window position Y."
+|     |   | `-TextComment 0xb39130 <line:211:14> Text=" "
+|     |   |-ParamCommandComment 0xb39168 <col:15, line:212:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb391e0 <line:211:35, line:212:14>
+|     |   |   |-TextComment 0xb391a8 <line:211:35, col:92> Text=" i16PosY_. Y-position of window, it use relative position."
+|     |   |   `-TextComment 0xb391c0 <line:212:14> Text=" "
+|     |   `-BlockCommandComment 0xb391f8 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb39238 <col:22, col:26>
+|     |       `-TextComment 0xb39218 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb28e88 <line:221:13, col:45> col:26 invalid i16GetPosY 'int (void)' static
+|     | `-FullComment 0xb393d0 <line:217:14, line:219:61>
+|     |   |-ParagraphComment 0xb392d8 <line:217:14, line:218:14>
+|     |   | |-TextComment 0xb392a0 <line:217:14, col:43> Text=" Getter for Window Y-position."
+|     |   | `-TextComment 0xb392b8 <line:218:14> Text=" "
+|     |   |-ParamCommandComment 0xb392f0 <col:15, line:219:14> [in] explicitly Param="void."
+|     |   | `-ParagraphComment 0xb39350 <col:14>
+|     |   |   `-TextComment 0xb39330 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb39368 <col:15, col:61> Name="return"
+|     |     `-ParagraphComment 0xb393a8 <col:22, col:61>
+|     |       `-TextComment 0xb39388 <col:22, col:61> Text=" int16. This is the Y-position of window"
+|     |-CXXMethodDecl 0xb28f80 <line:228:13, col:51> col:18 invalid vSetPosZ 'void (const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb28f28 <col:29, col:42> col:42 invalid u16PosZ_ 'const int'
+|     | `-FullComment 0xb39558 <line:224:14, line:226:26>
+|     |   |-ParagraphComment 0xb39448 <line:224:14, line:225:14>
+|     |   | |-TextComment 0xb39410 <line:224:14, col:43> Text=" Setter for Window position Z."
+|     |   | `-TextComment 0xb39428 <line:225:14> Text=" "
+|     |   |-ParamCommandComment 0xb39460 <col:15, line:226:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb394d8 <line:225:36, line:226:14>
+|     |   |   |-TextComment 0xb394a0 <line:225:36, col:93> Text=" u16PosZ_. Z-position of window, it use relative position."
+|     |   |   `-TextComment 0xb394b8 <line:226:14> Text=" "
+|     |   `-BlockCommandComment 0xb394f0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb39530 <col:22, col:26>
+|     |       `-TextComment 0xb39510 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb29080 <line:235:13, col:53> col:18 invalid vSetWidth 'void (const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb29028 <col:30, col:43> col:43 invalid u16Width_ 'const int'
+|     | `-FullComment 0xb396e0 <line:231:14, line:233:26>
+|     |   |-ParagraphComment 0xb395d0 <line:231:14, line:232:14>
+|     |   | |-TextComment 0xb39598 <line:231:14, col:38> Text=" Setter for Window width."
+|     |   | `-TextComment 0xb395b0 <line:232:14> Text=" "
+|     |   |-ParamCommandComment 0xb395e8 <col:15, line:233:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb39660 <line:232:36, line:233:14>
+|     |   |   |-TextComment 0xb39628 <line:232:36, col:62> Text=" u16Width_. Width of window"
+|     |   |   `-TextComment 0xb39640 <line:233:14> Text=" "
+|     |   `-BlockCommandComment 0xb39678 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb396b8 <col:22, col:26>
+|     |       `-TextComment 0xb39698 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb29180 <line:242:13, col:55> col:18 invalid vSetHeight 'void (const int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb29128 <col:31, col:44> col:44 invalid u16Height_ 'const int'
+|     | `-FullComment 0xb39868 <line:238:14, line:240:26>
+|     |   |-ParagraphComment 0xb39758 <line:238:14, line:239:14>
+|     |   | |-TextComment 0xb39720 <line:238:14, col:39> Text=" Setter for Window height."
+|     |   | `-TextComment 0xb39738 <line:239:14> Text=" "
+|     |   |-ParamCommandComment 0xb39770 <col:15, line:240:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb397e8 <line:239:36, line:240:14>
+|     |   |   |-TextComment 0xb397b0 <line:239:36, col:64> Text=" u16Height_. Height of window"
+|     |   |   `-TextComment 0xb397c8 <line:240:14> Text=" "
+|     |   `-BlockCommandComment 0xb39800 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb39840 <col:22, col:26>
+|     |       `-TextComment 0xb39820 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb292c0 <line:249:13, col:63> col:18 vSetTransparency 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb29220 <col:36, col:47> col:47 boTransparency_ 'const _Bool'
+|     | `-FullComment 0xb399f0 <line:245:14, line:247:26>
+|     |   |-ParagraphComment 0xb398e0 <line:245:14, line:246:14>
+|     |   | |-TextComment 0xb398a8 <line:245:14, col:97> Text=" Setter for Window transparency. This function can be overridden by derived classes."
+|     |   | `-TextComment 0xb398c0 <line:246:14> Text=" "
+|     |   |-ParamCommandComment 0xb398f8 <col:15, line:247:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb39970 <line:246:34, line:247:14>
+|     |   |   |-TextComment 0xb39938 <line:246:34, col:138> Text=" boTransparency_. If this parameter is true, window is transparent. Otherwise, window is not transparent."
+|     |   |   `-TextComment 0xb39950 <line:247:14> Text=" "
+|     |   `-BlockCommandComment 0xb39988 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb399c8 <col:22, col:26>
+|     |       `-TextComment 0xb399a8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb293d0 <line:256:13, col:43> col:18 boGetTransparency '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb39b60 <line:252:14, line:254:113>
+|     |   |-ParagraphComment 0xb39a68 <line:252:14, line:253:14>
+|     |   | |-TextComment 0xb39a30 <line:252:14, col:45> Text=" Getter for Window transparency."
+|     |   | `-TextComment 0xb39a48 <line:253:14> Text=" "
+|     |   |-ParamCommandComment 0xb39a80 <col:15, line:254:14> [in] explicitly Param="void."
+|     |   | `-ParagraphComment 0xb39ae0 <col:14>
+|     |   |   `-TextComment 0xb39ac0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb39af8 <col:15, col:113> Name="return"
+|     |     `-ParagraphComment 0xb39b38 <col:22, col:113>
+|     |       `-TextComment 0xb39b18 <col:22, col:113> Text=" bool. If return value is true, window is transparent. Otherwise, window is not transparent."
+|     |-CXXMethodDecl 0xb294b8 <line:263:13, col:50> col:18 vUpdateWindowTreeAtRuntime 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb31c40 <line:259:14, line:261:27>
+|     |   |-ParagraphComment 0xb31bc8 <line:259:14, line:261:14>
+|     |   | |-TextComment 0xb31b70 <line:259:14, col:62> Text=" Updates the visibility of the associated Window,"
+|     |   | |-TextComment 0xb31b88 <line:260:14, col:48> Text=" and also propagates in window tree"
+|     |   | `-TextComment 0xb31ba0 <line:261:14> Text=" "
+|     |   `-BlockCommandComment 0xb31be0 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb31c20 <col:22, col:27>
+|     |       `-TextComment 0xb31c00 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb295a0 <line:270:13, col:52> col:18 vUpdateWindowTreeAtBuildTime 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb31d50 <line:266:14, line:268:27>
+|     |   |-ParagraphComment 0xb31cd8 <line:266:14, line:268:14>
+|     |   | |-TextComment 0xb31c80 <line:266:14, col:67> Text=" Updates the visibility of the associated Window only,"
+|     |   | |-TextComment 0xb31c98 <line:267:14, col:36> Text=" and does not propagate"
+|     |   | `-TextComment 0xb31cb0 <line:268:14> Text=" "
+|     |   `-BlockCommandComment 0xb31cf0 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb31d30 <col:22, col:27>
+|     |       `-TextComment 0xb31d10 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb29688 <line:277:13, col:40> col:18 vRegisterForAPIs 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb31eb8 <line:273:14, line:275:27>
+|     |   |-ParagraphComment 0xb31dc8 <line:273:14, line:274:14>
+|     |   | |-TextComment 0xb31d90 <line:273:14, col:54> Text=" Activates the APIs linked to the widget."
+|     |   | `-TextComment 0xb31da8 <line:274:14> Text=" "
+|     |   |-ParamCommandComment 0xb31de0 <col:15, line:275:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb31e38 <col:14>
+|     |   |   `-TextComment 0xb31e18 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb31e50 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb31e90 <col:22, col:27>
+|     |       `-TextComment 0xb31e70 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb29840 <line:287:13, col:67> col:48 poGetStrategy 'WSMS::ControllerStrategy *(void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb32040 <line:282:14, line:285:70>
+|     |   |-ParagraphComment 0xb31f50 <line:282:14, line:284:14>
+|     |   | |-TextComment 0xb31ef8 <line:282:14, col:44> Text=" Getter for associated strategy"
+|     |   | |-TextComment 0xb31f10 <line:283:14, col:72> Text=" Empty definition here. Overwritten in ControllerContainer."
+|     |   | `-TextComment 0xb31f28 <line:284:14> Text=" "
+|     |   |-ParamCommandComment 0xb31f68 <col:15, line:285:14> [in] implicitly Param="void"
+|     |   | `-ParagraphComment 0xb31fc0 <col:14>
+|     |   |   `-TextComment 0xb31fa0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb31fd8 <col:15, col:70> Name="return"
+|     |     `-ParagraphComment 0xb32018 <col:22, col:70>
+|     |       `-TextComment 0xb31ff8 <col:22, col:70> Text=" WSMS::ControllerStrategy *. Pointer to strategy."
+|     |-CXXMethodDecl 0xb299a0 <line:295:13, col:68> col:26 vSetController 'void (WSMS::ControllerStrategy *) __attribute__((thiscall))' virtual
+|     | |-ParmVarDecl 0xb29908 <col:42, col:67> col:68 'WSMS::ControllerStrategy *'
+|     | `-FullComment 0xb32200 <line:290:14, line:293:26>
+|     |   |-ParagraphComment 0xb320d8 <line:290:14, line:292:14>
+|     |   | |-TextComment 0xb32080 <line:290:14, col:44> Text=" Setter for associated strategy"
+|     |   | |-TextComment 0xb32098 <line:291:14, col:72> Text=" Empty definition here. Overwritten in ControllerContainer."
+|     |   | `-TextComment 0xb320b0 <line:292:14> Text=" "
+|     |   |-ParamCommandComment 0xb320f0 <col:15, line:293:14> [in] explicitly Param="WSMS::ControllerStrategy"
+|     |   | `-ParagraphComment 0xb32180 <line:292:54, line:293:14>
+|     |   |   |-TextComment 0xb32148 <line:292:54, col:56> Text=" *."
+|     |   |   `-TextComment 0xb32160 <line:293:14> Text=" "
+|     |   `-BlockCommandComment 0xb32198 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb321d8 <col:22, col:26>
+|     |       `-TextComment 0xb321b8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb29a98 <line:303:13, col:57> col:28 invalid u16GetControllerState 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb32388 <line:298:14, line:301:82>
+|     |   |-ParagraphComment 0xb32298 <line:298:14, line:300:14>
+|     |   | |-TextComment 0xb32240 <line:298:14, col:41> Text=" Getter for controller state"
+|     |   | |-TextComment 0xb32258 <line:299:14, col:49> Text=" Overwritten in ControllerContainer."
+|     |   | `-TextComment 0xb32270 <line:300:14> Text=" "
+|     |   |-ParamCommandComment 0xb322b0 <col:15, line:301:14> [in] implicitly Param="void"
+|     |   | `-ParagraphComment 0xb32308 <col:14>
+|     |   |   `-TextComment 0xb322e8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb32320 <col:15, col:82> Name="return"
+|     |     `-ParagraphComment 0xb32360 <col:22, col:82>
+|     |       `-TextComment 0xb32340 <col:22, col:82> Text=" uint16. Returns nCONTROLLERSTATE_INVALID here in base class."
+|     |-CXXMethodDecl 0xb2cc00 <line:314:13, col:59> col:26 invalid vAddChild 'void (int *) __attribute__((thiscall))' virtual
+|     | |-ParmVarDecl 0xb2cb80 <col:36, col:44> col:44 invalid poChildWindow 'int *'
+|     | |-OverrideAttr 0xb2cc78 <col:59>
+|     | `-FullComment 0xb32580 <line:306:14, line:312:101>
+|     |   |-ParagraphComment 0xb32438 <line:306:14, line:309:14>
+|     |   | |-TextComment 0xb323c8 <line:306:14, col:69> Text=" Adds another widget as child by calling Window's method"
+|     |   | |-TextComment 0xb323e0 <line:307:14, col:93> Text=" propagates visibility and coordinate information down the subtree of new widget"
+|     |   | |-TextComment 0xb323f8 <line:308:14, col:70> Text=" Also updates the widget helper parent child relationship"
+|     |   | `-TextComment 0xb32410 <line:309:14> Text=" "
+|     |   |-BlockCommandComment 0xb32450 <col:15, line:310:14> Name="note"
+|     |   | `-ParagraphComment 0xb324a8 <line:309:20, line:310:14>
+|     |   |   |-TextComment 0xb32470 <line:309:20, col:70> Text=" TODO: can be removed if widget helper is removed !"
+|     |   |   `-TextComment 0xb32488 <line:310:14> Text=" "
+|     |   |-ParamCommandComment 0xb324c0 <col:15, col:58> [in] implicitly Param="poChildWidget"
+|     |   | `-ParagraphComment 0xb32520 <col:35, col:58>
+|     |   |   `-TextComment 0xb32500 <col:35, col:58> Text=" pointer of other widget"
+|     |   `-ParagraphComment 0xb32558 <line:312:14, col:101>
+|     |     `-TextComment 0xb32538 <col:14, col:101> Text=" Important Warning: Do not use this interface. It will be deprecated in the near future!"
+|     |-CXXMethodDecl 0xb2ccd8 <line:323:13, col:46> col:26 vRemoveFromParent 'void (void) __attribute__((thiscall))' virtual
+|     | |-OverrideAttr 0xb2cd48 <col:46>
+|     | `-FullComment 0xb32670 <line:317:14, line:321:101>
+|     |   |-ParagraphComment 0xb32618 <line:317:14, line:319:70>
+|     |   | |-TextComment 0xb325c0 <line:317:14, col:77> Text=" Detaches this window from its parent by calling Window's method"
+|     |   | |-TextComment 0xb325d8 <line:318:14, col:49> Text=" coordinates are changed to relative"
+|     |   | `-TextComment 0xb325f0 <line:319:14, col:70> Text=" Also updates the widget helper parent child relationship"
+|     |   `-ParagraphComment 0xb32650 <line:321:14, col:101>
+|     |     `-TextComment 0xb32630 <col:14, col:101> Text=" Important Warning: Do not use this interface. It will be deprecated in the near future!"
+|     |-CXXMethodDecl 0xb2ce08 <line:332:13, col:44> col:21 poGetNextWidget 'class HMI::WFC::Widget *(void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb327e0 <line:328:14, line:330:108>
+|     |   |-ParagraphComment 0xb326e8 <line:328:14, line:329:14>
+|     |   | |-TextComment 0xb326b0 <line:328:14, col:55> Text=" Getter for pointer to next-sibling widget"
+|     |   | `-TextComment 0xb326c8 <line:329:14> Text=" "
+|     |   |-ParamCommandComment 0xb32700 <col:15, line:330:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb32760 <col:14>
+|     |   |   `-TextComment 0xb32740 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb32778 <col:15, col:108> Name="return"
+|     |     `-ParagraphComment 0xb327b8 <col:22, col:108>
+|     |       `-TextComment 0xb32798 <col:22, col:108> Text=" Widget*. A pointer to next-sibling widget. Null is returned if no next widget in tree."
+|     |-CXXMethodDecl 0xb2cef8 <line:339:13, col:44> col:21 poGetPrevWidget 'class HMI::WFC::Widget *(void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb32950 <line:335:14, line:337:117>
+|     |   |-ParagraphComment 0xb32858 <line:335:14, line:336:14>
+|     |   | |-TextComment 0xb32820 <line:335:14, col:59> Text=" Getter for pointer to previous-sibling widget"
+|     |   | `-TextComment 0xb32838 <line:336:14> Text=" "
+|     |   |-ParamCommandComment 0xb32870 <col:15, line:337:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb328d0 <col:14>
+|     |   |   `-TextComment 0xb328b0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb328e8 <col:15, col:117> Name="return"
+|     |     `-ParagraphComment 0xb32928 <col:22, col:117>
+|     |       `-TextComment 0xb32908 <col:22, col:117> Text=" Widget*. A pointer to previous-sibling widget.  Null is returned if no previous widget in tree."
+|     |-CXXMethodDecl 0xb2cfe8 <line:354:13, col:44> col:21 poGetFirstChild 'class HMI::WFC::Widget *(void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb32ac0 <line:350:14, line:352:115>
+|     |   |-ParagraphComment 0xb329c8 <line:350:14, line:351:14>
+|     |   | |-TextComment 0xb32990 <line:350:14, col:62> Text=" Getter for pointer to first child of this widget"
+|     |   | `-TextComment 0xb329a8 <line:351:14> Text=" "
+|     |   |-ParamCommandComment 0xb329e0 <col:15, line:352:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb32a40 <col:14>
+|     |   |   `-TextComment 0xb32a20 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb32a58 <col:15, col:115> Name="return"
+|     |     `-ParagraphComment 0xb32a98 <col:22, col:115>
+|     |       `-TextComment 0xb32a78 <col:22, col:115> Text=" Widget*. A pointer to first child of this widget. Null is returned if widget has no children."
+|     |-CXXMethodDecl 0xb2d0d8 <line:361:13, col:45> col:20 invalid u16GetFirstChildID 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb39c70 <line:357:14, line:359:108>
+|     |   |-ParagraphComment 0xb32b38 <line:357:14, line:358:14>
+|     |   | |-TextComment 0xb32b00 <line:357:14, col:57> Text=" Getter for id of first child of this widget"
+|     |   | `-TextComment 0xb32b18 <line:358:14> Text=" "
+|     |   |-ParamCommandComment 0xb32b50 <col:15, line:359:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb39bf0 <col:14>
+|     |   |   `-TextComment 0xb39bd0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb39c08 <col:15, col:108> Name="return"
+|     |     `-ParagraphComment 0xb39c48 <col:22, col:108>
+|     |       `-TextComment 0xb39c28 <col:22, col:108> Text=" uint16. id of first child. WRS::InvalidWidgetID is returned if widget has no children."
+|     |-CXXMethodDecl 0xb2d1c8 <line:368:13, col:48> col:29 poGetParent 'class HMI::WFC::Widget *(void) __attribute__((thiscall)) const' virtual
+|     | `-FullComment 0xb39de0 <line:364:14, line:366:108>
+|     |   |-ParagraphComment 0xb39ce8 <line:364:14, line:365:14>
+|     |   | |-TextComment 0xb39cb0 <line:364:14, col:49> Text=" Getter for pointer to parent widget"
+|     |   | `-TextComment 0xb39cc8 <line:365:14> Text=" "
+|     |   |-ParamCommandComment 0xb39d00 <col:15, line:366:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb39d60 <col:14>
+|     |   |   `-TextComment 0xb39d40 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb39d78 <col:15, col:108> Name="return"
+|     |     `-ParagraphComment 0xb39db8 <col:22, col:108>
+|     |       `-TextComment 0xb39d98 <col:22, col:108> Text=" Widget*. A pointer to parent of this widget. Null is returned if widget has no parent."
+|     |-CXXMethodDecl 0xb2d2b8 <line:379:13, col:43> col:21 poGetLastChild 'class HMI::WFC::Widget *(void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb39f50 <line:375:14, line:377:114>
+|     |   |-ParagraphComment 0xb39e58 <line:375:14, line:376:14>
+|     |   | |-TextComment 0xb39e20 <line:375:14, col:61> Text=" Getter for pointer to last child of this widget"
+|     |   | `-TextComment 0xb39e38 <line:376:14> Text=" "
+|     |   |-ParamCommandComment 0xb39e70 <col:15, line:377:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb39ed0 <col:14>
+|     |   |   `-TextComment 0xb39eb0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb39ee8 <col:15, col:114> Name="return"
+|     |     `-ParagraphComment 0xb39f28 <col:22, col:114>
+|     |       `-TextComment 0xb39f08 <col:22, col:114> Text=" Widget*. A pointer to last child of this widget. Null is returned if widget has no children."
+|     |-CXXMethodDecl 0xb2d3a0 <line:386:13, col:39> col:18 boIsLastChild '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3a0c0 <line:382:14, line:384:98>
+|     |   |-ParagraphComment 0xb39fc8 <line:382:14, line:383:14>
+|     |   | |-TextComment 0xb39f90 <line:382:14, col:62> Text=" Checks if widget is the last child of its parent"
+|     |   | `-TextComment 0xb39fa8 <line:383:14> Text=" "
+|     |   |-ParamCommandComment 0xb39fe0 <col:15, line:384:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3a040 <col:14>
+|     |   |   `-TextComment 0xb3a020 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3a058 <col:15, col:98> Name="return"
+|     |     `-ParagraphComment 0xb3a098 <col:22, col:98>
+|     |       `-TextComment 0xb3a078 <col:22, col:98> Text=" boolean. Returns true if widget is the last child. Otherwise, returns false."
+|     |-CXXMethodDecl 0xb2d490 <line:393:13, col:45> col:21 poGetFocusedChild 'class HMI::WFC::Widget *(void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3a230 <line:389:14, line:391:122>
+|     |   |-ParagraphComment 0xb3a138 <line:389:14, line:390:14>
+|     |   | |-TextComment 0xb3a100 <line:389:14, col:59> Text=" Getter for pointer to focused child of widget"
+|     |   | `-TextComment 0xb3a118 <line:390:14> Text=" "
+|     |   |-ParamCommandComment 0xb3a150 <col:15, line:391:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3a1b0 <col:14>
+|     |   |   `-TextComment 0xb3a190 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3a1c8 <col:15, col:122> Name="return"
+|     |     `-ParagraphComment 0xb3a208 <col:22, col:122>
+|     |       `-TextComment 0xb3a1e8 <col:22, col:122> Text=" Widget*. A pointer to current focused child of this widget. Null is returned if no child is focused."
+|     |-CXXMethodDecl 0xb2d580 <line:402:13, col:36> col:20 invalid u16GetID 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3a3a0 <line:398:14, line:400:28>
+|     |   |-ParagraphComment 0xb3a2a8 <line:398:14, line:399:14>
+|     |   | |-TextComment 0xb3a270 <line:398:14, col:45> Text=" Getter for WRS ID of the widget"
+|     |   | `-TextComment 0xb3a288 <line:399:14> Text=" "
+|     |   |-ParamCommandComment 0xb3a2c0 <col:15, line:400:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3a320 <col:14>
+|     |   |   `-TextComment 0xb3a300 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3a338 <col:15, col:28> Name="return"
+|     |     `-ParagraphComment 0xb3a378 <col:22, col:28>
+|     |       `-TextComment 0xb3a358 <col:22, col:28> Text=" uint16"
+|     |-CXXMethodDecl 0xb2d670 <line:409:13, col:51> col:20 invalid u16GetWidgetHelperIndex 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3a510 <line:405:14, line:407:28>
+|     |   |-ParagraphComment 0xb3a418 <line:405:14, line:406:14>
+|     |   | |-TextComment 0xb3a3e0 <line:405:14, col:58> Text=" Getter for Widget-Helper index of the widget"
+|     |   | `-TextComment 0xb3a3f8 <line:406:14> Text=" "
+|     |   |-ParamCommandComment 0xb3a430 <col:15, line:407:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3a490 <col:14>
+|     |   |   `-TextComment 0xb3a470 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3a4a8 <col:15, col:28> Name="return"
+|     |     `-ParagraphComment 0xb3a4e8 <col:22, col:28>
+|     |       `-TextComment 0xb3a4c8 <col:22, col:28> Text=" uint16"
+|     |-CXXMethodDecl 0xb2d760 <line:417:13, col:57> col:40 invalid enGetType 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3a6a0 <line:412:14, line:415:101>
+|     |   |-ParagraphComment 0xb3a5a8 <line:412:14, line:414:14>
+|     |   | |-TextComment 0xb3a550 <line:412:14, col:40> Text=" Returns type of the widget"
+|     |   | |-TextComment 0xb3a568 <line:413:14, col:87> Text=" This method must be overwriten by each derived widget to return its type."
+|     |   | `-TextComment 0xb3a580 <line:414:14> Text=" "
+|     |   |-ParamCommandComment 0xb3a5c0 <col:15, line:415:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3a620 <col:14>
+|     |   |   `-TextComment 0xb3a600 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3a638 <col:15, col:101> Name="return"
+|     |     `-ParagraphComment 0xb3a678 <col:22, col:101>
+|     |       `-TextComment 0xb3a658 <col:22, col:101> Text=" WRS::WidgetClassID. Type of the Widget. Here WRS::WidgetClassID_HMI_WFC_Widget."
+|     |-CXXMethodDecl 0xb2d850 <line:426:13, col:43> col:20 invalid u16GetDisplayID 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3a810 <line:422:14, line:424:59>
+|     |   |-ParagraphComment 0xb3a718 <line:422:14, line:423:14>
+|     |   | |-TextComment 0xb3a6e0 <line:422:14, col:75> Text=" Getter for ID of the display controller the widget belongs to"
+|     |   | `-TextComment 0xb3a6f8 <line:423:14> Text=" "
+|     |   |-ParamCommandComment 0xb3a730 <col:15, line:424:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3a790 <col:14>
+|     |   |   `-TextComment 0xb3a770 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3a7a8 <col:15, col:59> Name="return"
+|     |     `-ParagraphComment 0xb3a7e8 <col:22, col:59>
+|     |       `-TextComment 0xb3a7c8 <col:22, col:59> Text=" uint16. ID of the display controller."
+|     |-CXXMethodDecl 0xb2d980 <line:433:13, col:57> col:37 invalid poGetDisplay 'int *(void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3a980 <line:429:14, line:431:76>
+|     |   |-ParagraphComment 0xb3a888 <line:429:14, line:430:14>
+|     |   | |-TextComment 0xb3a850 <line:429:14, col:80> Text=" Getter for pointer to the display controller the widget belongs to"
+|     |   | `-TextComment 0xb3a868 <line:430:14> Text=" "
+|     |   |-ParamCommandComment 0xb3a8a0 <col:15, line:431:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3a900 <col:14>
+|     |   |   `-TextComment 0xb3a8e0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3a918 <col:15, col:76> Name="return"
+|     |     `-ParagraphComment 0xb3a958 <col:22, col:76>
+|     |       `-TextComment 0xb3a938 <col:22, col:76> Text=" WAS::DisplayController. Pointer to display controller."
+|     |-CXXMethodDecl 0xb2da68 <line:443:13, col:38> col:18 boIsVisible '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3ab10 <line:438:14, line:441:88>
+|     |   |-ParagraphComment 0xb3aa18 <line:438:14, line:440:14>
+|     |   | |-TextComment 0xb3a9c0 <line:438:14, col:49> Text=" Getter for the Visibility of Widget"
+|     |   | |-TextComment 0xb3a9d8 <line:439:14, col:109> Text=" A widget is visible only if along with itself, all its parent widgets have been set to visible."
+|     |   | `-TextComment 0xb3a9f0 <line:440:14> Text=" "
+|     |   |-ParamCommandComment 0xb3aa30 <col:15, line:441:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3aa90 <col:14>
+|     |   |   `-TextComment 0xb3aa70 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3aaa8 <col:15, col:88> Name="return"
+|     |     `-ParagraphComment 0xb3aae8 <col:22, col:88>
+|     |       `-TextComment 0xb3aac8 <col:22, col:88> Text=" bool. Returns true if widget is visible. Otherwise, returns false."
+|     |-CXXMethodDecl 0xb2eb78 <line:454:13, col:53> col:18 vSetVisible 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2db00 <col:31, col:42> col:42 boVisible_ 'const _Bool'
+|     | `-FullComment 0xb3ad10 <line:446:14, line:452:26>
+|     |   |-ParagraphComment 0xb3ac00 <line:446:14, line:451:14>
+|     |   | |-TextComment 0xb3ab50 <line:446:14, col:46> Text=" Setter for the Visible property."
+|     |   | |-TextComment 0xb3ab68 <line:447:14, col:35> Text=" 1. Updates visibility"
+|     |   | |-TextComment 0xb3ab80 <line:448:14, col:49> Text=" 2. Propagates to children if needed"
+|     |   | |-TextComment 0xb3ab98 <line:449:14, col:30> Text=" 3. Triggers APIM"
+|     |   | |-TextComment 0xb3abb8 <line:450:14, col:53> Text=" 4. Updates associated window visibility"
+|     |   | `-TextComment 0xb3abd0 <line:451:14> Text=" "
+|     |   |-ParamCommandComment 0xb3ac18 <col:15, line:452:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3ac90 <line:451:34, line:452:14>
+|     |   |   |-TextComment 0xb3ac58 <line:451:34, col:73> Text=" boVisible_ . New value of the property."
+|     |   |   `-TextComment 0xb3ac70 <line:452:14> Text=" "
+|     |   `-BlockCommandComment 0xb3aca8 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3ace8 <col:22, col:26>
+|     |       `-TextComment 0xb3acc8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2ec68 <line:462:13, col:37> col:18 boIsEnable '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3aea0 <line:457:14, line:460:88>
+|     |   |-ParagraphComment 0xb3ada8 <line:457:14, line:459:14>
+|     |   | |-TextComment 0xb3ad50 <line:457:14, col:44> Text=" Getter for the Enable property"
+|     |   | |-TextComment 0xb3ad68 <line:458:14, col:109> Text=" A widget is Enabled only if along with itself, all its parent widgets have been set to Enabled."
+|     |   | `-TextComment 0xb3ad80 <line:459:14> Text=" "
+|     |   |-ParamCommandComment 0xb3adc0 <col:15, line:460:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3ae20 <col:14>
+|     |   |   `-TextComment 0xb3ae00 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3ae38 <col:15, col:88> Name="return"
+|     |     `-ParagraphComment 0xb3ae78 <col:22, col:88>
+|     |       `-TextComment 0xb3ae58 <col:22, col:88> Text=" bool. Returns true if widget is enabled. Otherwise, returns false."
+|     |-CXXMethodDecl 0xb2ed58 <line:469:13, col:54> col:18 vSetEnabled 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2ed00 <col:32, col:43> col:43 boEnabled_ 'const _Bool'
+|     | `-FullComment 0xb3b028 <line:465:14, line:467:26>
+|     |   |-ParagraphComment 0xb3af18 <line:465:14, line:466:14>
+|     |   | |-TextComment 0xb3aee0 <line:465:14, col:45> Text=" Setter for the Enable property."
+|     |   | `-TextComment 0xb3aef8 <line:466:14> Text=" "
+|     |   |-ParamCommandComment 0xb3af30 <col:15, line:467:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3afa8 <line:466:34, line:467:14>
+|     |   |   |-TextComment 0xb3af70 <line:466:34, col:72> Text=" boEnabled_. New value of the property."
+|     |   |   `-TextComment 0xb3af88 <line:467:14> Text=" "
+|     |   `-BlockCommandComment 0xb3afc0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3b000 <col:22, col:26>
+|     |       `-TextComment 0xb3afe0 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2ee48 <line:476:13, col:39> col:18 boIsDoUpdate '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3b198 <line:472:14, line:474:86>
+|     |   |-ParagraphComment 0xb3b0a0 <line:472:14, line:473:14>
+|     |   | |-TextComment 0xb3b068 <line:472:14, col:46> Text=" Getter for the DoUpdate property"
+|     |   | `-TextComment 0xb3b080 <line:473:14> Text=" "
+|     |   |-ParamCommandComment 0xb3b0b8 <col:15, line:474:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3b118 <col:14>
+|     |   |   `-TextComment 0xb3b0f8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3b130 <col:15, col:86> Name="return"
+|     |     `-ParagraphComment 0xb3b170 <col:22, col:86>
+|     |       `-TextComment 0xb3b150 <col:22, col:86> Text=" bool. Return true if widget is updated. Otherwise, return false."
+|     |-CXXMethodDecl 0xb2ef38 <line:483:13, col:56> col:18 vSetDoUpdate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2eee0 <col:33, col:44> col:44 boDoUpdate_ 'const _Bool'
+|     | `-FullComment 0xb3b320 <line:479:14, line:481:26>
+|     |   |-ParagraphComment 0xb3b210 <line:479:14, line:480:14>
+|     |   | |-TextComment 0xb3b1d8 <line:479:14, col:47> Text=" Setter for the DoUpdate property."
+|     |   | `-TextComment 0xb3b1f0 <line:480:14> Text=" "
+|     |   |-ParamCommandComment 0xb3b228 <col:15, line:481:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3b2a0 <line:480:34, line:481:14>
+|     |   |   |-TextComment 0xb3b268 <line:480:34, col:138> Text=" boDoUpdate_. Set widget to be updated if this variable is true. Otherwise, set widget to be not updated."
+|     |   |   `-TextComment 0xb3b280 <line:481:14> Text=" "
+|     |   `-BlockCommandComment 0xb3b2b8 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3b2f8 <col:22, col:26>
+|     |       `-TextComment 0xb3b2d8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2f028 <line:490:13, col:40> col:18 boIsFocusable '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3b490 <line:486:14, line:488:88>
+|     |   |-ParagraphComment 0xb3b398 <line:486:14, line:487:14>
+|     |   | |-TextComment 0xb3b360 <line:486:14, col:47> Text=" Getter for the Focusable property"
+|     |   | `-TextComment 0xb3b378 <line:487:14> Text=" "
+|     |   |-ParamCommandComment 0xb3b3b0 <col:15, line:488:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3b410 <col:14>
+|     |   |   `-TextComment 0xb3b3f0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3b428 <col:15, col:88> Name="return"
+|     |     `-ParagraphComment 0xb3b468 <col:22, col:88>
+|     |       `-TextComment 0xb3b448 <col:22, col:88> Text=" bool. Return true if widget is focusable. Otherwise, return false."
+|     |-CXXMethodDecl 0xb2f118 <line:497:13, col:57> col:18 vSetFocusable 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2f0c0 <col:33, col:44> col:44 boFocusable_ 'const _Bool'
+|     | `-FullComment 0xb3b618 <line:493:14, line:495:26>
+|     |   |-ParagraphComment 0xb3b508 <line:493:14, line:494:14>
+|     |   | |-TextComment 0xb3b4d0 <line:493:14, col:48> Text=" Setter for the Focusable property."
+|     |   | `-TextComment 0xb3b4e8 <line:494:14> Text=" "
+|     |   |-ParamCommandComment 0xb3b520 <col:15, line:495:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3b598 <line:494:34, line:495:14>
+|     |   |   |-TextComment 0xb3b560 <line:494:34, col:143> Text=" boFocusable_. Set widget to be focusable if this variable is true. Otherwise, set widget to be not focusable."
+|     |   |   `-TextComment 0xb3b578 <line:495:14> Text=" "
+|     |   `-BlockCommandComment 0xb3b5b0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3b5f0 <col:22, col:26>
+|     |       `-TextComment 0xb3b5d0 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2f208 <line:504:13, col:38> col:18 boIsFocused '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3b788 <line:500:14, line:502:136>
+|     |   |-ParagraphComment 0xb3b690 <line:500:14, line:501:14>
+|     |   | |-TextComment 0xb3b658 <line:500:14, col:45> Text=" Getter for the Focused property"
+|     |   | `-TextComment 0xb3b670 <line:501:14> Text=" "
+|     |   |-ParamCommandComment 0xb3b6a8 <col:15, line:502:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3b708 <col:14>
+|     |   |   `-TextComment 0xb3b6e8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3b720 <col:15, col:136> Name="return"
+|     |     `-ParagraphComment 0xb3b760 <col:22, col:136>
+|     |       `-TextComment 0xb3b740 <col:22, col:136> Text=" bool. Return true if widget is focused. Otherwise, return false. Return is always false for Non-Focusable widgets."
+|     |-CXXMethodDecl 0xb2f2f8 <line:511:13, col:53> col:18 vSetFocused 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2f2a0 <col:31, col:42> col:42 boFocused_ 'const _Bool'
+|     | `-FullComment 0xb3b948 <line:507:14, line:509:26>
+|     |   |-ParagraphComment 0xb3b800 <line:507:14, line:508:14>
+|     |   | |-TextComment 0xb3b7c8 <line:507:14, col:46> Text=" Setter for the Focused property."
+|     |   | `-TextComment 0xb3b7e0 <line:508:14> Text=" "
+|     |   |-ParamCommandComment 0xb3b818 <col:15, line:509:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3b8c8 <line:508:34, line:509:14>
+|     |   |   |-TextComment 0xb3b858 <line:508:34, col:184> Text=" boFocused_. Set widget to be focused if this variable is true. Otherwise, set widget to be not focused. Widget can be focused only if it is focusable "
+|     |   |   |-TextComment 0xb3b870 <col:185> Text="&"
+|     |   |   |-TextComment 0xb3b888 <col:186, col:194> Text=" visible."
+|     |   |   `-TextComment 0xb3b8a0 <line:509:14> Text=" "
+|     |   `-BlockCommandComment 0xb3b8e0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3b920 <col:22, col:26>
+|     |       `-TextComment 0xb3b900 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2f3e8 <line:518:13, col:37> col:18 boIsShared '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3bab8 <line:514:14, line:516:123>
+|     |   |-ParagraphComment 0xb3b9c0 <line:514:14, line:515:14>
+|     |   | |-TextComment 0xb3b988 <line:514:14, col:36> Text=" Getter for Shared flag"
+|     |   | `-TextComment 0xb3b9a0 <line:515:14> Text=" "
+|     |   |-ParamCommandComment 0xb3b9d8 <col:15, line:516:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3ba38 <col:14>
+|     |   |   `-TextComment 0xb3ba18 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3ba50 <col:15, col:123> Name="return"
+|     |     `-ParagraphComment 0xb3ba90 <col:22, col:123>
+|     |       `-TextComment 0xb3ba70 <col:22, col:123> Text=" bool. Return true if widget is currently shared between two active scenes of a transition controller."
+|     |-CXXMethodDecl 0xb2f4d8 <line:525:13, col:51> col:18 vSetShared 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2f480 <col:30, col:41> col:41 boShared_ 'const _Bool'
+|     | `-FullComment 0xb33c08 <line:521:14, line:523:26>
+|     |   |-ParagraphComment 0xb3bb30 <line:521:14, line:522:14>
+|     |   | |-TextComment 0xb3baf8 <line:521:14, col:36> Text=" Setter for Shared flag"
+|     |   | `-TextComment 0xb3bb10 <line:522:14> Text=" "
+|     |   |-ParamCommandComment 0xb3bb48 <col:15, line:523:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb33b88 <line:522:34, line:523:14>
+|     |   |   |-TextComment 0xb3bb88 <line:522:34, col:154> Text=" boShared_. Used by displaycontroller to mark that widget is shared between two active scenes of a transition controller."
+|     |   |   `-TextComment 0xb3bba0 <line:523:14> Text=" "
+|     |   `-BlockCommandComment 0xb33ba0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb33be0 <col:22, col:26>
+|     |       `-TextComment 0xb33bc0 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2f5c8 <line:531:13, col:45> col:18 boIsAnimationRunning '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb33d78 <line:527:16, line:529:28>
+|     |   |-ParagraphComment 0xb33c80 <line:527:16, line:528:15>
+|     |   | |-TextComment 0xb33c48 <line:527:16, col:57> Text=" Getter for the bAnimationRunning property"
+|     |   | `-TextComment 0xb33c60 <line:528:14, col:15> Text="  "
+|     |   |-ParamCommandComment 0xb33c98 <col:16, line:529:15> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb33cf8 <col:14, col:15>
+|     |   |   `-TextComment 0xb33cd8 <col:14, col:15> Text="  "
+|     |   `-BlockCommandComment 0xb33d10 <col:16, col:28> Name="return"
+|     |     `-ParagraphComment 0xb33d50 <col:23, col:28>
+|     |       `-TextComment 0xb33d30 <col:23, col:28> Text=" bool."
+|     |-CXXMethodDecl 0xb2f6b8 <line:537:13, col:68> col:18 vSetAnimationRunning 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2f660 <col:39, col:50> col:50 boAnimationRunning 'const _Bool'
+|     | `-FullComment 0xb33f00 <line:533:16, line:535:27>
+|     |   |-ParagraphComment 0xb33df0 <line:533:16, line:534:15>
+|     |   | |-TextComment 0xb33db8 <line:533:16, col:57> Text=" Getter for the bAnimationRunning property"
+|     |   | `-TextComment 0xb33dd0 <line:534:14, col:15> Text="  "
+|     |   |-ParamCommandComment 0xb33e08 <col:16, line:535:15> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb33e80 <line:534:35, line:535:15>
+|     |   |   |-TextComment 0xb33e48 <line:534:35, col:52> Text=" bAnimationRunning"
+|     |   |   `-TextComment 0xb33e60 <line:535:14, col:15> Text="  "
+|     |   `-BlockCommandComment 0xb33e98 <col:16, col:27> Name="return"
+|     |     `-ParagraphComment 0xb33ed8 <col:23, col:27>
+|     |       `-TextComment 0xb33eb8 <col:23, col:27> Text=" void"
+|     |-CXXMethodDecl 0xb2f898 <line:549:13, col:114> col:18 invalid vSetPosSizeForWidgetBuilder 'void (int, int, int, int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2f760 <col:47, col:53> col:53 invalid i16PosX_ 'int'
+|     | |-ParmVarDecl 0xb2f7a8 <col:63, col:69> col:69 invalid i16PosY_ 'int'
+|     | |-ParmVarDecl 0xb2f7f0 <col:79, col:86> col:86 invalid u16Width_ 'int'
+|     | |-ParmVarDecl 0xb2f838 <col:97, col:104> col:104 invalid u16Height_ 'int'
+|     | `-FullComment 0xb34240 <line:542:14, line:547:26>
+|     |   |-ParagraphComment 0xb33f78 <line:542:14, line:543:14>
+|     |   | |-TextComment 0xb33f40 <line:542:14, col:84> Text=" Build Setter for Window position and size. (No check, No notification)"
+|     |   | `-TextComment 0xb33f58 <line:543:14> Text=" "
+|     |   |-ParamCommandComment 0xb33f90 <col:15, line:544:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb34008 <line:543:35, line:544:14>
+|     |   |   |-TextComment 0xb33fd0 <line:543:35, col:65> Text=" i16PosX_. X-position of window"
+|     |   |   `-TextComment 0xb33fe8 <line:544:14> Text=" "
+|     |   |-ParamCommandComment 0xb34020 <col:15, line:545:14> [in] explicitly Param="int16"
+|     |   | `-ParagraphComment 0xb34098 <line:544:35, line:545:14>
+|     |   |   |-TextComment 0xb34060 <line:544:35, col:65> Text=" i16PosY_. Y-position of window"
+|     |   |   `-TextComment 0xb34078 <line:545:14> Text=" "
+|     |   |-ParamCommandComment 0xb340b0 <col:15, line:546:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb34128 <line:545:36, line:546:14>
+|     |   |   |-TextComment 0xb340f0 <line:545:36, col:62> Text=" u16Width_. Width of window"
+|     |   |   `-TextComment 0xb34108 <line:546:14> Text=" "
+|     |   |-ParamCommandComment 0xb34140 <col:15, line:547:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb341b8 <line:546:36, line:547:14>
+|     |   |   |-TextComment 0xb34180 <line:546:36, col:64> Text=" u16Height_. Height of window"
+|     |   |   `-TextComment 0xb34198 <line:547:14> Text=" "
+|     |   `-BlockCommandComment 0xb341d0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb34210 <col:22, col:26>
+|     |       `-TextComment 0xb341f0 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2f998 <line:557:13, col:67> col:18 vSetFocusedDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2f940 <col:45, col:56> col:56 boFocused_ 'const _Bool'
+|     | `-FullComment 0xb343e8 <line:552:14, line:555:26>
+|     |   |-ParagraphComment 0xb342d8 <line:552:14, line:554:14>
+|     |   | |-TextComment 0xb34280 <line:552:14, col:52> Text=" Build Setter for the Focused property."
+|     |   | |-TextComment 0xb34298 <line:553:14, col:42> Text=" Only sets the Focused flags."
+|     |   | `-TextComment 0xb342b0 <line:554:14> Text=" "
+|     |   |-ParamCommandComment 0xb342f0 <col:15, line:555:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb34368 <line:554:34, line:555:14>
+|     |   |   |-TextComment 0xb34330 <line:554:34, col:101> Text=" boFocused_. If true, set flag Focused to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb34348 <line:555:14> Text=" "
+|     |   `-BlockCommandComment 0xb34380 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb343c0 <col:22, col:26>
+|     |       `-TextComment 0xb343a0 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb2fa90 <line:565:13, col:71> col:18 vSetFocusableDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb2fa38 <col:47, col:58> col:58 boFocusable_ 'const _Bool'
+|     | `-FullComment 0xb34590 <line:560:14, line:563:26>
+|     |   |-ParagraphComment 0xb34480 <line:560:14, line:562:14>
+|     |   | |-TextComment 0xb34428 <line:560:14, col:54> Text=" Build Setter for the Focusable property."
+|     |   | |-TextComment 0xb34440 <line:561:14, col:44> Text=" Only sets the Focusable flags."
+|     |   | `-TextComment 0xb34458 <line:562:14> Text=" "
+|     |   |-ParamCommandComment 0xb34498 <col:15, line:563:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb34510 <line:562:34, line:563:14>
+|     |   |   |-TextComment 0xb344d8 <line:562:34, col:105> Text=" boFocusable_. If true, set flag Focusable to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb344f0 <line:563:14> Text=" "
+|     |   `-BlockCommandComment 0xb34528 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb34568 <col:22, col:26>
+|     |       `-TextComment 0xb34548 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb30bc0 <line:573:13, col:69> col:18 vSetDoUpdateDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb30b68 <col:46, col:57> col:57 boDoUpdate_ 'const _Bool'
+|     | `-FullComment 0xb34738 <line:568:14, line:571:26>
+|     |   |-ParagraphComment 0xb34628 <line:568:14, line:570:14>
+|     |   | |-TextComment 0xb345d0 <line:568:14, col:53> Text=" Build Setter for the DoUpdate property."
+|     |   | |-TextComment 0xb345e8 <line:569:14, col:43> Text=" Only sets the DoUpdate flags."
+|     |   | `-TextComment 0xb34600 <line:570:14> Text=" "
+|     |   |-ParamCommandComment 0xb34640 <col:15, line:571:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb346b8 <line:570:34, line:571:14>
+|     |   |   |-TextComment 0xb34680 <line:570:34, col:103> Text=" boDoUpdate_. If true, set flag DoUpdate to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb34698 <line:571:14> Text=" "
+|     |   `-BlockCommandComment 0xb346d0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb34710 <col:22, col:26>
+|     |       `-TextComment 0xb346f0 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb30cb8 <line:581:13, col:66> col:18 vSetVisibleDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb30c60 <col:44, col:55> col:55 boVisible_ 'const _Bool'
+|     | `-FullComment 0xb348e0 <line:576:14, line:579:26>
+|     |   |-ParagraphComment 0xb347d0 <line:576:14, line:578:14>
+|     |   | |-TextComment 0xb34778 <line:576:14, col:52> Text=" Build Setter for the Visible property."
+|     |   | |-TextComment 0xb34790 <line:577:14, col:42> Text=" Only sets the Visible flags."
+|     |   | `-TextComment 0xb347a8 <line:578:14> Text=" "
+|     |   |-ParamCommandComment 0xb347e8 <col:15, line:579:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb34860 <line:578:34, line:579:14>
+|     |   |   |-TextComment 0xb34828 <line:578:34, col:102> Text=" boVisible_ . If true, set flag Visible to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb34840 <line:579:14> Text=" "
+|     |   `-BlockCommandComment 0xb34878 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb348b8 <col:22, col:26>
+|     |       `-TextComment 0xb34898 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb30db0 <line:589:13, col:66> col:18 vSetEnabledDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb30d58 <col:44, col:55> col:55 boEnabled_ 'const _Bool'
+|     | `-FullComment 0xb34a88 <line:584:14, line:587:26>
+|     |   |-ParagraphComment 0xb34978 <line:584:14, line:586:14>
+|     |   | |-TextComment 0xb34920 <line:584:14, col:51> Text=" Build Setter for the Enable property."
+|     |   | |-TextComment 0xb34938 <line:585:14, col:41> Text=" Only sets the Enable flags."
+|     |   | `-TextComment 0xb34950 <line:586:14> Text=" "
+|     |   |-ParamCommandComment 0xb34990 <col:15, line:587:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb34a08 <line:586:34, line:587:14>
+|     |   |   |-TextComment 0xb349d0 <line:586:34, col:100> Text=" boEnabled_. If true, set flag Enable to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb349e8 <line:587:14> Text=" "
+|     |   `-BlockCommandComment 0xb34a20 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb34a60 <col:22, col:26>
+|     |       `-TextComment 0xb34a40 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb30eb0 <line:598:13, col:55> col:18 invalid vSetFinalHookIndex 'void (int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb30e58 <col:38, col:45> col:45 invalid u16HookID_ 'int'
+|     | `-FullComment 0xb40c88 <line:594:14, line:596:27>
+|     |   |-ParagraphComment 0xb34b00 <line:594:14, line:595:14>
+|     |   | |-TextComment 0xb34ac8 <line:594:14, col:39> Text=" Setter for u16FinalhookID"
+|     |   | `-TextComment 0xb34ae0 <line:595:14> Text=" "
+|     |   |-ParamCommandComment 0xb34b18 <col:15, line:596:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb40c08 <line:595:36, line:596:14>
+|     |   |   |-TextComment 0xb34b58 <line:595:36, col:115> Text=" u16HookID. ID of the widget's Final hook method i.e. index in final hook array."
+|     |   |   `-TextComment 0xb40be8 <line:596:14> Text=" "
+|     |   `-BlockCommandComment 0xb40c20 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb40c60 <col:22, col:27>
+|     |       `-TextComment 0xb40c40 <col:22, col:27> Text=" void."
+|     |-TypedefDecl 0xb31090 <line:604:13, <invalid sloc>> col:44 referenced invalid FinalHookType 'int (*)(class HMI::WFC::Widget *, int *)'
+|     | |-PointerType 0xb31040 'int (*)(class HMI::WFC::Widget *, int *)'
+|     | | `-ParenType 0xb31000 'int (class HMI::WFC::Widget *, int *)' sugar
+|     | |   `-FunctionProtoType 0xb30fe0 'int (class HMI::WFC::Widget *, int *)' cdecl
+|     | |     |-BuiltinType 0xabbac0 'int'
+|     | |     |-PointerType 0xabc3e0 'class HMI::WFC::Widget *'
+|     | |     | `-RecordType 0xabc200 'class HMI::WFC::Widget'
+|     | |     |   `-CXXRecord 0xabc1a0 'Widget'
+|     | |     `-PointerType 0xb2cb50 'int *'
+|     | |       `-BuiltinType 0xabbac0 'int'
+|     | `-FullComment 0xb40d20 <line:601:14, line:602:129>
+|     |   `-ParagraphComment 0xb40d00 <line:601:14, line:602:129>
+|     |     |-TextComment 0xb40cc8 <line:601:14, col:55> Text=" Return type for method pfGetFinalHookFunc"
+|     |     `-TextComment 0xb40ce0 <line:602:14, col:129> Text=" A function pointer wirh return type "WCS::enMessageStatus" and parameters "Widget * poWidget, WCS::Message * poMsg""
+|     |-CXXMethodDecl 0xb31180 <line:611:13, col:54> col:27 pfGetFinalHookFunc 'FinalHookType (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb40e90 <line:607:14, line:609:71>
+|     |   |-ParagraphComment 0xb40d98 <line:607:14, line:608:14>
+|     |   | |-TextComment 0xb40d60 <line:607:14, col:95> Text=" Returns this widget's final hook function based on final hook ID (u16FinalHookID)"
+|     |   | `-TextComment 0xb40d78 <line:608:14> Text=" "
+|     |   |-ParamCommandComment 0xb40db0 <col:15, line:609:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb40e10 <col:14>
+|     |   |   `-TextComment 0xb40df0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb40e28 <col:15, col:71> Name="return"
+|     |     `-ParagraphComment 0xb40e68 <col:22, col:71>
+|     |       `-TextComment 0xb40e48 <col:22, col:71> Text=" FinalHookType. A pointer to a finalHook function."
+|     |-CXXMethodDecl 0xb31278 <line:619:13, col:48> col:18 invalid vNotify 'void (int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb31220 <col:27, col:34> col:34 invalid u16PropertyID 'int'
+|     | `-FullComment 0xb41070 <line:614:14, line:617:27>
+|     |   |-ParagraphComment 0xb40f60 <line:614:14, line:616:14>
+|     |   | |-TextComment 0xb40ed0 <line:614:14, col:48> Text=" Notifies change in widget property"
+|     |   | |-TextComment 0xb40ee8 <line:615:14, col:68> Text=" Sends MsgID_PreNotify to widget's final hook directly "
+|     |   | |-TextComment 0xb40f00 <col:69> Text="&"
+|     |   | |-TextComment 0xb40f18 <col:70, col:88> Text=" calls the OnChange"
+|     |   | `-TextComment 0xb40f30 <line:616:14> Text=" "
+|     |   |-ParamCommandComment 0xb40f78 <col:15, line:617:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb40ff0 <line:616:36, line:617:14>
+|     |   |   |-TextComment 0xb40fb8 <line:616:36, col:77> Text=" u16PropertyID. ID of the changed property"
+|     |   |   `-TextComment 0xb40fd0 <line:617:14> Text=" "
+|     |   `-BlockCommandComment 0xb41008 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb41048 <col:22, col:27>
+|     |       `-TextComment 0xb41028 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb313c8 <line:630:13, col:91> col:42 invalid enProcessMessage 'int (int *const) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb31328 <col:60, col:81> col:81 invalid poMessage_ 'int *const'
+|     | `-FullComment 0xb41238 <line:624:14, line:628:149>
+|     |   |-ParagraphComment 0xb41120 <line:624:14, line:627:14>
+|     |   | |-TextComment 0xb410b0 <line:624:14, col:70> Text=" Provides with a widget-class-specific message processing"
+|     |   | |-TextComment 0xb410c8 <line:625:14, col:85> Text=" Can be overloaded in derived widget with widget-specific implementation"
+|     |   | |-TextComment 0xb410e0 <line:626:14, col:88> Text=" Is usually called by HandleMessage which receives the message from outside"
+|     |   | `-TextComment 0xb410f8 <line:627:14> Text=" "
+|     |   |-ParamCommandComment 0xb41138 <col:15, line:628:14> [in] explicitly Param="WCS::Message"
+|     |   | `-ParagraphComment 0xb411b8 <line:627:42, line:628:14>
+|     |   |   |-TextComment 0xb41180 <line:627:42, col:98> Text=" * poMessage_. A pointer to message passed to this widget"
+|     |   |   `-TextComment 0xb41198 <line:628:14> Text=" "
+|     |   `-BlockCommandComment 0xb411d0 <col:15, col:149> Name="return"
+|     |     `-ParagraphComment 0xb41210 <col:22, col:149>
+|     |       `-TextComment 0xb411f0 <col:22, col:149> Text=" WCS::enMessageStatus. There are 3 types of WCS::enMessageStatus: block message flag, pass message flag and consume message flag"
+|     |-CXXMethodDecl 0xb314d8 <line:639:13, col:78> col:34 invalid PreMsgHook_ 'int (int *const) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb31478 <col:47, col:68> col:68 invalid poMessage_ 'int *const'
+|     | `-FullComment 0xb41400 <line:633:14, line:637:149>
+|     |   |-ParagraphComment 0xb412e8 <line:633:14, line:636:14>
+|     |   | |-TextComment 0xb41278 <line:633:14, col:92> Text=" Provides with base widget message processing before call to ProcessMessageHook"
+|     |   | |-TextComment 0xb41290 <line:634:14, col:111> Text=" Reponsible for maintaining the states of widgets through a set of dedicated state change messages"
+|     |   | |-TextComment 0xb412a8 <line:635:14, col:67> Text=" First message hook called by HandleMessage of widget."
+|     |   | `-TextComment 0xb412c0 <line:636:14> Text=" "
+|     |   |-ParamCommandComment 0xb41300 <col:15, line:637:14> [in] explicitly Param="WCS::Message"
+|     |   | `-ParagraphComment 0xb41380 <line:636:42, line:637:14>
+|     |   |   |-TextComment 0xb41348 <line:636:42, col:98> Text=" * poMessage_. A pointer to message passed to this widget"
+|     |   |   `-TextComment 0xb41360 <line:637:14> Text=" "
+|     |   `-BlockCommandComment 0xb41398 <col:15, col:149> Name="return"
+|     |     `-ParagraphComment 0xb413d8 <col:22, col:149>
+|     |       `-TextComment 0xb413b8 <col:22, col:149> Text=" WCS::enMessageStatus. There are 3 types of WCS::enMessageStatus: block message flag, pass message flag and consume message flag"
+|     |-CXXMethodDecl 0xb315e8 <line:647:13, col:81> col:34 invalid MiddleMsgHook_ 'int (int *const) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb31588 <col:50, col:71> col:71 invalid poMessage_ 'int *const'
+|     | `-FullComment 0xb415b0 <line:642:14, line:645:149>
+|     |   |-ParagraphComment 0xb41498 <line:642:14, line:644:14>
+|     |   | |-TextComment 0xb41440 <line:642:14, col:117> Text=" Placeholder for future base widget message processing between calls to ProcessMessageHook and FinalHook"
+|     |   | |-TextComment 0xb41458 <line:643:14, col:48> Text=" Called by HandleMessage of widget."
+|     |   | `-TextComment 0xb41470 <line:644:14> Text=" "
+|     |   |-ParamCommandComment 0xb414b0 <col:15, line:645:14> [in] explicitly Param="WCS::Message"
+|     |   | `-ParagraphComment 0xb41530 <line:644:42, line:645:14>
+|     |   |   |-TextComment 0xb414f8 <line:644:42, col:98> Text=" * poMessage_. A pointer to message passed to this widget"
+|     |   |   `-TextComment 0xb41510 <line:645:14> Text=" "
+|     |   `-BlockCommandComment 0xb41548 <col:15, col:149> Name="return"
+|     |     `-ParagraphComment 0xb41588 <col:22, col:149>
+|     |       `-TextComment 0xb41568 <col:22, col:149> Text=" WCS::enMessageStatus. There are 3 types of WCS::enMessageStatus: block message flag, pass message flag and consume message flag"
+|     |-CXXMethodDecl 0xb316f8 <line:655:13, col:79> col:34 invalid PostMsgHook_ 'int (int *const) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb31698 <col:48, col:69> col:69 invalid poMessage_ 'int *const'
+|     | `-FullComment 0xb41760 <line:650:14, line:653:149>
+|     |   |-ParagraphComment 0xb41648 <line:650:14, line:652:14>
+|     |   | |-TextComment 0xb415f0 <line:650:14, col:91> Text=" Placeholder for future base widget message processing after call to FinalHook"
+|     |   | |-TextComment 0xb41608 <line:651:14, col:48> Text=" Called by HandleMessage of widget."
+|     |   | `-TextComment 0xb41620 <line:652:14> Text=" "
+|     |   |-ParamCommandComment 0xb41660 <col:15, line:653:14> [in] explicitly Param="WCS::Message"
+|     |   | `-ParagraphComment 0xb416e0 <line:652:42, line:653:14>
+|     |   |   |-TextComment 0xb416a8 <line:652:42, col:98> Text=" * poMessage_. A pointer to message passed to this widget"
+|     |   |   `-TextComment 0xb416c0 <line:653:14> Text=" "
+|     |   `-BlockCommandComment 0xb416f8 <col:15, col:149> Name="return"
+|     |     `-ParagraphComment 0xb41738 <col:22, col:149>
+|     |       `-TextComment 0xb41718 <col:22, col:149> Text=" WCS::enMessageStatus. There are 3 types of WCS::enMessageStatus: block message flag, pass message flag and consume message flag"
+|     |-CXXMethodDecl 0xb31808 <line:712:13, col:80> col:34 invalid HandleMessage 'int (int *const) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb317a8 <col:49, col:70> col:70 invalid poMessage_ 'int *const'
+|     | `-FullComment 0xb41928 <line:706:14, line:710:149>
+|     |   |-ParagraphComment 0xb41810 <line:706:14, line:709:14>
+|     |   | |-TextComment 0xb417a0 <line:706:14, col:54> Text=" Receives the messages sent to the widget"
+|     |   | |-TextComment 0xb417b8 <line:707:14, col:58> Text=" Calls the following hooks in the same order:"
+|     |   | |-TextComment 0xb417d0 <line:708:14, col:139> Text=" 1. PreMsgHook_ 2. PreMsgHook 3. ProcessMessage 4. MiddleMsgHook_ 5. MiddleMsgHook 6. FinalHook 7. PostMsgHook_ 8. PostMsgHook"
+|     |   | `-TextComment 0xb417e8 <line:709:14> Text=" "
+|     |   |-ParamCommandComment 0xb41828 <col:15, line:710:14> [in] explicitly Param="WCS::Message"
+|     |   | `-ParagraphComment 0xb418a8 <line:709:42, line:710:14>
+|     |   |   |-TextComment 0xb41870 <line:709:42, col:89> Text=" *m . A pointer to message passed to this widget"
+|     |   |   `-TextComment 0xb41888 <line:710:14> Text=" "
+|     |   `-BlockCommandComment 0xb418c0 <col:15, col:149> Name="return"
+|     |     `-ParagraphComment 0xb41900 <col:22, col:149>
+|     |       `-TextComment 0xb418e0 <col:22, col:149> Text=" WCS::enMessageStatus. There are 3 types of WCS::enMessageStatus: block message flag, pass message flag and consume message flag"
+|     |-CXXMethodDecl 0xb31908 <line:722:13, col:50> col:18 invalid vSetState 'void (int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb318b0 <col:29, col:42> col:42 invalid enState_ 'int'
+|     | `-FullComment 0xb41ab8 <line:718:14, line:720:27>
+|     |   |-ParagraphComment 0xb419a0 <line:718:14, line:719:14>
+|     |   | |-TextComment 0xb41968 <line:718:14, col:47> Text=" Set the widget state to specified"
+|     |   | `-TextComment 0xb41980 <line:719:14> Text=" "
+|     |   |-ParamCommandComment 0xb419b8 <col:15, line:720:14> [in] explicitly Param="WidgetStates"
+|     |   | `-ParagraphComment 0xb41a38 <line:719:42, line:720:14>
+|     |   |   |-TextComment 0xb41a00 <line:719:42, col:68> Text=" enState_. State of widget."
+|     |   |   `-TextComment 0xb41a18 <line:720:14> Text=" "
+|     |   `-BlockCommandComment 0xb41a50 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb41a90 <col:22, col:27>
+|     |       `-TextComment 0xb41a70 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb31a00 <line:729:13, col:44> col:26 invalid enGetState 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb41c38 <line:725:14, line:727:52>
+|     |   |-ParagraphComment 0xb41b30 <line:725:14, line:726:14>
+|     |   | |-TextComment 0xb41af8 <line:725:14, col:37> Text=" Getter for widget state"
+|     |   | `-TextComment 0xb41b10 <line:726:14> Text=" "
+|     |   |-ParamCommandComment 0xb41b48 <col:15, line:727:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb41ba8 <col:14>
+|     |   |   `-TextComment 0xb41b88 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb41bc0 <col:15, col:52> Name="return"
+|     |     `-ParagraphComment 0xb41c10 <col:22, col:52>
+|     |       `-TextComment 0xb41bf0 <col:22, col:52> Text=" WidgetStates. state of widget."
+|     |-CXXMethodDecl 0xb31ae8 <line:736:13, col:38> col:18 boIsStateNew '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb41da8 <line:732:14, line:734:90>
+|     |   |-ParagraphComment 0xb41cb0 <line:732:14, line:733:14>
+|     |   | |-TextComment 0xb41c78 <line:732:14, col:45> Text=" Check if widget is in state New"
+|     |   | `-TextComment 0xb41c90 <line:733:14> Text=" "
+|     |   |-ParamCommandComment 0xb41cc8 <col:15, line:734:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb41d28 <col:14>
+|     |   |   `-TextComment 0xb41d08 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb41d40 <col:15, col:90> Name="return"
+|     |     `-ParagraphComment 0xb41d80 <col:22, col:90>
+|     |       `-TextComment 0xb41d60 <col:22, col:90> Text=" boolean. Returns true if widget is in state New, else returns false."
+|     |-CXXMethodDecl 0xb2abb0 <line:743:13, col:39> col:18 boIsStateInit '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb41f18 <line:739:14, line:741:91>
+|     |   |-ParagraphComment 0xb41e20 <line:739:14, line:740:14>
+|     |   | |-TextComment 0xb41de8 <line:739:14, col:46> Text=" Check if widget is in state Init"
+|     |   | `-TextComment 0xb41e00 <line:740:14> Text=" "
+|     |   |-ParamCommandComment 0xb41e38 <col:15, line:741:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb41e98 <col:14>
+|     |   |   `-TextComment 0xb41e78 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb41eb0 <col:15, col:91> Name="return"
+|     |     `-ParagraphComment 0xb41ef0 <col:22, col:91>
+|     |       `-TextComment 0xb41ed0 <col:22, col:91> Text=" boolean. Returns true if widget is in state Init, else returns false."
+|     |-CXXMethodDecl 0xb2ac98 <line:750:13, col:42> col:18 boIsStateRunning '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb42088 <line:746:14, line:748:94>
+|     |   |-ParagraphComment 0xb41f90 <line:746:14, line:747:14>
+|     |   | |-TextComment 0xb41f58 <line:746:14, col:49> Text=" Check if widget is in state Running"
+|     |   | `-TextComment 0xb41f70 <line:747:14> Text=" "
+|     |   |-ParamCommandComment 0xb41fa8 <col:15, line:748:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42008 <col:14>
+|     |   |   `-TextComment 0xb41fe8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42020 <col:15, col:94> Name="return"
+|     |     `-ParagraphComment 0xb42060 <col:22, col:94>
+|     |       `-TextComment 0xb42040 <col:22, col:94> Text=" boolean. Returns true if widget is in state Running, else returns false."
+|     |-CXXMethodDecl 0xb2ad80 <line:757:13, col:44> col:18 boIsStateInitAgain '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb421f8 <line:753:14, line:755:96>
+|     |   |-ParagraphComment 0xb42100 <line:753:14, line:754:14>
+|     |   | |-TextComment 0xb420c8 <line:753:14, col:51> Text=" Check if widget is in state InitAgain"
+|     |   | `-TextComment 0xb420e0 <line:754:14> Text=" "
+|     |   |-ParamCommandComment 0xb42118 <col:15, line:755:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42178 <col:14>
+|     |   |   `-TextComment 0xb42158 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42190 <col:15, col:96> Name="return"
+|     |     `-ParagraphComment 0xb421d0 <col:22, col:96>
+|     |       `-TextComment 0xb421b0 <col:22, col:96> Text=" boolean. Returns true if widget is in state InitAgain, else returns false."
+|     |-CXXMethodDecl 0xb2ae68 <line:764:13, col:47> col:18 boIsStateRunningAgain '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb42368 <line:760:14, line:762:99>
+|     |   |-ParagraphComment 0xb42270 <line:760:14, line:761:14>
+|     |   | |-TextComment 0xb42238 <line:760:14, col:54> Text=" Check if widget is in state RunningAgain"
+|     |   | `-TextComment 0xb42250 <line:761:14> Text=" "
+|     |   |-ParamCommandComment 0xb42288 <col:15, line:762:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb422e8 <col:14>
+|     |   |   `-TextComment 0xb422c8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42300 <col:15, col:99> Name="return"
+|     |     `-ParagraphComment 0xb42340 <col:22, col:99>
+|     |       `-TextComment 0xb42320 <col:22, col:99> Text=" boolean. Returns true if widget is in state RunningAgain, else returns false."
+|     |-CXXMethodDecl 0xb2af50 <line:771:13, col:48> col:18 boIsStateChangingTrees '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb424d8 <line:767:14, line:769:99>
+|     |   |-ParagraphComment 0xb423e0 <line:767:14, line:768:14>
+|     |   | |-TextComment 0xb423a8 <line:767:14, col:54> Text=" Check if widget is in state ChangingTree"
+|     |   | `-TextComment 0xb423c0 <line:768:14> Text=" "
+|     |   |-ParamCommandComment 0xb423f8 <col:15, line:769:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42458 <col:14>
+|     |   |   `-TextComment 0xb42438 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42470 <col:15, col:99> Name="return"
+|     |     `-ParagraphComment 0xb424b0 <col:22, col:99>
+|     |       `-TextComment 0xb42490 <col:22, col:99> Text=" boolean. Returns true if widget is in state ChangingTree, else returns false."
+|     |-CXXMethodDecl 0xb2b038 <line:778:13, col:51> col:18 boIsStatePrepareToDestroy '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb42648 <line:774:14, line:776:103>
+|     |   |-ParagraphComment 0xb42550 <line:774:14, line:775:14>
+|     |   | |-TextComment 0xb42518 <line:774:14, col:58> Text=" Check if widget is in state PrepareToDestroy"
+|     |   | `-TextComment 0xb42530 <line:775:14> Text=" "
+|     |   |-ParamCommandComment 0xb42568 <col:15, line:776:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb425c8 <col:14>
+|     |   |   `-TextComment 0xb425a8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb425e0 <col:15, col:103> Name="return"
+|     |     `-ParagraphComment 0xb42620 <col:22, col:103>
+|     |       `-TextComment 0xb42600 <col:22, col:103> Text=" boolean. Returns true if widget is in state PrepareToDestroy, else returns false."
+|     |-CXXMethodDecl 0xb2b120 <line:785:13, col:50> col:18 boIsReadyForClientAccess '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb427b8 <line:781:14, line:783:110>
+|     |   |-ParagraphComment 0xb426c0 <line:781:14, line:782:14>
+|     |   | |-TextComment 0xb42688 <line:781:14, col:148> Text=" Check if widget has been fully initialised, properties have been updated by API if connected and children have been fully initialised."
+|     |   | `-TextComment 0xb426a0 <line:782:14> Text=" "
+|     |   |-ParamCommandComment 0xb426d8 <col:15, line:783:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42738 <col:14>
+|     |   |   `-TextComment 0xb42718 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42750 <col:15, col:110> Name="return"
+|     |     `-ParagraphComment 0xb42790 <col:22, col:110>
+|     |       `-TextComment 0xb42770 <col:22, col:110> Text=" boolean. Returns true if widget is in state Running or RunningAgain, else returns false."
+|     |-CXXMethodDecl 0xb2b208 <line:794:13, col:42> col:18 boIsCommonWidget '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb42928 <line:790:14, line:792:104>
+|     |   |-ParagraphComment 0xb42830 <line:790:14, line:791:14>
+|     |   | |-TextComment 0xb427f8 <line:790:14, col:48> Text=" Check if widget is a common widget"
+|     |   | `-TextComment 0xb42810 <line:791:14> Text=" "
+|     |   |-ParamCommandComment 0xb42848 <col:15, line:792:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb428a8 <col:14>
+|     |   |   `-TextComment 0xb42888 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb428c0 <col:15, col:104> Name="return"
+|     |     `-ParagraphComment 0xb42900 <col:22, col:104>
+|     |       `-TextComment 0xb428e0 <col:22, col:104> Text=" boolean. Returns true if CommonWidget flag is set (value = 1), else returns false."
+|     |-CXXMethodDecl 0xb2b2f0 <line:801:13, col:40> col:18 vSetCommonWidget 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb42a98 <line:797:14, line:799:27>
+|     |   |-ParagraphComment 0xb429a0 <line:797:14, line:798:14>
+|     |   | |-TextComment 0xb42968 <line:797:14, col:109> Text=" Setter for CommonWidget flag of the widget, sets the value of flag to 1 (from initial value 0)."
+|     |   | `-TextComment 0xb42980 <line:798:14> Text=" "
+|     |   |-ParamCommandComment 0xb429b8 <col:15, line:799:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42a18 <col:14>
+|     |   |   `-TextComment 0xb429f8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42a30 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb42a70 <col:22, col:27>
+|     |       `-TextComment 0xb42a50 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb2b3d8 <line:808:13, col:48> col:18 boIsCompositionRelevant '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb42c20 <line:804:14, line:806:97>
+|     |   |-ParagraphComment 0xb42b10 <line:804:14, line:805:14>
+|     |   | |-TextComment 0xb42ad8 <line:804:14, col:55> Text=" Check if widget is a composition relevant"
+|     |   | `-TextComment 0xb42af0 <line:805:14> Text=" "
+|     |   |-ParamCommandComment 0xb42b28 <col:15, line:806:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42b88 <col:14>
+|     |   |   `-TextComment 0xb42b68 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42ba0 <col:15, col:97> Name="return"
+|     |     `-ParagraphComment 0xb42bf8 <col:22, col:97>
+|     |       `-TextComment 0xb42bc0 <col:22, col:97> Text=" boolean. Returns true if WRS Getter returns true (pre-analyzed information)"
+|     |-CXXMethodDecl 0xb2b4c0 <line:815:13, col:39> col:18 boIsCompWidget '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb42d90 <line:811:14, line:813:97>
+|     |   |-ParagraphComment 0xb42c98 <line:811:14, line:812:14>
+|     |   | |-TextComment 0xb42c60 <line:811:14, col:62> Text=" Check if the widget type derives from CompWidget"
+|     |   | `-TextComment 0xb42c78 <line:812:14> Text=" "
+|     |   |-ParamCommandComment 0xb42cb0 <col:15, line:813:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42d10 <col:14>
+|     |   |   `-TextComment 0xb42cf0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42d28 <col:15, col:97> Name="return"
+|     |     `-ParagraphComment 0xb42d68 <col:22, col:97>
+|     |       `-TextComment 0xb42d48 <col:22, col:97> Text=" boolean. Returns true if WRS Getter returns true (pre-analyzed information)"
+|     |-CXXMethodDecl 0xb2b5a8 <line:822:13, col:43> col:18 boIsFirstTreeBuild '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb42f00 <line:818:14, line:820:135>
+|     |   |-ParagraphComment 0xb42e08 <line:818:14, line:819:14>
+|     |   | |-TextComment 0xb42dd0 <line:818:14, col:85> Text=" Used to check if a TreeBuildDone received by a widget is the first one."
+|     |   | `-TextComment 0xb42de8 <line:819:14> Text=" "
+|     |   |-ParamCommandComment 0xb42e20 <col:15, line:820:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb42e80 <col:14>
+|     |   |   `-TextComment 0xb42e60 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb42e98 <col:15, col:135> Name="return"
+|     |     `-ParagraphComment 0xb42ed8 <col:22, col:135>
+|     |       `-TextComment 0xb42eb8 <col:22, col:135> Text=" boolean. Returns true if HasFirstTreeBuildDone flag has not been set (value = 0), else (value = 1) returns false."
+|     |-CXXMethodDecl 0xb2b690 <line:829:13, col:44> col:18 vSetHasTreeBuildDone 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb43070 <line:825:14, line:827:27>
+|     |   |-ParagraphComment 0xb42f78 <line:825:14, line:826:14>
+|     |   | |-TextComment 0xb42f40 <line:825:14, col:104> Text=" Setter for HasFirstTreeBuildDone flag, sets the value of flag to 1 (from initial value 0)."
+|     |   | `-TextComment 0xb42f58 <line:826:14> Text=" "
+|     |   |-ParamCommandComment 0xb42f90 <col:15, line:827:14> [in] explicitly Param="void."
+|     |   | `-ParagraphComment 0xb42ff0 <col:14>
+|     |   |   `-TextComment 0xb42fd0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb43008 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb43048 <col:22, col:27>
+|     |       `-TextComment 0xb43028 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb2b778 <line:837:13, col:45> col:18 vSwitchToRunningState 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb43200 <line:832:14, line:835:27>
+|     |   |-ParagraphComment 0xb43108 <line:832:14, line:834:14>
+|     |   | |-TextComment 0xb430b0 <line:832:14, col:38> Text=" Switch to Running states"
+|     |   | |-TextComment 0xb430c8 <line:833:14, col:107> Text=" If in state Init, then change to Running. Else if in state InitAgain, change to RunningAgain."
+|     |   | `-TextComment 0xb430e0 <line:834:14> Text=" "
+|     |   |-ParamCommandComment 0xb43120 <col:15, line:835:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb43180 <col:14>
+|     |   |   `-TextComment 0xb43160 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb43198 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb431d8 <col:22, col:27>
+|     |       `-TextComment 0xb431b8 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb2b860 <line:842:13, col:46> col:18 vPropagateWindowCoords 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb43280 <line:840:14, col:69>
+|     |   `-ParagraphComment 0xb43260 <col:14, col:69>
+|     |     `-TextComment 0xb43240 <col:14, col:69> Text=" Used by display controller to propagate absolute coords"
+|     |-CXXMethodDecl 0xb2b980 <line:851:13, col:53> col:22 invalid poGetChildById 'class HMI::WFC::Widget *(int) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2b900 <col:38, col:45> col:45 invalid u16ID_ 'int'
+|     | `-FullComment 0xb43408 <line:847:14, line:849:90>
+|     |   |-ParagraphComment 0xb432f8 <line:847:14, line:848:14>
+|     |   | |-TextComment 0xb432c0 <line:847:14, col:51> Text=" Get child widget with specific WRS ID"
+|     |   | `-TextComment 0xb432d8 <line:848:14> Text=" "
+|     |   |-ParamCommandComment 0xb43310 <col:15, line:849:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb43388 <line:848:36, line:849:14>
+|     |   |   |-TextComment 0xb43350 <line:848:36, col:89> Text=" u16ID_. ID here refers to WRS ID of the wanted child."
+|     |   |   `-TextComment 0xb43368 <line:849:14> Text=" "
+|     |   `-BlockCommandComment 0xb433a0 <col:15, col:90> Name="return"
+|     |     `-ParagraphComment 0xb433e0 <col:22, col:90>
+|     |       `-TextComment 0xb433c0 <col:22, col:90> Text=" Widget*. A pointer to found widget. If no match found, returns NULL."
+|     |-CXXMethodDecl 0xb2ba80 <line:858:13, col:59> col:22 invalid poGetChildByIndex 'class HMI::WFC::Widget *(int) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2ba28 <col:41, col:48> col:48 invalid u16Index_ 'int'
+|     | `-FullComment 0xb43590 <line:854:14, line:856:90>
+|     |   |-ParagraphComment 0xb43480 <line:854:14, line:855:14>
+|     |   | |-TextComment 0xb43448 <line:854:14, col:50> Text=" Get child widget with specific index"
+|     |   | `-TextComment 0xb43460 <line:855:14> Text=" "
+|     |   |-ParamCommandComment 0xb43498 <col:15, line:856:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb43510 <line:855:36, line:856:14>
+|     |   |   |-TextComment 0xb434d8 <line:855:36, col:119> Text=" u16Index. This is the relative position of child below widget, first child being 0."
+|     |   |   `-TextComment 0xb434f0 <line:856:14> Text=" "
+|     |   `-BlockCommandComment 0xb43528 <col:15, col:90> Name="return"
+|     |     `-ParagraphComment 0xb43568 <col:22, col:90>
+|     |       `-TextComment 0xb43548 <col:22, col:90> Text=" Widget*. A pointer to found widget. If no match found, returns NULL."
+|     |-CXXMethodDecl 0xb2dbd0 <line:865:13, col:49> col:18 boIsChild '_Bool (class HMI::WFC::Widget *) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2db50 <col:29, col:38> col:38 poWidget_ 'class HMI::WFC::Widget *'
+|     | `-FullComment 0xb43718 <line:861:14, line:863:89>
+|     |   |-ParagraphComment 0xb43608 <line:861:14, line:862:14>
+|     |   | |-TextComment 0xb435d0 <line:861:14, col:66> Text=" Check if specified widget is a child of this Widget."
+|     |   | `-TextComment 0xb435e8 <line:862:14> Text=" "
+|     |   |-ParamCommandComment 0xb43620 <col:15, line:863:14> [in] explicitly Param="Widget*"
+|     |   | `-ParagraphComment 0xb43698 <line:862:37, line:863:14>
+|     |   |   |-TextComment 0xb43660 <line:862:37, col:70> Text=" poWidget_. Pointer to the widget."
+|     |   |   `-TextComment 0xb43678 <line:863:14> Text=" "
+|     |   `-BlockCommandComment 0xb436b0 <col:15, col:89> Name="return"
+|     |     `-ParagraphComment 0xb436f0 <col:22, col:89>
+|     |       `-TextComment 0xb436d0 <col:22, col:89> Text=" bool. Return true if poMyWidget is a child. Otherwise, return false"
+|     |-CXXMethodDecl 0xb2de58 <line:881:13, col:84> col:22 poGetNextChild 'class HMI::WFC::Widget *(class HMI::WFC::Widget *, _Bool) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2dd98 <col:38, col:46> col:46 poWidget_ 'class HMI::WFC::Widget *'
+|     | |-ParmVarDecl 0xb2ddd8 <col:57, col:77> col:62 boReturnNull '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb38378 <col:77> '_Bool' false
+|     | `-FullComment 0xb43948 <line:875:14, line:879:77>
+|     |   |-ParagraphComment 0xb43790 <line:875:14, line:876:14>
+|     |   | |-TextComment 0xb43758 <line:875:14, col:47> Text=" Get pointer to next child widget."
+|     |   | `-TextComment 0xb43770 <line:876:14> Text=" "
+|     |   |-ParamCommandComment 0xb437a8 <col:15, line:877:14> [in] explicitly Param="Widget*"
+|     |   | `-ParagraphComment 0xb43820 <line:876:37, line:877:14>
+|     |   |   |-TextComment 0xb437e8 <line:876:37, col:110> Text=" poWidget_. A pointer to a child widget to which the next child is wanted."
+|     |   |   `-TextComment 0xb43800 <line:877:14> Text=" "
+|     |   |-ParamCommandComment 0xb43838 <col:15, line:878:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb438b0 <line:877:34, line:878:14>
+|     |   |   |-TextComment 0xb43878 <line:877:34, col:218> Text=" boReturnNull. For case, input widget is invalid or not a child of this widget : if true, first child of this widget is returned, If false, NULL will be returned. Default value = false."
+|     |   |   `-TextComment 0xb43890 <line:878:14> Text=" "
+|     |   `-BlockCommandComment 0xb438c8 <col:15, line:879:77> Name="return"
+|     |     `-ParagraphComment 0xb43920 <line:878:22, line:879:77>
+|     |       |-TextComment 0xb438e8 <line:878:22, col:62> Text=" Widget*. A pointer to next child widget."
+|     |       `-TextComment 0xb43900 <line:879:14, col:77> Text=" Note: if input widget is the last child, NULL will be returned."
+|     |-CXXMethodDecl 0xb2dfa0 <line:890:13, col:84> col:22 poGetPrevChild 'class HMI::WFC::Widget *(class HMI::WFC::Widget *, _Bool) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2df00 <col:38, col:46> col:46 poWidget_ 'class HMI::WFC::Widget *'
+|     | |-ParmVarDecl 0xb2df40 <col:57, col:77> col:62 boReturnNull '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb38388 <col:77> '_Bool' false
+|     | `-FullComment 0xb43b78 <line:884:14, line:888:83>
+|     |   |-ParagraphComment 0xb439c0 <line:884:14, line:885:14>
+|     |   | |-TextComment 0xb43988 <line:884:14, col:51> Text=" Get pointer to previous child widget."
+|     |   | `-TextComment 0xb439a0 <line:885:14> Text=" "
+|     |   |-ParamCommandComment 0xb439d8 <col:15, line:886:14> [in] explicitly Param="Widget*"
+|     |   | `-ParagraphComment 0xb43a50 <line:885:37, line:886:14>
+|     |   |   |-TextComment 0xb43a18 <line:885:37, col:114> Text=" poWidget_. A pointer to a child widget to which the previous child is wanted."
+|     |   |   `-TextComment 0xb43a30 <line:886:14> Text=" "
+|     |   |-ParamCommandComment 0xb43a68 <col:15, line:887:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb43ae0 <line:886:34, line:887:14>
+|     |   |   |-TextComment 0xb43aa8 <line:886:34, col:217> Text=" boReturnNull. For case, input widget is invalid or not a child of this widget : if true, last child of this widget is returned, If false, NULL will be returned. Default value = false."
+|     |   |   `-TextComment 0xb43ac0 <line:887:14> Text=" "
+|     |   `-BlockCommandComment 0xb43af8 <col:15, line:888:83> Name="return"
+|     |     `-ParagraphComment 0xb43b50 <line:887:22, line:888:83>
+|     |       |-TextComment 0xb43b18 <line:887:22, col:66> Text=" Widget*. A pointer to previous child widget."
+|     |       `-TextComment 0xb43b30 <line:888:14, col:83> Text=" Note: if input widget is the first child, a null pointer is returned."
+|     |-CXXMethodDecl 0xb2e490 <line:919:13, col:184> col:22 poGetNextChildByFilter 'class HMI::WFC::Widget *(class HMI::WFC::Widget *, _Bool, _Bool, _Bool, _Bool) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2e2f8 <col:46, col:54> col:54 poWidget_ 'class HMI::WFC::Widget *'
+|     | |-ParmVarDecl 0xb2e338 <col:66, col:90> col:71 bMyFilterVisible '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb383b8 <col:90> '_Bool' false
+|     | |-ParmVarDecl 0xb2e378 <col:98, col:122> col:103 bMyFilterFocused '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb383c8 <col:122> '_Bool' false
+|     | |-ParmVarDecl 0xb2e3b8 <col:130, col:156> col:135 bMyFilterFocusable '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb383d8 <col:156> '_Bool' false
+|     | |-ParmVarDecl 0xb2e3f8 <col:164, col:178> col:169 boWrap '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb383e8 <col:178> '_Bool' true
+|     | `-FullComment 0xb3bf20 <line:911:14, line:917:57>
+|     |   |-ParagraphComment 0xb3bbc0 <line:911:14, line:912:14>
+|     |   | |-TextComment 0xb43bb8 <line:911:14, col:100> Text=" Get pointer to next child of widget where the values of specified properties are true."
+|     |   | `-TextComment 0xb43bd0 <line:912:14> Text=" "
+|     |   |-ParamCommandComment 0xb3bbd8 <col:15, line:913:14> [in] explicitly Param="Widget"
+|     |   | `-ParagraphComment 0xb3bc50 <line:912:36, line:913:14>
+|     |   |   |-TextComment 0xb3bc18 <line:912:36, col:98> Text=" *poWidget_. A pointer to child widget where the search starts."
+|     |   |   `-TextComment 0xb3bc30 <line:913:14> Text=" "
+|     |   |-ParamCommandComment 0xb3bc68 <col:15, line:914:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3bce0 <line:913:34, line:914:14>
+|     |   |   |-TextComment 0xb3bca8 <line:913:34, col:164> Text=" bMyFilterVisible. Filter for visible. If true, Widget with visible = true is searched for, if false, visible of widget is ignored."
+|     |   |   `-TextComment 0xb3bcc0 <line:914:14> Text=" "
+|     |   |-ParamCommandComment 0xb3bcf8 <col:15, line:915:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3bd70 <line:914:34, line:915:14>
+|     |   |   |-TextComment 0xb3bd38 <line:914:34, col:164> Text=" bMyFilterFocused. Filter for focused. If true, Widget with Focused = true is searched for, if false, Focused of widget is ignored."
+|     |   |   `-TextComment 0xb3bd50 <line:915:14> Text=" "
+|     |   |-ParamCommandComment 0xb3bd88 <col:15, line:916:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3be00 <line:915:34, line:916:14>
+|     |   |   |-TextComment 0xb3bdc8 <line:915:34, col:172> Text=" bMyFilterFocusable. Filter for focusable. If true, Widget with Focusable = true is searched for, if false, Focusable of widget is ignored."
+|     |   |   `-TextComment 0xb3bde0 <line:916:14> Text=" "
+|     |   |-ParamCommandComment 0xb3be18 <col:15, line:917:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3be90 <line:916:34, line:917:14>
+|     |   |   |-TextComment 0xb3be58 <line:916:34, col:216> Text=" boWrap. For case, input widget is invalid or not a child of this widget : if true, search starts at first child of this widget, If false, NULL will be returned. Default value = true."
+|     |   |   `-TextComment 0xb3be70 <line:917:14> Text=" "
+|     |   `-BlockCommandComment 0xb3bea8 <col:15, col:57> Name="return"
+|     |     `-ParagraphComment 0xb3bee8 <col:22, col:57>
+|     |       `-TextComment 0xb3bec8 <col:22, col:57> Text=" Widget*. A pointer to found widget."
+|     |-CXXMethodDecl 0xb2e6b0 <line:930:13, col:188> col:22 poGetPreviousChildByFilter 'class HMI::WFC::Widget *(class HMI::WFC::Widget *, _Bool, _Bool, _Bool, _Bool) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2e548 <col:50, col:58> col:58 poWidget_ 'class HMI::WFC::Widget *'
+|     | |-ParmVarDecl 0xb2e588 <col:70, col:94> col:75 bMyFilterVisible '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb383f8 <col:94> '_Bool' false
+|     | |-ParmVarDecl 0xb2e5c8 <col:102, col:126> col:107 bMyFilterFocused '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb38408 <col:126> '_Bool' false
+|     | |-ParmVarDecl 0xb2e608 <col:134, col:160> col:139 bMyFilterFocusable '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb38418 <col:160> '_Bool' false
+|     | |-ParmVarDecl 0xb2e648 <col:168, col:182> col:173 boWrap '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb38428 <col:182> '_Bool' true
+|     | `-FullComment 0xb3c2f8 <line:922:14, line:928:57>
+|     |   |-ParagraphComment 0xb3bf98 <line:922:14, line:923:14>
+|     |   | |-TextComment 0xb3bf60 <line:922:14, col:104> Text=" Get pointer to previous child of widget where the values of specified properties are true."
+|     |   | `-TextComment 0xb3bf78 <line:923:14> Text=" "
+|     |   |-ParamCommandComment 0xb3bfb0 <col:15, line:924:14> [in] explicitly Param="Widget"
+|     |   | `-ParagraphComment 0xb3c028 <line:923:36, line:924:14>
+|     |   |   |-TextComment 0xb3bff0 <line:923:36, col:98> Text=" *poWidget_. A pointer to child widget where the search starts."
+|     |   |   `-TextComment 0xb3c008 <line:924:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c040 <col:15, line:925:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3c0b8 <line:924:34, line:925:14>
+|     |   |   |-TextComment 0xb3c080 <line:924:34, col:164> Text=" bMyFilterVisible. Filter for visible. If true, Widget with visible = true is searched for, if false, visible of widget is ignored."
+|     |   |   `-TextComment 0xb3c098 <line:925:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c0d0 <col:15, line:926:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3c148 <line:925:34, line:926:14>
+|     |   |   |-TextComment 0xb3c110 <line:925:34, col:164> Text=" bMyFilterFocused. Filter for focused. If true, Widget with Focused = true is searched for, if false, Focused of widget is ignored."
+|     |   |   `-TextComment 0xb3c128 <line:926:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c160 <col:15, line:927:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3c1d8 <line:926:34, line:927:14>
+|     |   |   |-TextComment 0xb3c1a0 <line:926:34, col:172> Text=" bMyFilterFocusable. Filter for focusable. If true, Widget with Focusable = true is searched for, if false, Focusable of widget is ignored."
+|     |   |   `-TextComment 0xb3c1b8 <line:927:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c1f0 <col:15, line:928:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3c268 <line:927:34, line:928:14>
+|     |   |   |-TextComment 0xb3c230 <line:927:34, col:215> Text=" boWrap. For case, input widget is invalid or not a child of this widget : if true, search starts at last child of this widget, If false, NULL will be returned. Default value = true."
+|     |   |   `-TextComment 0xb3c248 <line:928:14> Text=" "
+|     |   `-BlockCommandComment 0xb3c280 <col:15, col:57> Name="return"
+|     |     `-ParagraphComment 0xb3c2c0 <col:22, col:57>
+|     |       `-TextComment 0xb3c2a0 <col:22, col:57> Text=" Widget*. A pointer to found widget."
+|     |-CXXMethodDecl 0xb2fc98 <line:959:13, col:55> col:20 invalid u16GetIndexOfChild 'int (int) __attribute__((thiscall)) const'
+|     | |-ParmVarDecl 0xb2fc18 <col:40, col:47> col:47 invalid u16ID_ 'int'
+|     | `-FullComment 0xb3c480 <line:955:14, line:957:119>
+|     |   |-ParagraphComment 0xb3c370 <line:955:14, line:956:14>
+|     |   | |-TextComment 0xb3c338 <line:955:14, col:74> Text=" Return relative position of a child widget with given WRS ID"
+|     |   | `-TextComment 0xb3c350 <line:956:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c388 <col:15, line:957:14> [in] explicitly Param="uint16"
+|     |   | `-ParagraphComment 0xb3c400 <line:956:36, line:957:14>
+|     |   |   |-TextComment 0xb3c3c8 <line:956:36, col:71> Text=" u16ID_. WRS ID to the child widget."
+|     |   |   `-TextComment 0xb3c3e0 <line:957:14> Text=" "
+|     |   `-BlockCommandComment 0xb3c418 <col:15, col:119> Name="return"
+|     |     `-ParagraphComment 0xb3c458 <col:22, col:119>
+|     |       `-TextComment 0xb3c438 <col:22, col:119> Text=" uint16. Position of the widget in child list. If not a child, nMAX_RANGE_OF_CHILDREN is returned."
+|     |-CXXMethodDecl 0xb2fec0 <line:973:13, col:47> col:20 invalid u16GetNumOfChildren 'int (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3c5f0 <line:969:14, line:971:55>
+|     |   |-ParagraphComment 0xb3c4f8 <line:969:14, line:970:14>
+|     |   | |-TextComment 0xb3c4c0 <line:969:14, col:56> Text=" Get number of child-widgets of this widget"
+|     |   | `-TextComment 0xb3c4d8 <line:970:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c510 <col:15, line:971:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3c570 <col:14>
+|     |   |   `-TextComment 0xb3c550 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3c588 <col:15, col:55> Name="return"
+|     |     `-ParagraphComment 0xb3c5c8 <col:22, col:55>
+|     |       `-TextComment 0xb3c5a8 <col:22, col:55> Text=" uint16. Return number of children"
+|     |-CXXMethodDecl 0xb30008 <line:1007:13, col:44> col:26 OnChangePosX 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3c778 <line:1002:14, line:1005:27>
+|     |   |-ParagraphComment 0xb3c688 <line:1002:14, line:1004:14>
+|     |   | |-TextComment 0xb3c630 <line:1002:14, col:79> Text=" Called by setters if there is a change in widget's property: PosX"
+|     |   | |-TextComment 0xb3c648 <line:1003:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3c660 <line:1004:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c6a0 <col:15, line:1005:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3c6f8 <col:14>
+|     |   |   `-TextComment 0xb3c6d8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3c710 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3c750 <col:22, col:27>
+|     |       `-TextComment 0xb3c730 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb300f0 <line:1015:13, col:44> col:26 OnChangePosY 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3c900 <line:1010:14, line:1013:27>
+|     |   |-ParagraphComment 0xb3c810 <line:1010:14, line:1012:14>
+|     |   | |-TextComment 0xb3c7b8 <line:1010:14, col:79> Text=" Called by setters if there is a change in widget's property: PosY"
+|     |   | |-TextComment 0xb3c7d0 <line:1011:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3c7e8 <line:1012:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c828 <col:15, line:1013:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3c880 <col:14>
+|     |   |   `-TextComment 0xb3c860 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3c898 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3c8d8 <col:22, col:27>
+|     |       `-TextComment 0xb3c8b8 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb301d8 <line:1023:13, col:44> col:26 OnChangePosZ 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3ca88 <line:1018:14, line:1021:27>
+|     |   |-ParagraphComment 0xb3c998 <line:1018:14, line:1020:14>
+|     |   | |-TextComment 0xb3c940 <line:1018:14, col:79> Text=" Called by setters if there is a change in widget's property: PosZ"
+|     |   | |-TextComment 0xb3c958 <line:1019:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3c970 <line:1020:14> Text=" "
+|     |   |-ParamCommandComment 0xb3c9b0 <col:15, line:1021:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3ca08 <col:14>
+|     |   |   `-TextComment 0xb3c9e8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3ca20 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3ca60 <col:22, col:27>
+|     |       `-TextComment 0xb3ca40 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb302c0 <line:1031:13, col:45> col:26 OnChangeWidth 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3ec40 <line:1026:14, line:1029:27>
+|     |   |-ParagraphComment 0xb3cb20 <line:1026:14, line:1028:14>
+|     |   | |-TextComment 0xb3cac8 <line:1026:14, col:80> Text=" Called by setters if there is a change in widget's property: Width"
+|     |   | |-TextComment 0xb3cae0 <line:1027:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3caf8 <line:1028:14> Text=" "
+|     |   |-ParamCommandComment 0xb3cb38 <col:15, line:1029:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3cb90 <col:14>
+|     |   |   `-TextComment 0xb3cb70 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3ebd8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3ec18 <col:22, col:27>
+|     |       `-TextComment 0xb3ebf8 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb303a8 <line:1039:13, col:46> col:26 OnChangeHeight 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3edc8 <line:1034:14, line:1037:27>
+|     |   |-ParagraphComment 0xb3ecd8 <line:1034:14, line:1036:14>
+|     |   | |-TextComment 0xb3ec80 <line:1034:14, col:81> Text=" Called by setters if there is a change in widget's property: Height"
+|     |   | |-TextComment 0xb3ec98 <line:1035:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3ecb0 <line:1036:14> Text=" "
+|     |   |-ParamCommandComment 0xb3ecf0 <col:15, line:1037:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3ed48 <col:14>
+|     |   |   `-TextComment 0xb3ed28 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3ed60 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3eda0 <col:22, col:27>
+|     |       `-TextComment 0xb3ed80 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb30490 <line:1047:13, col:50> col:26 OnChangeVisibility 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3ef50 <line:1042:14, line:1045:27>
+|     |   |-ParagraphComment 0xb3ee60 <line:1042:14, line:1044:14>
+|     |   | |-TextComment 0xb3ee08 <line:1042:14, col:82> Text=" Called by setters if there is a change in widget's property: Visible"
+|     |   | |-TextComment 0xb3ee20 <line:1043:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3ee38 <line:1044:14> Text=" "
+|     |   |-ParamCommandComment 0xb3ee78 <col:15, line:1045:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3eed0 <col:14>
+|     |   |   `-TextComment 0xb3eeb0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3eee8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3ef28 <col:22, col:27>
+|     |       `-TextComment 0xb3ef08 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb30578 <line:1055:13, col:52> col:26 OnChangeTransparency 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3f0d8 <line:1050:14, line:1053:27>
+|     |   |-ParagraphComment 0xb3efe8 <line:1050:14, line:1052:14>
+|     |   | |-TextComment 0xb3ef90 <line:1050:14, col:87> Text=" Called by setters if there is a change in widget's property: Transparency"
+|     |   | |-TextComment 0xb3efa8 <line:1051:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3efc0 <line:1052:14> Text=" "
+|     |   |-ParamCommandComment 0xb3f000 <col:15, line:1053:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3f058 <col:14>
+|     |   |   `-TextComment 0xb3f038 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3f070 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3f0b0 <col:22, col:27>
+|     |       `-TextComment 0xb3f090 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb30660 <line:1063:13, col:47> col:26 OnChangeFocused 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3f260 <line:1058:14, line:1061:27>
+|     |   |-ParagraphComment 0xb3f170 <line:1058:14, line:1060:14>
+|     |   | |-TextComment 0xb3f118 <line:1058:14, col:82> Text=" Called by setters if there is a change in widget's property: Focused"
+|     |   | |-TextComment 0xb3f130 <line:1059:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3f148 <line:1060:14> Text=" "
+|     |   |-ParamCommandComment 0xb3f188 <col:15, line:1061:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3f1e0 <col:14>
+|     |   |   `-TextComment 0xb3f1c0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3f1f8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3f238 <col:22, col:27>
+|     |       `-TextComment 0xb3f218 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb30748 <line:1071:13, col:49> col:26 OnChangeFocusable 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3f3e8 <line:1066:14, line:1069:27>
+|     |   |-ParagraphComment 0xb3f2f8 <line:1066:14, line:1068:14>
+|     |   | |-TextComment 0xb3f2a0 <line:1066:14, col:84> Text=" Called by setters if there is a change in widget's property: Focusable"
+|     |   | |-TextComment 0xb3f2b8 <line:1067:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3f2d0 <line:1068:14> Text=" "
+|     |   |-ParamCommandComment 0xb3f310 <col:15, line:1069:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3f368 <col:14>
+|     |   |   `-TextComment 0xb3f348 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3f380 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3f3c0 <col:22, col:27>
+|     |       `-TextComment 0xb3f3a0 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb30830 <line:1079:13, col:46> col:26 OnChangeEnable 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3f570 <line:1074:14, line:1077:27>
+|     |   |-ParagraphComment 0xb3f480 <line:1074:14, line:1076:14>
+|     |   | |-TextComment 0xb3f428 <line:1074:14, col:82> Text=" Called by setters if there is a change in widget's property: Enabled"
+|     |   | |-TextComment 0xb3f440 <line:1075:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3f458 <line:1076:14> Text=" "
+|     |   |-ParamCommandComment 0xb3f498 <col:15, line:1077:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3f4f0 <col:14>
+|     |   |   `-TextComment 0xb3f4d0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3f508 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3f548 <col:22, col:27>
+|     |       `-TextComment 0xb3f528 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb30918 <line:1087:13, col:48> col:26 OnChangeDoUpdate 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3f6f8 <line:1082:14, line:1085:27>
+|     |   |-ParagraphComment 0xb3f608 <line:1082:14, line:1084:14>
+|     |   | |-TextComment 0xb3f5b0 <line:1082:14, col:83> Text=" Called by setters if there is a change in widget's property: DoUpdate"
+|     |   | |-TextComment 0xb3f5c8 <line:1083:14, col:107> Text=" Can be overriden by project's widgets, to perform some operations when this property changes."
+|     |   | `-TextComment 0xb3f5e0 <line:1084:14> Text=" "
+|     |   |-ParamCommandComment 0xb3f620 <col:15, line:1085:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3f678 <col:14>
+|     |   |   `-TextComment 0xb3f658 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3f690 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3f6d0 <col:22, col:27>
+|     |       `-TextComment 0xb3f6b0 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb30a88 <line:1096:13, col:58> col:44 Serialize 'WAS::WidgetDescription (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3f860 <line:1092:14, line:1094:87>
+|     |   |-ParagraphComment 0xb3f770 <line:1092:14, line:1093:14>
+|     |   | |-TextComment 0xb3f738 <line:1092:14, col:80> Text=" Serializes widget information for Widget Tree Debugger to display."
+|     |   | `-TextComment 0xb3f750 <line:1093:14> Text=" "
+|     |   |-ParamCommandComment 0xb3f788 <col:15, line:1094:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3f7e0 <col:14>
+|     |   |   `-TextComment 0xb3f7c0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3f7f8 <col:15, col:87> Name="return"
+|     |     `-ParagraphComment 0xb3f838 <col:22, col:87>
+|     |       `-TextComment 0xb3f818 <col:22, col:87> Text="  WAS::WidgetDescription. Serialised information about the widget."
+|     |-CXXMethodDecl 0xb29b88 <line:1108:13, col:62> col:37 poGetAsWarningWidget 'class HMI::WFC::WarningWidget *(void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb3f9c8 <line:1104:14, line:1106:37>
+|     |   |-ParagraphComment 0xb3f8d8 <line:1104:14, line:1105:14>
+|     |   | |-TextComment 0xb3f8a0 <line:1104:14, col:115> Text=" Downcasting Helper: Returns a pointer to self for WarningWidget or derived type, NULL for other types"
+|     |   | `-TextComment 0xb3f8b8 <line:1105:14> Text=" "
+|     |   |-ParamCommandComment 0xb3f8f0 <col:15, line:1106:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3f948 <col:14>
+|     |   |   `-TextComment 0xb3f928 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3f960 <col:15, col:37> Name="return"
+|     |     `-ParagraphComment 0xb3f9a0 <col:22, col:37>
+|     |       `-TextComment 0xb3f980 <col:22, col:37> Text=" WarningWidget *"
+|     |-CXXMethodDecl 0xb29c80 <line:1116:13, col:86> col:26 invalid vOnParentCompVisibilityChanged 'void (const int) __attribute__((thiscall))' virtual
+|     | |-ParmVarDecl 0xb29c28 <col:57, col:69> col:69 invalid u8CompVisibility_ 'const int'
+|     | `-FullComment 0xb3fb70 <line:1111:14, line:1114:26>
+|     |   |-ParagraphComment 0xb3fa60 <line:1111:14, line:1113:14>
+|     |   | |-TextComment 0xb3fa08 <line:1111:14, col:95> Text=" Handles the information of parent's CompVisibility having changed for this widget"
+|     |   | |-TextComment 0xb3fa20 <line:1112:14, col:101> Text=" only relevant for CompWidgets, other widgets pass the information further down the tree"
+|     |   | `-TextComment 0xb3fa38 <line:1113:14> Text=" "
+|     |   |-ParamCommandComment 0xb3fa78 <col:15, line:1114:14> [in] explicitly Param="uint8"
+|     |   | `-ParagraphComment 0xb3faf0 <line:1113:35, line:1114:14>
+|     |   |   |-TextComment 0xb3fab8 <line:1113:35, col:76> Text=" u8CompVisibility_ parent's CompVisibility"
+|     |   |   `-TextComment 0xb3fad0 <line:1114:14> Text=" "
+|     |   `-BlockCommandComment 0xb3fb08 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3fb48 <col:22, col:26>
+|     |       `-TextComment 0xb3fb28 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb29dd0 <line:1120:13, col:85> col:27 invalid GetExtension 'void *(const int &) __attribute__((thiscall)) const' virtual
+|     | |-ParmVarDecl 0xb29d50 <col:40, col:66> col:66 invalid idExtension 'const int &'
+|     | |-OverrideAttr 0xb29e48 <col:85>
+|     | `-FullComment 0xb3dbf0 <line:1118:16, col:72>
+|     |   `-ParagraphComment 0xb3dbd0 <col:16, col:72>
+|     |     `-TextComment 0xb3fbb0 <col:16, col:72> Text=" Provides a default, empty implementation of IExtensible."
+|     |-CXXMethodDecl 0xb29f48 <line:1122:13, col:56> col:13 invalid DECLARE_TYPEID 'int (class HMI::WFC::Widget, int) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb29e78 <col:28> col:34 'class HMI::WFC::Widget'
+|     | `-ParmVarDecl 0xb29ec8 <col:36, <invalid sloc>> col:56 invalid 'int'
+|     |-CXXMethodDecl 0xb2a058 <line:1144:13, col:56> col:18 boIsPropertyPropagationRequired '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3ddb8 <line:1137:14, line:1142:69>
+|     |   |-ParagraphComment 0xb3dcc0 <line:1137:14, line:1141:14>
+|     |   | |-TextComment 0xb3dc30 <line:1137:14, col:82> Text=" Checks if property propagation is needed for current state of widget"
+|     |   | |-TextComment 0xb3dc48 <line:1138:14, col:72> Text=" These are states Init, InitAgain, Running and RunningAgain"
+|     |   | |-TextComment 0xb3dc60 <line:1139:14, col:89> Text=" Since, for all other states, we either have a "TreeInit" event coming after"
+|     |   | |-TextComment 0xb3dc78 <line:1140:14, col:79> Text=" which will arrange the tree, or we will destroy soon the subtree,"
+|     |   | `-TextComment 0xb3dc90 <line:1141:14> Text=" "
+|     |   |-ParamCommandComment 0xb3dcd8 <col:15, line:1142:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3dd38 <col:14>
+|     |   |   `-TextComment 0xb3dd18 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3dd50 <col:15, col:69> Name="return"
+|     |     `-ParagraphComment 0xb3dd90 <col:22, col:69>
+|     |       `-TextComment 0xb3dd70 <col:22, col:69> Text=" boolean. Returns true if propagation is needed."
+|     |-FunctionTemplateDecl 0xb2a300 <line:1154:13, line:1155:49> col:18 vPropagate
+|     | |-NonTypeTemplateParmDecl 0xb2a1e0 <line:1154:23, col:56> col:40 'void (class HMI::WFC::Widget::*)(_Bool) __attribute__((thiscall))' poSetter_
+|     | |-CXXMethodDecl 0xb2a290 <line:1155:13, col:49> col:18 vPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | | |-ParmVarDecl 0xb2a238 <col:29, col:40> col:40 boStatus_ 'const _Bool'
+|     | | `-FullComment 0xb3e240 <line:1149:14, line:1152:26>
+|     | |   |-ParagraphComment 0xb3e098 <line:1149:14, line:1150:14>
+|     | |   | |-TextComment 0xb3e060 <line:1149:14, col:73> Text=" Propagates the change in widget's property down the subtree"
+|     | |   | `-TextComment 0xb3e078 <line:1150:14> Text=" "
+|     | |   |-ParamCommandComment 0xb3e0b0 <col:15, line:1151:14> [in] explicitly Param="Widget::"
+|     | |   | `-ParagraphComment 0xb3e130 <line:1150:38, line:1151:14>
+|     | |   |   |-TextComment 0xb3e0f8 <line:1150:38, col:93> Text=" * poSetter_. Setter method for the respective property."
+|     | |   |   `-TextComment 0xb3e110 <line:1151:14> Text=" "
+|     | |   |-ParamCommandComment 0xb3e148 <col:15, line:1152:14> [in] explicitly Param="bool"
+|     | |   | `-ParagraphComment 0xb3e1c0 <line:1151:34, line:1152:14>
+|     | |   |   |-TextComment 0xb3e188 <line:1151:34, col:72> Text=" boStatus_. New value for the property."
+|     | |   |   `-TextComment 0xb3e1a0 <line:1152:14> Text=" "
+|     | |   `-BlockCommandComment 0xb3e1d8 <col:15, col:26> Name="return"
+|     | |     `-ParagraphComment 0xb3e218 <col:22, col:26>
+|     | |       `-TextComment 0xb3e1f8 <col:22, col:26> Text=" void"
+|     | `-FullComment 0xb3e020 <line:1149:14, line:1152:26>
+|     |   |-ParagraphComment 0xb3de78 <line:1149:14, line:1150:14>
+|     |   | |-TextComment 0xb3de40 <line:1149:14, col:73> Text=" Propagates the change in widget's property down the subtree"
+|     |   | `-TextComment 0xb3de58 <line:1150:14> Text=" "
+|     |   |-ParamCommandComment 0xb3de90 <col:15, line:1151:14> [in] explicitly Param="Widget::"
+|     |   | `-ParagraphComment 0xb3df10 <line:1150:38, line:1151:14>
+|     |   |   |-TextComment 0xb3ded8 <line:1150:38, col:93> Text=" * poSetter_. Setter method for the respective property."
+|     |   |   `-TextComment 0xb3def0 <line:1151:14> Text=" "
+|     |   |-ParamCommandComment 0xb3df28 <col:15, line:1152:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3dfa0 <line:1151:34, line:1152:14>
+|     |   |   |-TextComment 0xb3df68 <line:1151:34, col:72> Text=" boStatus_. New value for the property."
+|     |   |   `-TextComment 0xb3df80 <line:1152:14> Text=" "
+|     |   `-BlockCommandComment 0xb3dfb8 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3dff8 <col:22, col:26>
+|     |       `-TextComment 0xb3dfd8 <col:22, col:26> Text=" void"
+|     |-FunctionTemplateDecl 0xb2a600 <line:1163:13, line:1164:41> col:18 vPropagate
+|     | |-TemplateTypeParmDecl 0xb2a358 <line:1163:23, col:32> col:32 referenced typename T
+|     | |-NonTypeTemplateParmDecl 0xb2a4e0 <col:35, col:64> col:52 'void (class HMI::WFC::Widget::*)(T) __attribute__((thiscall))' poSetter_
+|     | |-CXXMethodDecl 0xb2a590 <line:1164:13, col:41> col:18 vPropagate 'void (T) __attribute__((thiscall))'
+|     | | |-ParmVarDecl 0xb2a538 <col:29, col:31> col:31 enVariable 'T'
+|     | | `-FullComment 0xb3e6c8 <line:1158:14, line:1161:26>
+|     | |   |-ParagraphComment 0xb3e520 <line:1158:14, line:1159:14>
+|     | |   | |-TextComment 0xb3e4e8 <line:1158:14, col:80> Text=" Propagates the change in widget's property down to the next childs"
+|     | |   | `-TextComment 0xb3e500 <line:1159:14> Text=" "
+|     | |   |-ParamCommandComment 0xb3e538 <col:15, line:1160:14> [in] explicitly Param="Widget::"
+|     | |   | `-ParagraphComment 0xb3e5b8 <line:1159:38, line:1160:14>
+|     | |   |   |-TextComment 0xb3e580 <line:1159:38, col:93> Text=" * poSetter_. Setter method for the respective property."
+|     | |   |   `-TextComment 0xb3e598 <line:1160:14> Text=" "
+|     | |   |-ParamCommandComment 0xb3e5d0 <col:15, line:1161:14> [in] explicitly Param="bool"
+|     | |   | `-ParagraphComment 0xb3e648 <line:1160:34, line:1161:14>
+|     | |   |   |-TextComment 0xb3e610 <line:1160:34, col:73> Text=" enVariable. New value for the property."
+|     | |   |   `-TextComment 0xb3e628 <line:1161:14> Text=" "
+|     | |   `-BlockCommandComment 0xb3e660 <col:15, col:26> Name="return"
+|     | |     `-ParagraphComment 0xb3e6a0 <col:22, col:26>
+|     | |       `-TextComment 0xb3e680 <col:22, col:26> Text=" void"
+|     | `-FullComment 0xb3e4a8 <line:1158:14, line:1161:26>
+|     |   |-ParagraphComment 0xb3e300 <line:1158:14, line:1159:14>
+|     |   | |-TextComment 0xb3e2c8 <line:1158:14, col:80> Text=" Propagates the change in widget's property down to the next childs"
+|     |   | `-TextComment 0xb3e2e0 <line:1159:14> Text=" "
+|     |   |-ParamCommandComment 0xb3e318 <col:15, line:1160:14> [in] explicitly Param="Widget::"
+|     |   | `-ParagraphComment 0xb3e398 <line:1159:38, line:1160:14>
+|     |   |   |-TextComment 0xb3e360 <line:1159:38, col:93> Text=" * poSetter_. Setter method for the respective property."
+|     |   |   `-TextComment 0xb3e378 <line:1160:14> Text=" "
+|     |   |-ParamCommandComment 0xb3e3b0 <col:15, line:1161:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3e428 <line:1160:34, line:1161:14>
+|     |   |   |-TextComment 0xb3e3f0 <line:1160:34, col:73> Text=" enVariable. New value for the property."
+|     |   |   `-TextComment 0xb3e408 <line:1161:14> Text=" "
+|     |   `-BlockCommandComment 0xb3e440 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3e480 <col:22, col:26>
+|     |       `-TextComment 0xb3e460 <col:22, col:26> Text=" void"
+|     |-FunctionTemplateDecl 0xb2a850 <line:1171:13, line:1172:41> col:18 vPropagateFunction
+|     | |-NonTypeTemplateParmDecl 0xb2a738 <line:1171:23, col:55> col:40 'void (class HMI::WFC::Widget::*)(void) __attribute__((thiscall))' poSetter_
+|     | |-CXXMethodDecl 0xb2a7e0 <line:1172:13, col:41> col:18 vPropagateFunction 'void (void) __attribute__((thiscall))'
+|     | | `-FullComment 0xb3ea30 <line:1167:14, line:1169:26>
+|     | |   |-ParagraphComment 0xb3e918 <line:1167:14, line:1168:14>
+|     | |   | |-TextComment 0xb3e8e0 <line:1167:14, col:61> Text=" Propagates the function down to the next childs"
+|     | |   | `-TextComment 0xb3e8f8 <line:1168:14> Text=" "
+|     | |   |-ParamCommandComment 0xb3e930 <col:15, line:1169:14> [in] explicitly Param="Widget::"
+|     | |   | `-ParagraphComment 0xb3e9b0 <line:1168:38, line:1169:14>
+|     | |   |   |-TextComment 0xb3e978 <line:1168:38, col:93> Text=" * poSetter_. Setter method for the respective property."
+|     | |   |   `-TextComment 0xb3e990 <line:1169:14> Text=" "
+|     | |   `-BlockCommandComment 0xb3e9c8 <col:15, col:26> Name="return"
+|     | |     `-ParagraphComment 0xb3ea08 <col:22, col:26>
+|     | |       `-TextComment 0xb3e9e8 <col:22, col:26> Text=" void"
+|     | `-FullComment 0xb3e8a0 <line:1167:14, line:1169:26>
+|     |   |-ParagraphComment 0xb3e788 <line:1167:14, line:1168:14>
+|     |   | |-TextComment 0xb3e750 <line:1167:14, col:61> Text=" Propagates the function down to the next childs"
+|     |   | `-TextComment 0xb3e768 <line:1168:14> Text=" "
+|     |   |-ParamCommandComment 0xb3e7a0 <col:15, line:1169:14> [in] explicitly Param="Widget::"
+|     |   | `-ParagraphComment 0xb3e820 <line:1168:38, line:1169:14>
+|     |   |   |-TextComment 0xb3e7e8 <line:1168:38, col:93> Text=" * poSetter_. Setter method for the respective property."
+|     |   |   `-TextComment 0xb3e800 <line:1169:14> Text=" "
+|     |   `-BlockCommandComment 0xb3e838 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3e878 <col:22, col:26>
+|     |       `-TextComment 0xb3e858 <col:22, col:26> Text=" void"
+|     |-AccessSpecDecl 0xb2a880 <line:1175:9, col:16> col:9 private
+|     |-CXXMethodDecl 0xb2a8f0 <line:1184:13, col:48> col:26 boIsSelfPainter '_Bool (void) __attribute__((thiscall)) const' virtual
+|     |-CXXMethodDecl 0xb2a9d8 <line:1193:13, col:55> col:18 boGetCummulatedParentVisible '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb3eba0 <line:1189:14, line:1191:27>
+|     |   |-ParagraphComment 0xb3eaa8 <line:1189:14, line:1190:14>
+|     |   | |-TextComment 0xb3ea70 <line:1189:14, col:71> Text=" Getter for the propagation helper variable for Visibility"
+|     |   | `-TextComment 0xb3ea88 <line:1190:14> Text=" "
+|     |   |-ParamCommandComment 0xb3eac0 <col:15, line:1191:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb3eb20 <col:14>
+|     |   |   `-TextComment 0xb3eb00 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3eb38 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3eb78 <col:22, col:27>
+|     |       `-TextComment 0xb3eb58 <col:22, col:27> Text=" bool."
+|     |-CXXMethodDecl 0xb2aac0 <line:1200:13, col:54> col:18 boGetCummulatedParentEnable '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb43d50 <line:1196:14, line:1198:27>
+|     |   |-ParagraphComment 0xb43c58 <line:1196:14, line:1197:14>
+|     |   | |-TextComment 0xb43c20 <line:1196:14, col:67> Text=" Getter for the propagation helper variable for Enable"
+|     |   | `-TextComment 0xb43c38 <line:1197:14> Text=" "
+|     |   |-ParamCommandComment 0xb43c70 <col:15, line:1198:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb43cd0 <col:14>
+|     |   |   `-TextComment 0xb43cb0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb43ce8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb43d28 <col:22, col:27>
+|     |       `-TextComment 0xb43d08 <col:22, col:27> Text=" bool."
+|     |-CXXMethodDecl 0xb35c08 <line:1207:13, col:56> col:18 boGetCummulatedParentDoUpdate '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb43ec0 <line:1203:14, line:1205:27>
+|     |   |-ParagraphComment 0xb43dc8 <line:1203:14, line:1204:14>
+|     |   | |-TextComment 0xb43d90 <line:1203:14, col:69> Text=" Getter for the propagation helper variable for DoUpdate"
+|     |   | `-TextComment 0xb43da8 <line:1204:14> Text=" "
+|     |   |-ParamCommandComment 0xb43de0 <col:15, line:1205:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb43e40 <col:14>
+|     |   |   `-TextComment 0xb43e20 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb43e58 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb43e98 <col:22, col:27>
+|     |       `-TextComment 0xb43e78 <col:22, col:27> Text=" bool."
+|     |-CXXMethodDecl 0xb35cf0 <line:1214:13, col:55> col:18 boGetCummulatedParentFocused '_Bool (void) __attribute__((thiscall)) const'
+|     | `-FullComment 0xb44030 <line:1210:14, line:1212:27>
+|     |   |-ParagraphComment 0xb43f38 <line:1210:14, line:1211:14>
+|     |   | |-TextComment 0xb43f00 <line:1210:14, col:68> Text=" Getter for the propagation helper variable for Focused"
+|     |   | `-TextComment 0xb43f18 <line:1211:14> Text=" "
+|     |   |-ParamCommandComment 0xb43f50 <col:15, line:1212:14> [in] explicitly Param="void"
+|     |   | `-ParagraphComment 0xb43fb0 <col:14>
+|     |   |   `-TextComment 0xb43f90 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb43fc8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb44008 <col:22, col:27>
+|     |       `-TextComment 0xb43fe8 <col:22, col:27> Text=" bool."
+|     |-CXXMethodDecl 0xb35de0 <line:1226:13, col:85> col:18 vSetCummulatedParentVisible 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb35d88 <col:47, col:58> col:58 boCummulatedParentVisible_ 'const _Bool'
+|     | `-FullComment 0xb44248 <line:1217:14, line:1224:26>
+|     |   |-ParagraphComment 0xb44138 <line:1217:14, line:1223:14>
+|     |   | |-TextComment 0xb44070 <line:1217:14, col:114> Text=" Setter for the CummulatedParentVisible property. This function can be overridden in derived classes."
+|     |   | |-TextComment 0xb44088 <line:1218:14, col:93> Text=" This function will be called by its parent to inform about parent's visibility."
+|     |   | |-TextComment 0xb440a0 <line:1219:14, col:42> Text=" 1. Updates flag (if changed)"
+|     |   | |-TextComment 0xb440b8 <line:1220:14, col:66> Text=" 2. Propagate visible to children (if Visible is set)"
+|     |   | |-TextComment 0xb440d0 <line:1221:14, col:79> Text=" 3. Trigger APIM (if both Visible and CummulatedParentVisible set)"
+|     |   | |-TextComment 0xb440e8 <line:1222:14, col:67> Text=" 4. Update associated window visibility and invalidate"
+|     |   | `-TextComment 0xb44100 <line:1223:14> Text=" "
+|     |   |-ParamCommandComment 0xb44150 <col:15, line:1224:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb441c8 <line:1223:34, line:1224:14>
+|     |   |   |-TextComment 0xb44190 <line:1223:34, col:155> Text=" boCummulatedParentVisible_ . Set widget's parent visibility to be true if this variable is true. Otherwise, set to false."
+|     |   |   `-TextComment 0xb441a8 <line:1224:14> Text=" "
+|     |   `-BlockCommandComment 0xb441e0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb44220 <col:22, col:26>
+|     |       `-TextComment 0xb44200 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb35ed8 <line:1234:13, col:83> col:18 vSetCummulatedParentEnable 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb35e80 <col:46, col:57> col:57 boCummulatedParentEnable_ 'const _Bool'
+|     | `-FullComment 0xb443f0 <line:1229:14, line:1232:26>
+|     |   |-ParagraphComment 0xb442e0 <line:1229:14, line:1231:14>
+|     |   | |-TextComment 0xb44288 <line:1229:14, col:113> Text=" Setter for the CummulatedParentEnable property. This function can be overridden in derived classes."
+|     |   | |-TextComment 0xb442a0 <line:1230:14, col:89> Text=" This function will be called by its parent to inform about parent's enable."
+|     |   | `-TextComment 0xb442b8 <line:1231:14> Text=" "
+|     |   |-ParamCommandComment 0xb442f8 <col:15, line:1232:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb44370 <line:1231:34, line:1232:14>
+|     |   |   |-TextComment 0xb44338 <line:1231:34, col:150> Text=" boCummulatedParentEnable_ . Set widget's parent enable to be true if this variable is true. Otherwise, set to false."
+|     |   |   `-TextComment 0xb44350 <line:1232:14> Text=" "
+|     |   `-BlockCommandComment 0xb44388 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb443c8 <col:22, col:26>
+|     |       `-TextComment 0xb443a8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb35fd0 <line:1241:13, col:85> col:18 vSetCummulatedParentFocused 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb35f78 <col:47, col:58> col:58 boCummulatedParentFocused_ 'const _Bool'
+|     | `-FullComment 0xb44578 <line:1237:14, line:1239:26>
+|     |   |-ParagraphComment 0xb44468 <line:1237:14, line:1238:14>
+|     |   | |-TextComment 0xb44430 <line:1237:14, col:104> Text=" Setter for the Parent Focused property. This function can be overridden by derived classes"
+|     |   | `-TextComment 0xb44448 <line:1238:14> Text=" "
+|     |   |-ParamCommandComment 0xb44480 <col:15, line:1239:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb444f8 <line:1238:34, line:1239:14>
+|     |   |   |-TextComment 0xb444c0 <line:1238:34, col:167> Text=" boCummulatedParentFocused_. Set parent widget to be focused if this variable is true. Otherwise, set parent widget to be not focused."
+|     |   |   `-TextComment 0xb444d8 <line:1239:14> Text=" "
+|     |   `-BlockCommandComment 0xb44510 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb44550 <col:22, col:26>
+|     |       `-TextComment 0xb44530 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb360c8 <line:1249:13, col:87> col:18 vSetCummulatedParentDoUpdate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb36070 <col:48, col:59> col:59 boCummulatedParentDoUpdate_ 'const _Bool'
+|     | `-FullComment 0xb44720 <line:1244:14, line:1247:26>
+|     |   |-ParagraphComment 0xb44610 <line:1244:14, line:1246:14>
+|     |   | |-TextComment 0xb445b8 <line:1244:14, col:115> Text=" Setter for the CummulatedParentDoUpdate property. This function can be overridden in derived classes."
+|     |   | |-TextComment 0xb445d0 <line:1245:14, col:91> Text=" This function will be called by its parent to inform about parent's do update"
+|     |   | `-TextComment 0xb445e8 <line:1246:14> Text=" "
+|     |   |-ParamCommandComment 0xb44628 <col:15, line:1247:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb446a0 <line:1246:34, line:1247:14>
+|     |   |   |-TextComment 0xb44668 <line:1246:34, col:154> Text=" boCummulatedParentDoUpdate_ . Set widget's parent doupdate to be true if this variable is true. Otherwise, set to false."
+|     |   |   `-TextComment 0xb44680 <line:1247:14> Text=" "
+|     |   `-BlockCommandComment 0xb446b8 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb446f8 <col:22, col:26>
+|     |       `-TextComment 0xb446d8 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb361c0 <line:1257:13, col:100> col:18 vSetCummulatedParentDoUpdateDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb36168 <col:61, col:72> col:72 boCummulatedParentDoUpdate_ 'const _Bool'
+|     | `-FullComment 0xb448c8 <line:1252:14, line:1255:26>
+|     |   |-ParagraphComment 0xb447b8 <line:1252:14, line:1254:14>
+|     |   | |-TextComment 0xb44760 <line:1252:14, col:69> Text=" Build Setter for the CummulatedParentDoUpdate property."
+|     |   | |-TextComment 0xb44778 <line:1253:14, col:59> Text=" Only sets the CummulatedParentDoUpdate flags."
+|     |   | `-TextComment 0xb44790 <line:1254:14> Text=" "
+|     |   |-ParamCommandComment 0xb447d0 <col:15, line:1255:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb44848 <line:1254:34, line:1255:14>
+|     |   |   |-TextComment 0xb44810 <line:1254:34, col:135> Text=" boCummulatedParentDoUpdate_. If true, set flag CummulatedParentDoUpdate to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb44828 <line:1255:14> Text=" "
+|     |   `-BlockCommandComment 0xb44860 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb448a0 <col:22, col:26>
+|     |       `-TextComment 0xb44880 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb362b8 <line:1265:13, col:98> col:18 vSetCummulatedParentFocusedDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb36260 <col:60, col:71> col:71 boCummulatedParentFocused_ 'const _Bool'
+|     | `-FullComment 0xb44a70 <line:1260:14, line:1263:26>
+|     |   |-ParagraphComment 0xb44960 <line:1260:14, line:1262:14>
+|     |   | |-TextComment 0xb44908 <line:1260:14, col:68> Text=" Build Setter for the CummulatedParentFocused property."
+|     |   | |-TextComment 0xb44920 <line:1261:14, col:58> Text=" Only sets the CummulatedParentFocused flags."
+|     |   | `-TextComment 0xb44938 <line:1262:14> Text=" "
+|     |   |-ParamCommandComment 0xb44978 <col:15, line:1263:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb449f0 <line:1262:34, line:1263:14>
+|     |   |   |-TextComment 0xb449b8 <line:1262:34, col:133> Text=" boCummulatedParentFocused_. If true, set flag CummulatedParentFocused to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb449d0 <line:1263:14> Text=" "
+|     |   `-BlockCommandComment 0xb44a08 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb44a48 <col:22, col:26>
+|     |       `-TextComment 0xb44a28 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb363b0 <line:1273:13, col:96> col:18 vSetCummulatedParentEnableDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb36358 <col:59, col:70> col:70 boCummulatedParentEnable_ 'const _Bool'
+|     | `-FullComment 0xb3cbf0 <line:1268:14, line:1271:26>
+|     |   |-ParagraphComment 0xb44b08 <line:1268:14, line:1270:14>
+|     |   | |-TextComment 0xb44ab0 <line:1268:14, col:67> Text=" Build Setter for the CummulatedParentEnable property."
+|     |   | |-TextComment 0xb44ac8 <line:1269:14, col:57> Text=" Only sets the CummulatedParentEnable flags."
+|     |   | `-TextComment 0xb44ae0 <line:1270:14> Text=" "
+|     |   |-ParamCommandComment 0xb44b20 <col:15, line:1271:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb44b98 <line:1270:34, line:1271:14>
+|     |   |   |-TextComment 0xb44b60 <line:1270:34, col:131> Text=" boCummulatedParentEnable_. If true, set flag CummulatedParentEnable to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb44b78 <line:1271:14> Text=" "
+|     |   `-BlockCommandComment 0xb44bb0 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3cbc8 <col:22, col:26>
+|     |       `-TextComment 0xb44bd0 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb364a8 <line:1281:13, col:99> col:18 vSetCummulatedParentVisibleDontPropagate 'void (const _Bool) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb36450 <col:61, col:72> col:72 boCummulatedParentVisible_ 'const _Bool'
+|     | `-FullComment 0xb3cd98 <line:1276:14, line:1279:26>
+|     |   |-ParagraphComment 0xb3cc88 <line:1276:14, line:1278:14>
+|     |   | |-TextComment 0xb3cc30 <line:1276:14, col:68> Text=" Build Setter for the CummulatedParentVisible property."
+|     |   | |-TextComment 0xb3cc48 <line:1277:14, col:58> Text=" Only sets the CummulatedParentVisible flags."
+|     |   | `-TextComment 0xb3cc60 <line:1278:14> Text=" "
+|     |   |-ParamCommandComment 0xb3cca0 <col:15, line:1279:14> [in] explicitly Param="bool"
+|     |   | `-ParagraphComment 0xb3cd18 <line:1278:34, line:1279:14>
+|     |   |   |-TextComment 0xb3cce0 <line:1278:34, col:134> Text=" boCummulatedParentVisible_ . If true, set flag CummulatedParentVisible to 1, Otherwise, set it to 0."
+|     |   |   `-TextComment 0xb3ccf8 <line:1279:14> Text=" "
+|     |   `-BlockCommandComment 0xb3cd30 <col:15, col:26> Name="return"
+|     |     `-ParagraphComment 0xb3cd70 <col:22, col:26>
+|     |       `-TextComment 0xb3cd50 <col:22, col:26> Text=" void"
+|     |-CXXMethodDecl 0xb36598 <line:1291:13, col:42> col:18 OnChangePosXHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3cf20 <line:1286:14, line:1289:27>
+|     |   |-ParagraphComment 0xb3ce30 <line:1286:14, line:1288:14>
+|     |   | |-TextComment 0xb3cdd8 <line:1286:14, col:127> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: PosX"
+|     |   | |-TextComment 0xb3cdf0 <line:1287:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3ce08 <line:1288:14> Text=" "
+|     |   |-ParamCommandComment 0xb3ce48 <col:15, line:1289:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3cea0 <col:14>
+|     |   |   `-TextComment 0xb3ce80 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3ceb8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3cef8 <col:22, col:27>
+|     |       `-TextComment 0xb3ced8 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36680 <line:1299:13, col:42> col:18 OnChangePosYHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3d0a8 <line:1294:14, line:1297:27>
+|     |   |-ParagraphComment 0xb3cfb8 <line:1294:14, line:1296:14>
+|     |   | |-TextComment 0xb3cf60 <line:1294:14, col:127> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: PosY"
+|     |   | |-TextComment 0xb3cf78 <line:1295:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3cf90 <line:1296:14> Text=" "
+|     |   |-ParamCommandComment 0xb3cfd0 <col:15, line:1297:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3d028 <col:14>
+|     |   |   `-TextComment 0xb3d008 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3d040 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3d080 <col:22, col:27>
+|     |       `-TextComment 0xb3d060 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36768 <line:1307:13, col:42> col:18 OnChangePosZHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3d230 <line:1302:14, line:1305:27>
+|     |   |-ParagraphComment 0xb3d140 <line:1302:14, line:1304:14>
+|     |   | |-TextComment 0xb3d0e8 <line:1302:14, col:127> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: PosZ"
+|     |   | |-TextComment 0xb3d100 <line:1303:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3d118 <line:1304:14> Text=" "
+|     |   |-ParamCommandComment 0xb3d158 <col:15, line:1305:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3d1b0 <col:14>
+|     |   |   `-TextComment 0xb3d190 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3d1c8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3d208 <col:22, col:27>
+|     |       `-TextComment 0xb3d1e8 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36850 <line:1315:13, col:43> col:18 OnChangeWidthHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3d3b8 <line:1310:14, line:1313:27>
+|     |   |-ParagraphComment 0xb3d2c8 <line:1310:14, line:1312:14>
+|     |   | |-TextComment 0xb3d270 <line:1310:14, col:128> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: Width"
+|     |   | |-TextComment 0xb3d288 <line:1311:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3d2a0 <line:1312:14> Text=" "
+|     |   |-ParamCommandComment 0xb3d2e0 <col:15, line:1313:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3d338 <col:14>
+|     |   |   `-TextComment 0xb3d318 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3d350 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3d390 <col:22, col:27>
+|     |       `-TextComment 0xb3d370 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36938 <line:1323:13, col:44> col:18 OnChangeHeightHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3d540 <line:1318:14, line:1321:27>
+|     |   |-ParagraphComment 0xb3d450 <line:1318:14, line:1320:14>
+|     |   | |-TextComment 0xb3d3f8 <line:1318:14, col:129> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: Height"
+|     |   | |-TextComment 0xb3d410 <line:1319:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3d428 <line:1320:14> Text=" "
+|     |   |-ParamCommandComment 0xb3d468 <col:15, line:1321:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3d4c0 <col:14>
+|     |   |   `-TextComment 0xb3d4a0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3d4d8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3d518 <col:22, col:27>
+|     |       `-TextComment 0xb3d4f8 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36a20 <line:1331:13, col:48> col:18 OnChangeVisibilityHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3d6c8 <line:1326:14, line:1329:27>
+|     |   |-ParagraphComment 0xb3d5d8 <line:1326:14, line:1328:14>
+|     |   | |-TextComment 0xb3d580 <line:1326:14, col:130> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: Visible"
+|     |   | |-TextComment 0xb3d598 <line:1327:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3d5b0 <line:1328:14> Text=" "
+|     |   |-ParamCommandComment 0xb3d5f0 <col:15, line:1329:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3d648 <col:14>
+|     |   |   `-TextComment 0xb3d628 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3d660 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3d6a0 <col:22, col:27>
+|     |       `-TextComment 0xb3d680 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36b08 <line:1339:13, col:50> col:18 OnChangeTransparencyHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3d850 <line:1334:14, line:1337:27>
+|     |   |-ParagraphComment 0xb3d760 <line:1334:14, line:1336:14>
+|     |   | |-TextComment 0xb3d708 <line:1334:14, col:135> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: Transparency"
+|     |   | |-TextComment 0xb3d720 <line:1335:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3d738 <line:1336:14> Text=" "
+|     |   |-ParamCommandComment 0xb3d778 <col:15, line:1337:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3d7d0 <col:14>
+|     |   |   `-TextComment 0xb3d7b0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3d7e8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3d828 <col:22, col:27>
+|     |       `-TextComment 0xb3d808 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36c10 <line:1347:13, col:45> col:18 OnChangeFocusedHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3d9d8 <line:1342:14, line:1345:27>
+|     |   |-ParagraphComment 0xb3d8e8 <line:1342:14, line:1344:14>
+|     |   | |-TextComment 0xb3d890 <line:1342:14, col:130> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: Focused"
+|     |   | |-TextComment 0xb3d8a8 <line:1343:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3d8c0 <line:1344:14> Text=" "
+|     |   |-ParamCommandComment 0xb3d900 <col:15, line:1345:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3d958 <col:14>
+|     |   |   `-TextComment 0xb3d938 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3d970 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3d9b0 <col:22, col:27>
+|     |       `-TextComment 0xb3d990 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36cf8 <line:1355:13, col:47> col:18 OnChangeFocusableHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb3db60 <line:1350:14, line:1353:27>
+|     |   |-ParagraphComment 0xb3da70 <line:1350:14, line:1352:14>
+|     |   | |-TextComment 0xb3da18 <line:1350:14, col:132> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: Focusable"
+|     |   | |-TextComment 0xb3da30 <line:1351:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb3da48 <line:1352:14> Text=" "
+|     |   |-ParamCommandComment 0xb3da88 <col:15, line:1353:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb3dae0 <col:14>
+|     |   |   `-TextComment 0xb3dac0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb3daf8 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb3db38 <col:22, col:27>
+|     |       `-TextComment 0xb3db18 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36de0 <line:1363:13, col:44> col:18 OnChangeEnableHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb44d38 <line:1358:14, line:1361:27>
+|     |   |-ParagraphComment 0xb44c48 <line:1358:14, line:1360:14>
+|     |   | |-TextComment 0xb3dba0 <line:1358:14, col:130> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: Enabled"
+|     |   | |-TextComment 0xb44c08 <line:1359:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb44c20 <line:1360:14> Text=" "
+|     |   |-ParamCommandComment 0xb44c60 <col:15, line:1361:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb44cb8 <col:14>
+|     |   |   `-TextComment 0xb44c98 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb44cd0 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb44d10 <col:22, col:27>
+|     |       `-TextComment 0xb44cf0 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36ec8 <line:1371:13, col:45> col:18 OnChangeDoUpdateHelper 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb44ec0 <line:1366:14, line:1369:27>
+|     |   |-ParagraphComment 0xb44dd0 <line:1366:14, line:1368:14>
+|     |   | |-TextComment 0xb44d78 <line:1366:14, col:131> Text=" A non-virtual wrapper for an overidable handler called by setters if there is a change in widget's property: DoUpdate"
+|     |   | |-TextComment 0xb44d90 <line:1367:14, col:51> Text=" Calls the actual overridable handler."
+|     |   | `-TextComment 0xb44da8 <line:1368:14> Text=" "
+|     |   |-ParamCommandComment 0xb44de8 <col:15, line:1369:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb44e40 <col:14>
+|     |   |   `-TextComment 0xb44e20 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb44e58 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb44e98 <col:22, col:27>
+|     |       `-TextComment 0xb44e78 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb36f70 <line:1379:13, col:48> col:26 vRequestWidgetRefresh 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb45048 <line:1374:14, line:1377:27>
+|     |   |-ParagraphComment 0xb44f58 <line:1374:14, line:1376:14>
+|     |   | |-TextComment 0xb44f00 <line:1374:14, col:112> Text=" To be called by widgets upon a change that needs to be synchronized with other properties/ states,"
+|     |   | |-TextComment 0xb44f18 <line:1375:14, col:63> Text=" when the widget is in a stable, accessible state."
+|     |   | `-TextComment 0xb44f30 <line:1376:14> Text=" "
+|     |   |-ParamCommandComment 0xb44f70 <col:15, line:1377:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb44fc8 <col:14>
+|     |   |   `-TextComment 0xb44fa8 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb44fe0 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb45020 <col:22, col:27>
+|     |       `-TextComment 0xb45000 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb37060 <line:1387:13, col:68> col:26 vRefreshWidget 'void (_Bool) __attribute__((thiscall))' virtual
+|     | |-ParmVarDecl 0xb37008 <col:41, col:63> col:46 boFirstRefresh '_Bool' cinit
+|     | | `-CXXBoolLiteralExpr 0xb384b8 <col:63> '_Bool' false
+|     | `-FullComment 0xb451d0 <line:1382:14, line:1385:27>
+|     |   |-ParagraphComment 0xb450e0 <line:1382:14, line:1384:14>
+|     |   | |-TextComment 0xb45088 <line:1382:14, col:77> Text=" Handler for synchronizing the widget's property/ state changes."
+|     |   | |-TextComment 0xb450a0 <line:1383:14, col:59> Text=" To be overridden for specific implementation."
+|     |   | `-TextComment 0xb450b8 <line:1384:14> Text=" "
+|     |   |-ParamCommandComment 0xb450f8 <col:15, line:1385:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb45150 <col:14>
+|     |   |   `-TextComment 0xb45130 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb45168 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb451a8 <col:22, col:27>
+|     |       `-TextComment 0xb45188 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb37150 <line:1399:13, col:59> col:26 WidgetInvalidationPosXChange 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb45338 <line:1395:14, line:1397:27>
+|     |   |-ParagraphComment 0xb45248 <line:1395:14, line:1396:14>
+|     |   | |-TextComment 0xb45210 <line:1395:14, col:61> Text=" Handler for Widget Invalidation upon PosXChange"
+|     |   | `-TextComment 0xb45228 <line:1396:14> Text=" "
+|     |   |-ParamCommandComment 0xb45260 <col:15, line:1397:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb452b8 <col:14>
+|     |   |   `-TextComment 0xb45298 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb452d0 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb45310 <col:22, col:27>
+|     |       `-TextComment 0xb452f0 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb37238 <line:1406:13, col:59> col:26 WidgetInvalidationPosYChange 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb454a0 <line:1402:14, line:1404:27>
+|     |   |-ParagraphComment 0xb453b0 <line:1402:14, line:1403:14>
+|     |   | |-TextComment 0xb45378 <line:1402:14, col:61> Text=" Handler for Widget Invalidation upon PosYChange"
+|     |   | `-TextComment 0xb45390 <line:1403:14> Text=" "
+|     |   |-ParamCommandComment 0xb453c8 <col:15, line:1404:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb45420 <col:14>
+|     |   |   `-TextComment 0xb45400 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb45438 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb45478 <col:22, col:27>
+|     |       `-TextComment 0xb45458 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb37320 <line:1413:13, col:59> col:26 WidgetInvalidationPosZChange 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb45608 <line:1409:14, line:1411:27>
+|     |   |-ParagraphComment 0xb45518 <line:1409:14, line:1410:14>
+|     |   | |-TextComment 0xb454e0 <line:1409:14, col:61> Text=" Handler for Widget Invalidation upon PosZChange"
+|     |   | `-TextComment 0xb454f8 <line:1410:14> Text=" "
+|     |   |-ParamCommandComment 0xb45530 <col:15, line:1411:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb45588 <col:14>
+|     |   |   `-TextComment 0xb45568 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb455a0 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb455e0 <col:22, col:27>
+|     |       `-TextComment 0xb455c0 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb37408 <line:1420:13, col:60> col:26 WidgetInvalidationWidthChange 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb45770 <line:1416:14, line:1418:27>
+|     |   |-ParagraphComment 0xb45680 <line:1416:14, line:1417:14>
+|     |   | |-TextComment 0xb45648 <line:1416:14, col:62> Text=" Handler for Widget Invalidation upon WidthChange"
+|     |   | `-TextComment 0xb45660 <line:1417:14> Text=" "
+|     |   |-ParamCommandComment 0xb45698 <col:15, line:1418:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb456f0 <col:14>
+|     |   |   `-TextComment 0xb456d0 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb45708 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb45748 <col:22, col:27>
+|     |       `-TextComment 0xb45728 <col:22, col:27> Text=" void."
+|     |-CXXMethodDecl 0xb374f0 <line:1427:13, col:61> col:26 WidgetInvalidationHeightChange 'void (void) __attribute__((thiscall))' virtual
+|     | `-FullComment 0xb458d8 <line:1423:14, line:1425:27>
+|     |   |-ParagraphComment 0xb457e8 <line:1423:14, line:1424:14>
+|     |   | |-TextComment 0xb457b0 <line:1423:14, col:63> Text=" Handler for Widget Invalidation upon HeightChange"
+|     |   | `-TextComment 0xb457c8 <line:1424:14> Text=" "
+|     |   |-ParamCommandComment 0xb45800 <col:15, line:1425:14> [in] implicitly Param="void."
+|     |   | `-ParagraphComment 0xb45858 <col:14>
+|     |   |   `-TextComment 0xb45838 <col:14> Text=" "
+|     |   `-BlockCommandComment 0xb45870 <col:15, col:27> Name="return"
+|     |     `-ParagraphComment 0xb458b0 <col:22, col:27>
+|     |       `-TextComment 0xb45890 <col:22, col:27> Text=" void."
+|     |-FieldDecl 0xb37590 <line:1435:13, col:20> col:20 invalid u16WidgetHelperIndex 'int'
+|     | `-FullComment 0xb45958 <line:1433:14, col:42>
+|     |   `-ParagraphComment 0xb45938 <col:14, col:42>
+|     |     `-TextComment 0xb45918 <col:14, col:42> Text=" Index in Widget-Helper array"
+|     |-FieldDecl 0xb375f0 <line:1440:13, col:20> col:20 invalid u16FinalHookID 'int'
+|     | `-FullComment 0xb459d8 <line:1438:14, col:46>
+|     |   `-ParagraphComment 0xb459b8 <col:14, col:46>
+|     |     `-TextComment 0xb45998 <col:14, col:46> Text=" ID of widget's final-hook method"
+|     |-FieldDecl 0xb37650 <line:1457:13, col:20> col:20 invalid u16WidgetDescriptorIndex 'int'
+|     | `-FullComment 0xb45a70 <line:1454:14, line:1455:108>
+|     |   `-ParagraphComment 0xb45a50 <line:1454:14, line:1455:108>
+|     |     |-TextComment 0xb45a18 <line:1454:14, col:56> Text=" Index of widget in Widget Descriptor array"
+|     |     `-TextComment 0xb45a30 <line:1455:14, col:108> Text=" For debug purposes only. Not available in final-release build, and not to be used inside code."
+|     |-CXXRecordDecl 0xb376c0 <line:1469:13, line:1489:13> line:1469:20 invalid struct stFlags definition
+|     | |-FullComment 0xb45af0 <line:1467:14, col:65>
+|     | | `-ParagraphComment 0xb45ad0 <col:14, col:65>
+|     | |   `-TextComment 0xb45ab0 <col:14, col:65> Text=" The attributes of Widgets stored in bitfields Flags"
+|     | |-CXXRecordDecl 0xb37790 <line:1469:13, col:20> col:20 implicit referenced struct stFlags
+|     | |-CXXConstructorDecl 0xb37830 <line:1472:17, col:25> col:17 stFlags 'void (void) __attribute__((thiscall))'
+|     | |-FieldDecl 0xb378e8 <line:1474:17, col:24> col:24 invalid State 'int'
+|     | |-FieldDecl 0xb37948 <line:1475:17, col:24> col:24 invalid HasFirstTreeBuildDone 'int'
+|     | |-FieldDecl 0xb379a8 <line:1476:17, col:24> col:24 invalid CommonWidget 'int'
+|     | |-FieldDecl 0xb37a08 <line:1477:17, col:24> col:24 invalid CummulatedParentDoUpdate 'int'
+|     | |-FieldDecl 0xb37a68 <line:1478:17, col:24> col:24 invalid DoUpdate 'int'
+|     | |-FieldDecl 0xb37ac8 <line:1479:17, col:24> col:24 invalid CummulatedParentEnable 'int'
+|     | |-FieldDecl 0xb37b28 <line:1480:17, col:24> col:24 invalid Enable 'int'
+|     | |-FieldDecl 0xb37ba0 <line:1481:17, col:24> col:24 invalid CummulatedParentVisible 'int'
+|     | |-FieldDecl 0xb37c00 <line:1482:17, col:24> col:24 invalid Visible 'int'
+|     | |-FieldDecl 0xb37c60 <line:1483:17, col:24> col:24 invalid CummulatedParentFocused 'int'
+|     | |-FieldDecl 0xb37cc0 <line:1484:17, col:24> col:24 invalid Focused 'int'
+|     | |-FieldDecl 0xb37d20 <line:1485:17, col:24> col:24 invalid Focusable 'int'
+|     | |-FieldDecl 0xb37d80 <line:1486:17, col:24> col:24 invalid Shared 'int'
+|     | `-FieldDecl 0xb37de0 <line:1487:17, col:24> col:24 invalid IsAnimationRunning 'int'
+|     |-FieldDecl 0xb37e38 <line:1469:13, line:1489:15> col:15 invalid Flags 'struct stFlags':'struct HMI::WFC::Widget::stFlags'
+|     |-VarDecl 0xb37f90 <line:1494:13, col:73> col:44 ChangeHandlerArray 'void (class HMI::WFC::Widget::*const [])(void) __attribute__((thiscall))' static
+|     | `-FullComment 0xb45b70 <line:1492:14, col:87>
+|     |   `-ParagraphComment 0xb45b50 <col:14, col:87>
+|     |     `-TextComment 0xb45b30 <col:14, col:87> Text=" Array of pointers to various property-change-notification handler methods"
+|     |-CXXConstructorDecl 0xb38040 <line:1502:13, col:24> col:13 Widget 'void (void) __attribute__((thiscall))'
+|     | `-FullComment 0xb45c10 <line:1499:14, line:1500:78>
+|     |   `-ParagraphComment 0xb45be8 <line:1499:14, line:1500:78>
+|     |     |-TextComment 0xb45bb0 <line:1499:14, col:34> Text=" Default constructor."
+|     |     `-TextComment 0xb45bc8 <line:1500:14, col:78> Text=" Intentionally made private and not implemented to prohibit usage"
+|     |-CXXConstructorDecl 0xb38190 <line:1508:13, col:33> col:13 Widget 'void (const class HMI::WFC::Widget &) __attribute__((thiscall))'
+|     | |-ParmVarDecl 0xb38118 <col:20, col:32> col:33 'const class HMI::WFC::Widget &'
+|     | `-FullComment 0xb45ca8 <line:1505:14, line:1506:103>
+|     |   `-ParagraphComment 0xb45c88 <line:1505:14, line:1506:103>
+|     |     |-TextComment 0xb45c50 <line:1505:14, col:31> Text=" Copy constructor."
+|     |     `-TextComment 0xb45c68 <line:1506:14, col:103> Text=" Intentionally made private and not implemented to prohibit usage (noncopyable stereotype)"
+|     `-CXXMethodDecl 0xb382f0 <line:1514:13, col:45> col:21 operator= 'class HMI::WFC::Widget &(const class HMI::WFC::Widget &) __attribute__((thiscall))'
+|       |-ParmVarDecl 0xb38250 <col:32, col:44> col:45 'const class HMI::WFC::Widget &'
+|       `-FullComment 0xb45d40 <line:1511:14, line:1512:103>
+|         `-ParagraphComment 0xb45d20 <line:1511:14, line:1512:103>
+|           |-TextComment 0xb45ce8 <line:1511:14, col:34> Text=" Assignment operator."
+|           `-TextComment 0xb45d00 <line:1512:14, col:103> Text=" Intentionally made private and not implemented to prohibit usage (noncopyable stereotype)"
+|-FunctionDecl 0xabc760 <<invalid sloc>> <invalid sloc> implicit operator new 'void *(unsigned int)'
+| |-ParmVarDecl 0xabc810 <<invalid sloc>> <invalid sloc> implicit 'unsigned int'
+| |-VisibilityAttr 0xabc7d0 <<invalid sloc>> Implicit Default
+| `-RestrictAttr 0xabc800 <<invalid sloc>> Implicit malloc
+|-FunctionDecl 0xabc850 <<invalid sloc>> <invalid sloc> implicit operator new[] 'void *(unsigned int)'
+| |-ParmVarDecl 0xb2bb80 <<invalid sloc>> <invalid sloc> implicit 'unsigned int'
+| |-VisibilityAttr 0xb2bb40 <<invalid sloc>> Implicit Default
+| `-RestrictAttr 0xb2bb70 <<invalid sloc>> Implicit malloc
+|-FunctionDecl 0xb2bc00 <<invalid sloc>> <invalid sloc> implicit operator delete 'void (void *) noexcept'
+| |-ParmVarDecl 0xb2bca0 <<invalid sloc>> <invalid sloc> implicit 'void *'
+| `-VisibilityAttr 0xb2bc70 <<invalid sloc>> Implicit Default
+`-FunctionDecl 0xb2bce0 <<invalid sloc>> <invalid sloc> implicit operator delete[] 'void (void *) noexcept'
+  |-ParmVarDecl 0xb2bd80 <<invalid sloc>> <invalid sloc> implicit 'void *'
+  `-VisibilityAttr 0xb2bd50 <<invalid sloc>> Implicit Default
