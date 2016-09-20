@@ -7,7 +7,6 @@ import sys
 import os
 import datetime
 
-
 sys.path.append('Clang/bindings/python')
 
 from clang.cindex import Config
@@ -18,14 +17,9 @@ from clang.cindex import TokenKind
 from clang.cindex import AccessSpecifier
 from clang.cindex import SourceLocation
 
-from pprint import pprint
 from optparse import OptionParser, OptionGroup
 
 global opts
-global indention_count
-
-
-
 
 class replacementlist_entry_type( object ):
     INSERTION = 0
@@ -49,24 +43,18 @@ class replacementlist_entry( object ):
             return self.start_line.line < other.start_line.line
 
 def block_starts(cursor):
-    global indention_count
     if cursor.kind is CursorKind.NAMESPACE or \
        cursor.kind is CursorKind.TYPEDEF_DECL or \
        cursor.kind is CursorKind.CLASS_DECL or \
        cursor.kind is CursorKind.UNION_DECL or \
        cursor.kind is CursorKind.ENUM_DECL:
-           if cursor.is_definition():
-               indention_count = indention_count+1;
 
 def block_ends(cursor):
-    global indention_count
     if cursor.kind is CursorKind.NAMESPACE or \
        cursor.kind is CursorKind.TYPEDEF_DECL or \
        cursor.kind is CursorKind.CLASS_DECL or \
        cursor.kind is CursorKind.UNION_DECL or \
        cursor.kind is CursorKind.ENUM_DECL:
-           if cursor.is_definition():
-               indention_count = indention_count-1;
 
 specifier_list = ["inline","const","override","final","virtual","mutable","explicit","extern","static","export","friend","noexcept"]
 
@@ -293,8 +281,6 @@ class settings:
 
 def main():
     global opts
-    global indention_count
-    indention_count = 0
     oSettings = settings()
     parser = OptionParser("usage: %prog [options] {filename}")
     parser.add_option("-a", "--add-author", dest="oSettings.oFlag_Heading.str_author",
