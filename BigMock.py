@@ -23,12 +23,39 @@ from clang.cindex import TranslationUnit
 from clang.cindex import CursorKind
 from clang.cindex import TokenKind
 from clang.cindex import AccessSpecifier
+from clang.cindex import SourceLocation
 
 from pprint import pprint
 from optparse import OptionParser, OptionGroup
+from LexerDataStructures.DiffStructure import diffStructure
+
 
 global opts
 global indention_count
+
+
+
+
+class replacementlist_entry_type( object ):
+    INSERTION = 0
+    REPLACEMENT = 1
+
+class replacementlist_entry( object ):
+
+    def __init__ (self, type, start_line, end_line, buffer):
+        self.type = type
+        self.start_line = start_line
+        self.end_line = end_line
+        self.buffer = buffer
+
+    def __lt__ (self, other):
+        if self.start_line.line == other.start_line.line:
+            if self.start_line.column == other.start_line.column:
+                return self.type < other.type
+            else:
+                return self.start_line.column < other.start_line.column
+        else:
+            return self.start_line.line < other.start_line.line
 
 def block_starts(cursor):
     global indention_count
@@ -38,7 +65,6 @@ def block_starts(cursor):
        cursor.kind is CursorKind.UNION_DECL or \
        cursor.kind is CursorKind.ENUM_DECL:
            if cursor.is_definition():
-               print "    "*indention_count + "{"
                indention_count = indention_count+1;
 
 def block_ends(cursor):
@@ -50,133 +76,215 @@ def block_ends(cursor):
        cursor.kind is CursorKind.ENUM_DECL:
            if cursor.is_definition():
                indention_count = indention_count-1;
-               print "    "*indention_count + "}" + "// end " + str(cursor.kind.name) + " " + str(cursor.spelling)
+
+specifier_list = ["inline","const","override","final","virtual","mutable","explicit","extern","static","export","friend","noexcept"]
 
 
-def analyze_clang_node(cursor):
-    if cursor.kind is CursorKind.NAMESPACE:
-        # print "    "*indention_count + "NAMESPACE" + ": " + str(cursor.spelling)
-        print "    " * indention_count + "namespace " + str(cursor.spelling)
-    elif cursor.kind is CursorKind.PREPROCESSING_DIRECTIVE:
-        print "    "*indention_count + "PREPROCESSING_DIRECTIVE" + ": " + str(cursor.spelling)
-    elif cursor.kind is CursorKind.MACRO_DEFINITION:
-        print "    "*indention_count + "MACRO_DEFINITION" + ": " + str(cursor.spelling)
-    elif cursor.kind is CursorKind.INCLUSION_DIRECTIVE:
-        print "    "*indention_count + "INCLUSION_DIRECTIVE" + ": " + str(cursor.spelling)
-    elif cursor.kind is CursorKind.USING_DECLARATION:
-        print "    "*indention_count + "USING_DECLARATION" + ": " + str(cursor.spelling)
-    elif cursor.kind is CursorKind.TYPEDEF_DECL:
-        if cursor.access_specifier is AccessSpecifier.PUBLIC\
-            or cursor.access_specifier is AccessSpecifier.INVALID:
-            actual = ''
-            tokens = [token.spelling for token in cursor.get_tokens()]
-            actual = ' '.join(tokens)
+def process_method( cursor, replacementlist, staticmethodlist, force_all_static = False, force_all_singleton = True):
+    tokens = [token.spelling for token in cursor.get_tokens()]
+    arguments = [argument.spelling for argument in cursor.get_arguments()]
 
-            print "    "*indention_count + actual
-            print "    " * indention_count + cursor.spelling
+    i = 0
+    returntype = ''
+    argumentlist = ''
+    while tokens[i] in specifier_list:
+        i = i+1
+    while tokens[i] != cursor.spelling \
+            and tokens[i] != 'operator':
+        returntype = returntype + tokens[i] + ' '
+        i = i + 1
 
-    elif cursor.kind is CursorKind.CLASS_DECL:
-        if cursor.access_specifier is AccessSpecifier.PUBLIC\
-            or cursor.access_specifier is AccessSpecifier.INVALID:
-            actual = ''
-            if not cursor.is_definition():
-                tokens = [token.spelling for token in cursor.get_tokens()]
-                actual = ' '.join(tokens)
+    if tokens[i] == 'operator':
+        return
 
-            else:
-                tokens = [token.spelling for token in cursor.get_tokens()]
+    while tokens[i] != '(':
+        i = i + 1
+    i = i + 1
+    while tokens[i] != ')':
+        # get rid of default values:
+        if tokens[i] == '=':
+            i = i + 2
+            continue
+        argumentlist = argumentlist + tokens[i] + ' '
+        i = i + 1
 
-                i = 0
-                while tokens[i] != '{':
-                    actual = actual + tokens[i] + ' ';
-                    i = i+1
+    if argumentlist == 'void ':
+        argumentlist = ''
+    buffer = ''
+    if cursor.is_const_method():
+        buffer = "MOCK_CONST_METHOD"
+    else:
+        buffer = "MOCK_METHOD"
 
-            print "    "*indention_count + actual
 
-            #print  "    "*indention_count + (("FORWARD_CLASS_DECL","CLASS DECL")[cursor.is_definition()]) + ": "  + str(cursor.spelling)
-    elif cursor.kind is CursorKind.STRUCT_DECL:
-        if cursor.is_definition():
-            if cursor.access_specifier is AccessSpecifier.PUBLIC \
-                    or cursor.access_specifier is AccessSpecifier.INVALID \
-                    or cursor.access_specifier is AccessSpecifier.PROTECTED:
+    buffer = buffer + str(len(arguments))
+    buffer = buffer + '('
+    buffer = buffer + cursor.spelling
+    buffer = buffer + ','
+    buffer = buffer + returntype
+    buffer = buffer + '('
+    buffer = buffer + argumentlist
+    buffer = buffer + '));';
 
-                tokens = [token for token in cursor.get_tokens()]
+    if cursor.is_static_method() or force_all_static == True or force_all_singleton == False:
+        staticmethodlist.append(buffer)
 
-                actual = ''
-                for i, token in enumerate(tokens):
-                    if token.kind == TokenKind.COMMENT:
-                        actual = actual + token.spelling + '\n' + "    " * indention_count
-                    else:
-                        if token.spelling == ';':
-                            actual = actual + ";" + '\n' + "    " * indention_count
-                        elif token.spelling == '{':
-                            actual = actual + "{\n" + "    " * indention_count
-                        else:
-                            actual = actual + (" ", "")[i == 0] + token.spelling
-                if tokens[i].spelling != ';':
-                    actual = actual + ';'
-            print "    " * indention_count + actual
+        if force_all_singleton == False:
+            buffer = "static "
+        else:
+            buffer = 'virtual '
 
-    elif cursor.kind is CursorKind.UNION_DECL:
-        print  "    "*indention_count + (("FORWARD_UNION_DECL","UNION DECL")[cursor.is_definition()]) + ": "  + str(cursor.spelling)
-    elif cursor.kind is CursorKind.ENUM_DECL:
-        print  "    "*indention_count + (("FORWARD_ENUM_DECL","ENUM DECL")[cursor.is_definition()]) + ": "  + str(cursor.spelling)
+        buffer = buffer + \
+                 returntype + \
+                 cursor.spelling + "( " + \
+                 argumentlist + " ) {\n" + \
+                 "\t/*  Shared Mock via Singleton Class */\n" + \
+                 "\t"
 
-    elif cursor.kind is CursorKind.CXX_METHOD:
-        if cursor.access_specifier is AccessSpecifier.PUBLIC:
-            if cursor.lexical_parent.kind is CursorKind.CLASS_DECL:
-                #print "    "*indention_count + "CXX_METHOD" + ": " + str(cursor.spelling)
+        if returntype != 'void' or returntype != '':
+            buffer = buffer + returntype
 
-                tokens = [token.spelling for token in cursor.get_tokens()]
+        buffer = buffer + \
+                 cursor.lexical_parent.spelling + "_Mocked" + "::get_instance()." + \
+                 cursor.spelling + "(" + \
+                 argumentlist + ");\n" + \
+                 "}"
 
-                i = 0
-                while tokens[i] == "virtual":
-                    i = i + 1
+    extent = cursor.extent
+    entry = replacementlist_entry(replacementlist_entry_type.REPLACEMENT, extent.start, extent.end, buffer);
+    replacementlist.append(entry)
 
-                returntype = ''
-                while tokens[i] != cursor.spelling and \
-                        tokens[i] != 'new' and \
-                        tokens[i] != 'delete':
-                    returntype = returntype + " " + tokens[i]
-                    i = i + 1
 
-                while tokens[i] != "(":
-                    i = i + 1
+def process_staticmethod_list(cursor, replacementlist, replacementlist_staticmethods):
+    buffer = ''
+    if len(replacementlist_staticmethods) != 0:
+        buffer = buffer + 'class ' +cursor.displayname+'_Mocked\n'
+        buffer = buffer + '{\n'
+        buffer = buffer + '\tpublic:\n'
+        buffer = buffer + '\tstatic ' + cursor.displayname + '_Mocked& get_instance()\n'
+        buffer = buffer + '\t{\n'
+        buffer = buffer + '\t\tstatic '+ cursor.displayname + '_Mocked oInstance;\n'
+        buffer = buffer + '\t\treturn oInstance;\n'
+        buffer = buffer + '\t}\n'
 
-                # skip {
-                i = i + 1
+        for entry in replacementlist_staticmethods:
+            buffer = buffer + "\t" + entry
+            buffer = buffer + '\n'
+        buffer = buffer + '};\n'
 
-                argumentlist = ''
-                while tokens[i] != ")":
-                    if tokens[i] == "=":
-                        i = i+2
-                    else:
-                        argumentlist = argumentlist + " " + tokens[i]
-                        i = i + 1
+        extent = cursor.extent
+        entry = replacementlist_entry(replacementlist_entry_type.INSERTION, extent.start, extent.start, buffer)
+        replacementlist.append(entry)
 
-                if cursor.is_const_method():
-                    print "    "*indention_count + "MOCK_CONST_METHOD" + str(len([c for c in cursor.get_arguments()])) + "(" + str(cursor.spelling) +","+ returntype+ "(" +argumentlist + " )"+");"
+
+def process_class(cursor, replacementlist):
+    replacementlist_staticmethods = []
+    if cursor.is_definition():
+
+        extent_start = cursor.extent
+        tokens = cursor.get_tokens()
+        tokenlist = [token for token in tokens ]
+
+        buffer = ''
+        i = 0
+        while tokenlist[i].spelling != '{':
+            buffer = buffer + tokenlist[i].spelling + ' '
+            i = i + 1
+
+        buffer = buffer +'\n{'
+        entry = replacementlist_entry(replacementlist_entry_type.REPLACEMENT, extent_start.start, tokenlist[i].extent.end, buffer);
+        replacementlist.append(entry)
+
+        for c in cursor.get_children():
+            if c.kind is CursorKind.CXX_METHOD:
+                process_method(c, replacementlist, replacementlist_staticmethods )
+            elif c.kind is CursorKind.CLASS_DECL:
+                process_class(c, replacementlist)
+            elif c.kind is CursorKind.STRUCT_DECL:
+                process_class(c, replacementlist)
+            elif c.kind is CursorKind.CLASS_TEMPLATE:
+                process_class_template(c, replacementlist)
+            elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
+                process_class_template_partial_specialization(cursor)
+
+        process_staticmethod_list( cursor, replacementlist, replacementlist_staticmethods )
+
+def perform_replace(filename, replacementlist):
+    code = open(filename).readlines()
+    basename = os.path.basename(filename)
+    outfilename = os.path.splitext(basename)[0] + ".out"
+    fwrite = open(".\\" + outfilename, 'w')
+
+    replacementlist.sort()
+
+    i = 0
+    listindex = 0
+    buffer = ''
+    while i < len(code) and listindex < len(replacementlist):
+        line = code[i]
+        if i == replacementlist[listindex].start_line.line - 1:
+            j = 0
+            while j < len(line):
+                if j == replacementlist[ listindex ].start_line.column - 1:
+                    buffer = buffer + replacementlist[ listindex ].buffer.replace("\n","\n"+" "*j)
+                    if replacementlist[ listindex ] .type == replacementlist_entry_type.REPLACEMENT:
+                        j = replacementlist[ listindex ].end_line.column
+                        i = replacementlist[ listindex ].end_line.line
+                        line = code[i]
+
+                    listindex = listindex + 1
                 else:
-                    print "    "*indention_count + "MOCK_METHOD" + str(len([c for c in cursor.get_arguments()])) + "(" + str(cursor.spelling) +","+ returntype+ "(" +argumentlist + " )"+");"
+                    buffer = buffer + line[j]
+                    j = j+1
+        else:
+            buffer = buffer + line
+            i = i +1
 
-    elif cursor.kind is CursorKind.FUNCTION_TEMPLATE:
-        print "    "*indention_count + "FUNCTION_TEMPLATE" + ": " + str(cursor.spelling)
-    elif cursor.kind is CursorKind.CLASS_TEMPLATE:
-        print "    "*indention_count + "CLASS_TEMPLATE" + ": " + str(cursor.spelling)
-    elif cursor.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
-        print "    "*indention_count + "CLASS_TEMPLATE_PARTIAL_SPECIALIZATION" + ": " + str(cursor.spelling)
+    print buffer
+    printHeader(fwrite)
+    fwrite.write(buffer)
 
 
-        # Depth First Search for AST Tree:
-def analyze_clang_tree(cursor):
-    analyze_clang_node(cursor);
 
-    block_starts(cursor);
+
+
+def process_class_template(cursor, replacementlist):
+    print "todo: process_class_template"
+
+def process_class_template_partial_specialization(cursor, replacementlist):
+    print "todo: process_class_template_partial_spec"
+
+
+def analyze_clang_tree(cursor, replacementlist):
+    if cursor.is_definition():
+        block_starts(cursor);
 
     for c in cursor.get_children():
-        analyze_clang_tree(c);
+        flag_first_level = False
+        flag_parsable = False
+        # only first level classes and structures are processed here
+        if c.semantic_parent is not None:
+            if c.semantic_parent.kind is not CursorKind.CLASS_DECL:
+                if c.semantic_parent.kind is not CursorKind.STRUCT_DECL:
+                    if c.semantic_parent.kind is not CursorKind.CLASS_TEMPLATE:
+                        flag_first_level = True
 
-    block_ends(cursor);
+        if flag_first_level is True:
+            # do not process forward declarations:
+            if c.is_definition() is True:
+                if c.kind is CursorKind.CLASS_DECL:
+                    process_class(c, replacementlist)
+                elif c.kind is CursorKind.STRUCT_DECL:
+                    process_class(c, replacementlist)
+                elif c.kind is CursorKind.CLASS_TEMPLATE:
+                    process_class_template(c, replacementlist)
+                elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
+                    process_class_template_partial_specialization(c, replacementlist)
+                else:
+                    analyze_clang_tree(c, replacementlist)
+
+    if cursor.is_definition():
+        block_ends(cursor);
 
 class flag_heading:
     def __init__(self):
@@ -227,25 +335,34 @@ def main():
 
     args.append("-Xclang")
     args.append("-ast-dump")
-    #args.append(TranslationUnit.PARSE_INCOMPLETE)
-    #args.append(TranslationUnit.PARSE_SKIP_FUNCTION_BODIES)
-    #args.append("-fsyntax-only")
+    args.append("-fsyntax-only")
 
     index = Index.create()
     tu = index.parse(None, args)
     if not tu:
         parser.error("unable to load input")
 
-    analyze_clang_tree(tu.cursor);
+    replacementlist=[]
+    analyze_clang_tree(tu.cursor, replacementlist)
 
-def printHeader(filename, basename, fwrite, oSettings):
-     fwrite.write( "/****************************************************************************************************/\n" )
-     fwrite.write( ("/* " + basename).ljust(100) + "*/\n" )
-     fwrite.write( "/****************************************************************************************************/\n" )
-     fwrite.write( ("/* This file was generated by convert_to_mock.py").ljust(100) +"*/\n" )
-     fwrite.write( ("/* Mocked from: " + filename).ljust(100) + "*/\n" )
-     fwrite.write( ("/* generated: " + datetime.datetime.now().strftime('%d %b %Y, %H:%M')).ljust(100) +"*/\n" )
-     fwrite.write( "/****************************************************************************************************/\n" )
+    replacementlist.sort()
+    for i in replacementlist:
+        if i.type == replacementlist_entry_type.INSERTION:
+            print "INSERTION AT: " + str(i.start_line.line) +"," + str(i.start_line.column) + ": " + i.buffer
+        else:
+            print "REPLACEMENT AT: Start: " + str(i.start_line.line) +"," + str(i.start_line.column) + ", End: " + str(i.end_line.line) + "," + str(i.end_line.column) + ": " + i.buffer
+
+    originalfile = 'temp.txt'
+    targetfile = 'out_temp.txt'
+    #generate_mock(originalfile, targetfile, replacementlist)
+    perform_replace(filename, replacementlist)
+
+def printHeader( fwrite ):
+     fwrite.write( "/**************************************************/\n" )
+     fwrite.write( "/* BIGMOCK STAMP OF APPROVAL " .ljust(50) + "*/\n" )
+     fwrite.write( "/* This header was generated by BigMock.py " .ljust(50) + "*/\n")
+     fwrite.write( ("/* generated: " + datetime.datetime.now().strftime('%d %b %Y, %H:%M')).ljust(50) +"*/\n" )
+     fwrite.write( "/**************************************************/\n\n" )
 
 def processHeader(filename, code_wo_comments, ):
     # printHeader(filename, basename ,fwrite)
