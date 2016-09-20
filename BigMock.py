@@ -7,13 +7,6 @@ import sys
 import os
 import datetime
 
-#from Rules import Rule_MainBlock
-#from Rules import Rule_ClassBlock
-#from Rules import Rule_EnumBlock
-#from Rules import Rule_MethodBlock
-
-from LexerDataStructures.LexerStack import Stack
-from LexerDataStructures.LexerStack import leveltype
 
 sys.path.append('Clang/bindings/python')
 
@@ -27,8 +20,6 @@ from clang.cindex import SourceLocation
 
 from pprint import pprint
 from optparse import OptionParser, OptionGroup
-from LexerDataStructures.DiffStructure import diffStructure
-
 
 global opts
 global indention_count
@@ -78,6 +69,11 @@ def block_ends(cursor):
                indention_count = indention_count-1;
 
 specifier_list = ["inline","const","override","final","virtual","mutable","explicit","extern","static","export","friend","noexcept"]
+
+def remove_entity(cursor, replacementlist):
+    extent = cursor.extent
+    entry = replacementlist_entry(replacementlist_entry_type.REPLACEMENT, extent.start, extent.end, "");
+    replacementlist.append(entry)
 
 
 def process_method( cursor, replacementlist, staticmethodlist, force_all_static = False, force_all_singleton = True):
@@ -220,9 +216,9 @@ def perform_replace(filename, replacementlist):
     i = 0
     listindex = 0
     buffer = ''
-    while i < len(code) and listindex < len(replacementlist):
+    while i < len(code):
         line = code[i]
-        if i == replacementlist[listindex].start_line.line - 1:
+        if listindex < len(replacementlist) and i == replacementlist[listindex].start_line.line - 1:
             j = 0
             while j < len(line):
                 if j == replacementlist[ listindex ].start_line.column - 1:
@@ -243,10 +239,6 @@ def perform_replace(filename, replacementlist):
     print buffer
     printHeader(fwrite)
     fwrite.write(buffer)
-
-
-
-
 
 def process_class_template(cursor, replacementlist):
     print "todo: process_class_template"
@@ -280,6 +272,8 @@ def analyze_clang_tree(cursor, replacementlist):
                     process_class_template(c, replacementlist)
                 elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
                     process_class_template_partial_specialization(c, replacementlist)
+                elif c.kind is CursorKind.FUNCTION_DECL:
+                    remove_entity(c, replacementlist)
                 else:
                     analyze_clang_tree(c, replacementlist)
 
