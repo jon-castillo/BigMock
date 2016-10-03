@@ -7,7 +7,7 @@ import sys
 import os
 import datetime
 
-sys.path.append('Clang/bindings/python')
+sys.path.append(os.path.join(os.path.dirname(__file__), 'Clang/bindings/python'))
 
 from clang.cindex import Config
 from clang.cindex import Index
@@ -41,20 +41,6 @@ class replacementlist_entry( object ):
                 return self.start_line.column < other.start_line.column
         else:
             return self.start_line.line < other.start_line.line
-
-def block_starts(cursor):
-    if cursor.kind is CursorKind.NAMESPACE or \
-       cursor.kind is CursorKind.TYPEDEF_DECL or \
-       cursor.kind is CursorKind.CLASS_DECL or \
-       cursor.kind is CursorKind.UNION_DECL or \
-       cursor.kind is CursorKind.ENUM_DECL:
-
-def block_ends(cursor):
-    if cursor.kind is CursorKind.NAMESPACE or \
-       cursor.kind is CursorKind.TYPEDEF_DECL or \
-       cursor.kind is CursorKind.CLASS_DECL or \
-       cursor.kind is CursorKind.UNION_DECL or \
-       cursor.kind is CursorKind.ENUM_DECL:
 
 specifier_list = ["inline","const","override","final","virtual","mutable","explicit","extern","static","export","friend","noexcept"]
 
@@ -108,7 +94,7 @@ def process_method( cursor, replacementlist, staticmethodlist, force_all_static 
     buffer = buffer + returntype
     buffer = buffer + '('
     buffer = buffer + argumentlist
-    buffer = buffer + '));';
+    buffer = buffer + '));\n'
 
     if cursor.is_static_method() or force_all_static == True or force_all_singleton == False:
         staticmethodlist.append(buffer)
@@ -175,7 +161,7 @@ def process_class(cursor, replacementlist):
             buffer = buffer + tokenlist[i].spelling + ' '
             i = i + 1
 
-        buffer = buffer +'\n{'
+        buffer = buffer +'\n{\n'
         entry = replacementlist_entry(replacementlist_entry_type.REPLACEMENT, extent_start.start, tokenlist[i].extent.end, buffer);
         replacementlist.append(entry)
 
@@ -196,7 +182,8 @@ def process_class(cursor, replacementlist):
 def perform_replace(filename, replacementlist):
     code = open(filename).readlines()
     basename = os.path.basename(filename)
-    outfilename = os.path.splitext(basename)[0] + ".out"
+    #outfilename = os.path.splitext(basename)[0] + ".hpp"
+    outfilename = os.path.splitext(basename)[0] + os.path.splitext(basename)[1]
     fwrite = open(".\\" + outfilename, 'w')
 
     replacementlist.sort()
@@ -209,17 +196,22 @@ def perform_replace(filename, replacementlist):
         if listindex < len(replacementlist) and i == replacementlist[listindex].start_line.line - 1:
             j = 0
             while j < len(line):
-                if j == replacementlist[ listindex ].start_line.column - 1:
+                if j == replacementlist[listindex].start_line.column - 1:
                     buffer = buffer + replacementlist[ listindex ].buffer.replace("\n","\n"+" "*j)
                     if replacementlist[ listindex ] .type == replacementlist_entry_type.REPLACEMENT:
                         j = replacementlist[ listindex ].end_line.column
-                        i = replacementlist[ listindex ].end_line.line
+                        i = replacementlist[ listindex ].end_line.line-1
                         line = code[i]
-
                     listindex = listindex + 1
+                    if listindex >= len(replacementlist):
+                        break
+
                 else:
                     buffer = buffer + line[j]
                     j = j+1
+
+
+            i=i+1;
         else:
             buffer = buffer + line
             i = i +1
@@ -236,9 +228,6 @@ def process_class_template_partial_specialization(cursor, replacementlist):
 
 
 def analyze_clang_tree(cursor, replacementlist):
-    if cursor.is_definition():
-        block_starts(cursor);
-
     for c in cursor.get_children():
         flag_first_level = False
         flag_parsable = False
@@ -261,12 +250,10 @@ def analyze_clang_tree(cursor, replacementlist):
                 elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
                     process_class_template_partial_specialization(c, replacementlist)
                 elif c.kind is CursorKind.FUNCTION_DECL:
+                    #remove inlines :)
                     remove_entity(c, replacementlist)
                 else:
                     analyze_clang_tree(c, replacementlist)
-
-    if cursor.is_definition():
-        block_ends(cursor);
 
 class flag_heading:
     def __init__(self):
@@ -309,7 +296,7 @@ def main():
             print "not a file!"
             return
 
-    Config.set_library_file('Clang/bin/libclang.dll')
+    Config.set_library_file(os.path.join(os.path.dirname(__file__), 'Clang/bin/libclang.dll'))
     Config.set_library_path('Clang/bin')
     Config.set_compatibility_check(False)
 
