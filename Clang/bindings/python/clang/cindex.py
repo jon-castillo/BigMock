@@ -1166,6 +1166,13 @@ class Cursor(Structure):
     """
     _fields_ = [("_kind_id", c_int), ("xdata", c_int), ("data", c_void_p * 3)]
 
+    def getRawComment(self):
+        # joncastillo: enabled getrawcomment:
+        return conf.lib.clang_Cursor_getRawCommentText(self)
+    def getCommentRange(self):
+        # joncastillo: enabled getrawcomment:
+        return conf.lib.clang_Cursor_getCommentRange(self)
+
     @staticmethod
     def from_location(tu, location):
         # We store a reference to the TU in the instance so the TU won't get
@@ -3548,6 +3555,11 @@ functionList = [
    _CXString,
    _CXString.from_result),
 
+  # joncastillo: enabled getCommentRange:
+  ("clang_Cursor_getCommentRange",
+   [Cursor],
+   SourceRange),
+
   ("clang_Cursor_getOffsetOfField",
    [Cursor],
    c_longlong),
@@ -3581,6 +3593,7 @@ functionList = [
   ("clang_Type_visitFields",
    [Type, callbacks['fields_visit'], py_object],
    c_uint),
+
 ]
 
 class LibclangError(Exception):
