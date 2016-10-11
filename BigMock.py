@@ -114,7 +114,7 @@ def process_c_method( cursor, replacementlist, staticmethodlist, settings, is_te
         buffer = buffer + "return "
 
     buffer = buffer + \
-         os.path.splitext(settings.baseFile)[0] + "_Mocked" + "::get_instance()." + \
+             "Global_" +os.path.splitext(settings.baseFile)[0] + "_Mocked" + "::get_instance()." + \
          cursor.spelling + "(" + \
          ', '.join(arguments) + ");\n" + \
          "}"
@@ -212,12 +212,12 @@ def process_method( cursor, replacementlist, staticmethodlist, settings, is_temp
 def process_c_staticmethod_list(cursor, replacementlist, replacementlist_staticmethods, setting):
     buffer = ''
     if len(replacementlist_staticmethods) != 0:
-        buffer = buffer + 'class ' +os.path.splitext(setting.baseFile)[0]+'_Mocked\n'
+        buffer = buffer + 'class ' +"Global_"+os.path.splitext(setting.baseFile)[0]+'_Mocked\n'
         buffer = buffer + '{\n'
         buffer = buffer + '\tpublic:\n'
-        buffer = buffer + '\tstatic ' + os.path.splitext(setting.baseFile)[0] + '_Mocked& get_instance()\n'
+        buffer = buffer + '\tstatic ' + "Global_"+os.path.splitext(setting.baseFile)[0] + '_Mocked& get_instance()\n'
         buffer = buffer + '\t{\n'
-        buffer = buffer + '\t\tstatic '+ os.path.splitext(setting.baseFile)[0] + '_Mocked oInstance;\n'
+        buffer = buffer + '\t\tstatic '+ "Global_"+os.path.splitext(setting.baseFile)[0] + '_Mocked oInstance;\n'
         buffer = buffer + '\t\treturn oInstance;\n'
         buffer = buffer + '\t}\n'
 
@@ -253,12 +253,11 @@ def process_staticmethod_list(cursor, replacementlist, replacementlist_staticmet
         replacementlist.append(entry)
 
 
-def process_class(cursor, replacementlist, settings):
+def process_class_declaration(cursor, replacementlist, settings):
     replacementlist_staticmethods = []
     if cursor.is_definition():
 
         for c in cursor.get_children():
-
 
             if c.kind is CursorKind.CXX_METHOD:
                 if c.access_specifier is AccessSpecifier.PRIVATE:
@@ -278,7 +277,7 @@ def process_class(cursor, replacementlist, settings):
                     remove_entity(c, replacementlist)
                     remove_comment(c, replacementlist)
                 else:
-                    process_class(c, replacementlist, settings)
+                    process_class_declaration(c, replacementlist, settings)
 
             elif c.kind is CursorKind.STRUCT_DECL:
                 if c.access_specifier is AccessSpecifier.PRIVATE:
@@ -286,7 +285,7 @@ def process_class(cursor, replacementlist, settings):
                     remove_entity(c, replacementlist)
                     remove_comment(c, replacementlist)
                 else:
-                    process_class(c, replacementlist, settings)
+                    process_class_declaration(c, replacementlist, settings)
 
             elif c.kind is CursorKind.CLASS_TEMPLATE:
                 if c.access_specifier is AccessSpecifier.PRIVATE:
@@ -305,6 +304,12 @@ def process_class(cursor, replacementlist, settings):
                     process_class_template_partial_specialization(cursor, settings)
 
         process_staticmethod_list( cursor, replacementlist, replacementlist_staticmethods )
+def process_inline_method(cursor, replacementlist, settings):
+    # remove inlines except for enGetType :)
+    # enGetType (Continental-Corporation): Retain definition for enGetType
+    if cursor.spelling != "enGetType":
+        remove_entity(cursor, replacementlist)
+
 
 def process_class_template(cursor, replacementlist, settings):
     replacementlist_staticmethods = []
@@ -329,9 +334,9 @@ def process_class_template(cursor, replacementlist, settings):
             if c.kind is CursorKind.CXX_METHOD:
                 process_method(c, replacementlist, replacementlist_staticmethods, settings, True )
             elif c.kind is CursorKind.CLASS_DECL:
-                process_class(c, replacementlist)
+                process_class_declaration(c, replacementlist)
             elif c.kind is CursorKind.STRUCT_DECL:
-                process_class(c, replacementlist)
+                process_class_declaration(c, replacementlist)
             elif c.kind is CursorKind.CLASS_TEMPLATE:
                 process_class_template(c, replacementlist)
             elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
@@ -341,7 +346,6 @@ def process_class_template(cursor, replacementlist, settings):
 
 def get_out_filename(source_filename):
     basename = os.path.basename(source_filename)
-    #outfilename = os.path.splitext(basename)[0] + ".out"
     outfilename = os.path.join(os.getcwd(), basename)
     return outfilename
 
@@ -354,12 +358,14 @@ def perform_replace(filename, replacementlist, settings):
     i = 0
     listindex = 0
     buffer = ''
+    # O(n^2) replacement algorithm:
     while i < len(code):
         line = code[i]
         if listindex < len(replacementlist) and i == replacementlist[listindex].start_line.line - 1:
             j = 0
             while j < len(line):
                 if j == replacementlist[listindex].start_line.column - 1 and i == replacementlist[listindex].start_line.line -1:
+                    # we are at a replacement point
                     buffer = buffer + replacementlist[ listindex ].buffer.replace("\n","\n"+" "*j)
                     if replacementlist[ listindex ] .type == replacementlist_entry_type.REPLACEMENT:
                         j = replacementlist[ listindex ].end_line.column
@@ -371,16 +377,17 @@ def perform_replace(filename, replacementlist, settings):
                         line = code[i]
 
                     listindex = listindex + 1
-                    if listindex >= len(replacementlist):
-                        break
+                    #if listindex >= len(replacementlist):
+                    #    break
 
                 else:
-                    #per character copy:
+                    #per character copy if cursor is not at replacement point.
                     buffer = buffer + line[j]
                     j = j+1
-
+            #advance line(i) when column(j) reaches the end
             i=i+1;
         else:
+            #per line copy if lne does not contain a replacement point,
             buffer = buffer + line
             i = i +1
 
@@ -419,7 +426,9 @@ def analyze_clang_tree(cursor, replacementlist, settings):
         flag_first_level = False
         flag_parsable = False
         # only first level classes and structures are processed here
-        if c.lexical_parent is not None:
+        if c.lexical_parent is None:
+            flag_first_level = True
+        else:
             #print "debug: " + c.spelling + " " + c.lexical_parent.spelling + " " + str(c.kind)
             if c.lexical_parent.kind is not CursorKind.CLASS_DECL:
                 if c.lexical_parent.kind is not CursorKind.STRUCT_DECL:
@@ -430,26 +439,22 @@ def analyze_clang_tree(cursor, replacementlist, settings):
             # do not process forward declarations:
             if c.is_definition() is True:
                 if c.kind is CursorKind.CLASS_DECL:
-                    process_class(c, replacementlist, settings)
+                    process_class_declaration(c, replacementlist, settings)
                 elif c.kind is CursorKind.STRUCT_DECL:
-                    process_class(c, replacementlist, settings)
+                    process_class_declaration(c, replacementlist, settings)
                 elif c.kind is CursorKind.CLASS_TEMPLATE:
                     process_class_template(c, replacementlist, settings)
                 elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
                     process_class_template_partial_specialization(c, replacementlist, settings)
                 elif c.kind is CursorKind.CONSTRUCTOR:
+                    #process_inline_constructor(c, replacementlist, settings)
                     continue
                 elif c.kind is CursorKind.DESTRUCTOR:
+                    #process_inline_destructor(c, replacementlist, settings)
                     continue
                 elif c.kind is CursorKind.CXX_METHOD:
-                    #remove inlines except for enGetType :)
-                    # enGetType (Continental-Corporation): Retain definition for enGetType
-                    if c.semantic_parent is not None:
-                        if c.spelling != "enGetType":
-                            remove_entity(c, replacementlist)
+                    process_inline_method(c, replacementlist, settings)
                 elif c.kind is CursorKind.FUNCTION_DECL:
-                    #this must be a c type method
-                    print "C type method found! - TODO - " + c.spelling
                     process_c_method(c, replacementlist, cstaticmethodlist, settings, False)
                 else:
                     analyze_clang_tree(c, replacementlist, settings)
