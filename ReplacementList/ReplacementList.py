@@ -1,9 +1,14 @@
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '../Clang/bindings/python'))
 
-from clang.cindex import SourceRange
-from clang.cindex import SourceLocation
+class TextLocation( object ):
+    def __init__ (self):
+        self.line = 0
+        self.column = 0
+    def __init__(self, line, column):
+        self.line = line
+        self.column = column
+
 
 class ReplacementListEntry( object ):
     class type(object):
@@ -13,14 +18,14 @@ class ReplacementListEntry( object ):
 
     def __init__ (self, type, start, end, buffer ):
         self.type = type
-        self.start = start
-        self.end = end
+        self.start = TextLocation(start.line, start.column)
+        self.end = TextLocation(end.line, end.column)
         self.buffer = buffer
 
     def __lt__ (self, other):
         #for sorting:
         if self.start.line == other.start.line:
-            if self.start.colimn == other.start.column:
+            if self.start.column == other.start.column:
                 return self.type < other.type
             else:
                 return self.start.column < other.start.column
@@ -67,13 +72,17 @@ class ReplacementList( object ):
         code = open(sourcefile).readlines()
         code_linecount = len(code)
         replacementlist_itemcount = len(self.replacementListEntries)
-
         output_buffer = ""
+
         i = 0
         listindex = 0
 
-        current_replacement_line = self.replacementListEntries[listindex].start.line - 1
-        current_replacement_column = self.replacementListEntries[listindex].start.column - 1
+        if replacementlist_itemcount == 0:
+            current_replacement_line = -1
+            current_replacement_column = -1
+        else:
+            current_replacement_line = self.replacementListEntries[listindex].start.line - 1
+            current_replacement_column = self.replacementListEntries[listindex].start.column - 1
 
         while i < code_linecount:
             current_line = code[i]
@@ -84,24 +93,28 @@ class ReplacementList( object ):
 
                     j = 0
                     while j < current_line_length:
-                        if j == current_replacement_column:
+                        if i == current_replacement_line and j == current_replacement_column:
                             # we are at a replacement point
                             output_buffer = output_buffer + self.replacementListEntries[ listindex ].buffer.replace("\n", "\n"+" "*j)
                             if self.replacementListEntries[listindex].type == ReplacementListEntry.type.REPLACEMENT:
                                 i = self.replacementListEntries[ listindex ].end.line - 1
-                                j = self.replacementListEntries[ listindex ].end.column
+                                j = self.replacementListEntries[ listindex ].end.column - 1
                                 current_line = code[i]
                                 current_line_length = len(code[i])
                             elif self.replacementListEntries[listindex].type == ReplacementListEntry.type.DELETION:
                                 i = self.replacementListEntries[ listindex ].end.line - 1
-                                j = self.replacementListEntries[ listindex ].end.column
+                                j = self.replacementListEntries[ listindex ].end.column - 1
                                 current_line = code[i]
                                 current_line_length = len(code[i])
 
                             listindex += 1
+
                             if listindex < replacementlist_itemcount:
                                 current_replacement_line = self.replacementListEntries[listindex].start.line - 1
                                 current_replacement_column = self.replacementListEntries[listindex].start.column - 1
+                            else:
+                                current_replacement_line = - 1
+                                current_replacement_column = - 1
 
                         else:
                             # per character copy until the replacement point is found

@@ -13,17 +13,12 @@ from shutil import copyfile
 from shutil import rmtree
 from optparse import OptionParser, OptionGroup
 
-from ReplacementList.ReplacementList import ReplacementListEntry
 from ReplacementList.ReplacementList import ReplacementList
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'Clang/bindings/python'))
 from clang.cindex import Config
 from clang.cindex import Index
-from clang.cindex import TranslationUnit
 from clang.cindex import CursorKind
-from clang.cindex import TokenKind
-from clang.cindex import AccessSpecifier
-from clang.cindex import SourceLocation
 
 class Rule(object):
     def __init__ (self):
@@ -33,6 +28,7 @@ class Rule(object):
         self.process_class = None
         self.process_class_template = None
         self.process_class_template_partial_specialization = None
+        self.process_cstaticmethod_list = None
 
     def initRules(self, ruleClass):
         self.process_cxxmethod_inline = getattr(ruleClass, 'process_cxxmethod_inline', None)
@@ -41,6 +37,7 @@ class Rule(object):
         self.process_class = getattr(ruleClass, 'process_class', None)
         self.process_class_template = getattr(ruleClass, 'process_class_template', None)
         self.process_class_template_partial_specialization = getattr(ruleClass, 'process_class_template_partial_specialization', None)
+        self.process_cstaticmethod_list = getattr(ruleClass, 'process_cstaticmethod_list', None)
 
 def get_out_filename(source_filename):
     basename = os.path.basename(source_filename)
@@ -65,10 +62,11 @@ class options:
         self.destFile = ""
         self.isolatedFile = ""
         self.baseFile = ""
+        self.quiet = False
 
 def analyze_clang_tree(cursor, replacementlist, settings):
     cstaticmethodlist = []
-
+    cmethodbufferlist = []
     for c in cursor.get_children():
         flag_first_level = False
         flag_parsable = False
@@ -84,13 +82,14 @@ def analyze_clang_tree(cursor, replacementlist, settings):
 
         if flag_first_level is True:
             # do not process forward declarations:
-            if c.is_definition() is True:
+            #  c methods are not definition:
+            #if c.is_definition() is True:
                 if c.kind is CursorKind.CLASS_DECL:
                     if settings.rule.process_class is not None:
                         settings.rule.process_class(c, replacementlist, settings)
                 elif c.kind is CursorKind.STRUCT_DECL:
-                    if settings.rule.process_class_declaration is not None:
-                        settings.rule.process_class_declaration(c, replacementlist, settings)
+                    if settings.rule.process_class is not None:
+                        settings.rule.process_class(c, replacementlist, settings)
                 elif c.kind is CursorKind.CLASS_TEMPLATE:
                     if settings.rule.process_class_template is not None:
                         settings.rule.process_class_template(c, replacementlist, settings)
@@ -108,13 +107,13 @@ def analyze_clang_tree(cursor, replacementlist, settings):
                         settings.rule.process_cxxmethod_inline(c, replacementlist, settings)
                 elif c.kind is CursorKind.FUNCTION_DECL:
                     if settings.rule.process_cmethod is not None:
-                        settings.rule.process_cmethod(c, replacementlist, cstaticmethodlist, settings )
+                        settings.rule.process_cmethod(c, replacementlist, cstaticmethodlist, cmethodbufferlist, settings )
                 else:
                     analyze_clang_tree(c, replacementlist, settings)
 
     if cstaticmethodlist != []:
-        if settings.rule.process_c_staticmethod_list is not None:
-            settings.rule.process_c_staticmethod_list(cursor,replacementlist,cstaticmethodlist, settings)
+        if settings.rule.process_cstaticmethod_list is not None:
+            settings.rule.process_cstaticmethod_list(cursor,replacementlist,cstaticmethodlist, cmethodbufferlist, settings)
 
 def main():
     test = False
@@ -125,6 +124,8 @@ def main():
                       help="Don't add heading comment to output file")
     parser.add_option("-d", "--no-datetime", action="store_true", default=False,
                       help="Don't add source to output file heading comment")
+    parser.add_option("-q", "--quiet", action="store_true", default=False,
+                      help="Silence output")
 
     (opts, args) = parser.parse_args()
     if len(args) is not 1:
@@ -143,6 +144,7 @@ def main():
     oSettings.oFlag_MockOptions.makeSingleton = opts.make_singleton
     oSettings.oFlag_Heading.noDateTime = opts.no_datetime
     oSettings.oFlag_Heading.noHeader = opts.no_header
+    oSettings.quiet = opts.quiet
     oSettings.sourceFile = filename
     oSettings.destFile = get_out_filename(filename)
     oSettings.baseFile = os.path.basename(filename)
@@ -153,8 +155,9 @@ def main():
 
     #################################################################
     #copy to an isolation folder so that the source file is not modified in any way.
-    print "source: ".ljust(13) + oSettings.sourceFile
-    print "destination: ".ljust(13) + oSettings.destFile
+    if not oSettings.quiet:
+        print "source: ".ljust(13) + oSettings.sourceFile
+        print "destination: ".ljust(13) + oSettings.destFile
 
     if not os.path.exists("__isolation__"):
         os.makedirs("__isolation__")
@@ -182,7 +185,8 @@ def main():
     args.append("-ast-dump")
     args.append("-fsyntax-only")
     args.append("-style=Google")
-    print "command: ".ljust(13)+"clang " + str(args) + "\n"
+    if not oSettings.quiet:
+        print "command: ".ljust(13)+"clang " + str(args) + "\n"
 
     index = Index.create()
     tu = index.parse(None, args)
@@ -191,7 +195,8 @@ def main():
 
     replacementlist=ReplacementList()
     analyze_clang_tree(tu.cursor, replacementlist, oSettings)
-    replacementlist.dump()
+    if not oSettings.quiet:
+        replacementlist.dump()
     buffer = replacementlist.perform_replace(oSettings.isolatedFile)
 
     fwrite = open(oSettings.destFile,'w')
@@ -207,8 +212,8 @@ def writeHeader( fwrite, settings ):
      if not settings.oFlag_Heading.noDateTime:
          fwrite.write( ("/* generated: " + datetime.datetime.now().strftime('%d %b %Y, %H:%M')).ljust(50) +"*/\n" )
      fwrite.write( "/**************************************************/\n\n" )
-     fwrite.write("#include <gmock/gmock.h>\n")
-     fwrite.write("#include <gtest/gtest.h>\n\n")
-
+     if os.path.splitext(os.path.basename(fwrite.name))[1] == '.hpp':
+         fwrite.write("#include <gmock/gmock.h>\n")
+         fwrite.write("#include <gtest/gtest.h>\n\n")
 if __name__ == '__main__':
     main()

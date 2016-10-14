@@ -45,6 +45,7 @@ class Rule(object):
         argumentlist = ''
         while tokens[i] in specifier_list:
             i = i + 1
+
         while tokens[i] != cursor.spelling \
                 and tokens[i] != 'operator':
             returntype = returntype + tokens[i] + ' '
@@ -86,8 +87,10 @@ class Rule(object):
         if cursor.is_static_method() or force_singleton == True:
             staticmethodlist.append(buffer)
 
+        if cursor.is_static_method():
             buffer = 'static '
 
+        if cursor.is_static_method() or force_singleton == True:
             buffer = buffer + \
                      returntype + \
                      cursor.spelling + "( " + \
@@ -105,19 +108,17 @@ class Rule(object):
                      "}"
 
         extent = cursor.extent
-        if cursor.is_definition:
-            definitioncursor = cursor.get_definition()
-            # print definitioncursor.spelling
-            # extent.end = definitioncursor.extent.end
         entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent.start, extent.end, buffer);
         replacementlist.append(entry)
 
 
-    def process_cmethod(cursor, replacementlist, staticmethodlist, settings ):
+    def process_cmethod(self, cursor, replacementlist, staticmethodlist, staticmethodlist2, settings ):
 
         tokens = [token.spelling for token in cursor.get_tokens()]
         arguments = [argument.spelling for argument in cursor.get_arguments()]
 
+        if len(tokens) == 0:
+            return
         i = 0
         returntype = ''
         argumentlist = ''
@@ -146,7 +147,6 @@ class Rule(object):
             buffer = "MOCK_CONST_METHOD"
         else:
             buffer = "MOCK_METHOD"
-
         buffer = buffer + str(len(arguments))
         buffer = buffer + '('
         buffer = buffer + cursor.spelling
@@ -155,12 +155,17 @@ class Rule(object):
         buffer = buffer + '('
         buffer = buffer + argumentlist
         buffer = buffer + '));'
-
         staticmethodlist.append(buffer)
-        buffer = 'static '
 
-        buffer = buffer + \
-                 returntype + \
+
+        buffer = ""
+        buffer2 = ""
+
+        buffer += "extern " + returntype + os.path.splitext(settings.baseFile)[0] + "_Mocked" + "_" + \
+             cursor.spelling + "(" + argumentlist + ");\n"
+        buffer += 'inline '
+
+        buffer += returntype + \
                  cursor.spelling + "( " + \
                  argumentlist + " ) {\n" + \
                  "\t/*  Shared Mock via Singleton Class */\n" + \
@@ -170,22 +175,27 @@ class Rule(object):
             buffer = buffer + "return "
 
         buffer = buffer + \
-                 "Global_" +os.path.splitext(settings.baseFile)[0] + "_Mocked" + "::get_instance()." + \
+                 os.path.splitext(settings.baseFile)[0] + "_Mocked" + "_" + \
              cursor.spelling + "(" + \
              ', '.join(arguments) + ");\n" + \
              "}"
 
         extent = cursor.extent
-        if cursor.is_definition:
-            definitioncursor = cursor.get_definition()
-            #print definitioncursor.spelling
-            #extent.end = definitioncursor.extent.end
-        entry = replacementlist_entry(replacementlist_entry_type.REPLACEMENT, extent.start, extent.end, buffer);
+        entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent.start, extent.end, buffer);
         replacementlist.append(entry)
+
+        buffer2 += 'extern \"C\"\n' + returntype + os.path.splitext(settings.baseFile)[0] + "_Mocked" + "_" + cursor.spelling + "( " + argumentlist + " ) {\n" + \
+                 "\t";
+        if (not "void" in returntype) and (returntype != ""):
+            buffer2 = buffer2 + "return "
+
+        buffer2 = buffer2 + os.path.splitext(settings.baseFile)[0] + "_Mocked::get_instance()." + cursor.spelling + "(" + \
+            ', '.join(arguments) + ");\n}\n\n"
+        staticmethodlist2.append( buffer2 )
+
 
 
     def process_class(self, cursor, replacementlist, settings):
-        print "classtest"
         replacementlist_staticmethods = []
         if cursor.is_definition():
 
@@ -209,7 +219,7 @@ class Rule(object):
                         replacementlist.remove_entity(c)
                         replacementlist.remove_comment(c)
                     else:
-                        self.process_class_declaration(c, replacementlist, settings)
+                        self.process_class(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.STRUCT_DECL:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
@@ -217,7 +227,7 @@ class Rule(object):
                         replacementlist.remove_entity(c)
                         replacementlist.remove_comment(c)
                     else:
-                        self.process_class_declaration(c, replacementlist, settings)
+                        self.process_class(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.CLASS_TEMPLATE:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
@@ -237,26 +247,92 @@ class Rule(object):
 
             self.process_cxxstaticmethod_list(cursor, replacementlist, replacementlist_staticmethods)
 
-    def process_cstaticmethod_list(self, cursor, replacementlist, replacementlist_staticmethods, setting):
+    def process_class_template(self, cursor, replacementlist, settings):
+        replacementlist_staticmethods = []
+        if cursor.is_definition():
+
+            for c in cursor.get_children():
+                if c.kind is CursorKind.CXX_METHOD:
+                    print c.extent
+                    if c.access_specifier is AccessSpecifier.PRIVATE:
+                        # private methods will never be used by test framework so remove them.
+                        replacementlist.remove_entity(c)
+                        replacementlist.remove_comment(c)
+                    else:
+                        # convert to Mocked method:
+                        self.process_cxxmethod(c, replacementlist, replacementlist_staticmethods, settings, True)
+
+                elif c.kind is CursorKind.CLASS_DECL:
+                    if c.access_specifier is AccessSpecifier.PRIVATE:
+                        # private methods will never be used by test framework so remove them.
+                        replacementlist.remove_entity(c)
+                        replacementlist.remove_comment(c)
+                    else:
+                        self.process_class(c, replacementlist, settings)
+
+                elif c.kind is CursorKind.STRUCT_DECL:
+                    if c.access_specifier is AccessSpecifier.PRIVATE:
+                        # private methods will never be used by test framework so remove them.
+                        replacementlist.remove_entity(c)
+                        replacementlist.remove_comment(c)
+                    else:
+                        self.process_class(c, replacementlist, settings)
+
+                elif c.kind is CursorKind.CLASS_TEMPLATE:
+                    if c.access_specifier is AccessSpecifier.PRIVATE:
+                        # private methods will never be used by test framework so remove them.
+                        replacementlist.remove_entity(c)
+                        replacementlist.remove_comment(c)
+                    else:
+                        self.process_class_template(c, replacementlist, settings)
+
+                elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
+                    if c.access_specifier is AccessSpecifier.PRIVATE:
+                        # private methods will never be used by test framework so remove them.
+                        replacementlist.remove_entity(c)
+                        replacementlist.remove_comment(c)
+                    else:
+                        self.process_class_template_partial_specialization(cursor, settings)
+
+            self.process_cxxstaticmethod_list( cursor, replacementlist, replacementlist_staticmethods )
+
+
+
+    def process_cstaticmethod_list(self, cursor, replacementlist, replacementlist_staticmethods, additionalstring, setting):
         buffer = ''
+
+        outfilename2= os.path.splitext((setting.baseFile))[0]+'_Mocked.cpp'
+        outfile = open(outfilename2, 'w')
+
+        buffer = buffer + "/* This file was generated by BigMock.py */ \n\n"
+        buffer = buffer + "#include <gmock/gmock.h>\n"
+        buffer = buffer + "#include <gtest/gtest.h>\n\n"
+        buffer = buffer + "/* << Manually insert #includes from original file here >> */ \n\n"
+
         if len(replacementlist_staticmethods) != 0:
-            buffer = buffer + 'class ' +"Global_"+os.path.splitext(setting.baseFile)[0]+'_Mocked\n'
+            buffer = buffer + 'class ' + os.path.splitext(setting.baseFile)[0]+'_Mocked\n'
             buffer = buffer + '{\n'
             buffer = buffer + '\tpublic:\n'
-            buffer = buffer + '\tstatic ' + "Global_"+os.path.splitext(setting.baseFile)[0] + '_Mocked& get_instance()\n'
+            buffer = buffer + '\tstatic ' + os.path.splitext(setting.baseFile)[0] + '_Mocked& get_instance()\n'
             buffer = buffer + '\t{\n'
-            buffer = buffer + '\t\tstatic '+ "Global_"+os.path.splitext(setting.baseFile)[0] + '_Mocked oInstance;\n'
+            buffer = buffer + '\t\tstatic '+ os.path.splitext(setting.baseFile)[0] + '_Mocked oInstance;\n'
             buffer = buffer + '\t\treturn oInstance;\n'
-            buffer = buffer + '\t}\n'
+            buffer = buffer + '\t}\n\n'
 
             for entry in replacementlist_staticmethods:
                 buffer = buffer + "\t" + entry
                 buffer = buffer + '\n'
             buffer = buffer + '};\n'
 
-            extent = cursor.extent
-            entry = ReplacementListEntry(ReplacementListEntry.type.INSERTION, extent.start, extent.start, buffer)
-            replacementlist.append(entry)
+            outfile.write (buffer)
+            for buf2 in additionalstring:
+                outfile.write (buf2)
+
+        outfile.close()
+
+            #extent = cursor.extent
+            #entry = ReplacementListEntry(ReplacementListEntry.type.INSERTION, extent.start, extent.start, buffer)
+            #replacementlist.append(entry)
 
 
     def process_cxxstaticmethod_list(self, cursor, replacementlist, replacementlist_staticmethods):
@@ -279,37 +355,4 @@ class Rule(object):
             extent = cursor.extent
             entry = ReplacementListEntry(ReplacementListEntry.type.INSERTION, extent.start, extent.start, buffer)
             replacementlist.append(entry)
-
-    def process_class_template(self, cursor, replacementlist, settings):
-        replacementlist_staticmethods = []
-        if cursor.is_definition():
-
-            extent_start = cursor.extent
-            tokens = cursor.get_tokens()
-            tokenlist = [token for token in tokens ]
-
-            buffer = ''
-            i = 0
-            while tokenlist[i].spelling != '{':
-                print tokenlist[i].spelling
-                buffer = buffer + tokenlist[i].spelling + ' '
-                i = i + 1
-
-            buffer = buffer +'\n{\n'
-            entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent_start.start, tokenlist[i].extent.end, buffer);
-            replacementlist.append(entry)
-
-            for c in cursor.get_children():
-                if c.kind is CursorKind.CXX_METHOD:
-                    self.process_cxxmethod(c, replacementlist, replacementlist_staticmethods, settings, True )
-                elif c.kind is CursorKind.CLASS_DECL:
-                    self.process_class_declaration(c, replacementlist)
-                elif c.kind is CursorKind.STRUCT_DECL:
-                    self.process_class_declaration(c, replacementlist)
-                elif c.kind is CursorKind.CLASS_TEMPLATE:
-                    self.process_class_template(c, replacementlist)
-                elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
-                    self.process_class_template_partial_specialization(cursor)
-
-            self.process_staticmethod_list( cursor, replacementlist, replacementlist_staticmethods )
 
