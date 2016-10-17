@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #  BigMock.py
-# convert headers to google mock v2
+# convert headers to google mock v3
 # jonCastillo July 23 2016
-
+# https://github.com/joncastillo/BigMock
 
 import sys
 import os
@@ -69,7 +69,6 @@ def analyze_clang_tree(cursor, replacementlist, settings):
     cmethodbufferlist = []
     for c in cursor.get_children():
         flag_first_level = False
-        flag_parsable = False
         # only first level classes and structures are processed here
         if c.lexical_parent is None:
             flag_first_level = True

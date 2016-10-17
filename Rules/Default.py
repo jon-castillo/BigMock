@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-#  BigMock.py
-# convert headers to google mock v2
-# jonCastillo July 23 2016
-
+# rule/Default.py
+# Default rules for BigMock.py
+# jonCastillo October 10 2016
+# https://github.com/joncastillo/BigMock
 
 import sys
 import os
@@ -82,7 +82,9 @@ class Rule(object):
         buffer = buffer + returntype
         buffer = buffer + '('
         buffer = buffer + argumentlist
-        buffer = buffer + '));'
+        buffer = buffer + '))'
+        if tokens[len(tokens)-1] != ';':
+            buffer = buffer + ';'
 
         if cursor.is_static_method() or force_singleton == True:
             staticmethodlist.append(buffer)
@@ -91,8 +93,7 @@ class Rule(object):
             buffer = 'static '
 
         if cursor.is_static_method() or force_singleton == True:
-            buffer = buffer + \
-                     returntype + \
+            buffer = returntype + \
                      cursor.spelling + "( " + \
                      argumentlist + " ) {\n" + \
                      "\t/*  Shared Mock via Singleton Class */\n" + \
@@ -127,6 +128,8 @@ class Rule(object):
         while tokens[i] != cursor.spelling:
             returntype = returntype + tokens[i] + ' '
             i = i + 1
+
+        # todo: seeking '(' and ')' will not work everytime:
 
         while tokens[i] != '(':
             i = i + 1
