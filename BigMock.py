@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 #  BigMock.py
-# convert headers to google mock v3
+# source to source transformation tool to convert headers to google mock
 # jonCastillo July 23 2016
+#
+# v3.1.2 October 19,2016 - Improved algorithm for seeking end of methods.
+#                        - Abstracted remove_entity and remove_comment from replacementlist.
+#
 # https://github.com/joncastillo/BigMock
 
 import sys
@@ -80,35 +84,32 @@ def analyze_clang_tree(cursor, replacementlist, settings):
                         flag_first_level = True
 
         if flag_first_level is True:
-            # do not process forward declarations:
-            #  c methods are not definition:
-            #if c.is_definition() is True:
-                if c.kind is CursorKind.CLASS_DECL:
-                    if settings.rule.process_class is not None:
-                        settings.rule.process_class(c, replacementlist, settings)
-                elif c.kind is CursorKind.STRUCT_DECL:
-                    if settings.rule.process_class is not None:
-                        settings.rule.process_class(c, replacementlist, settings)
-                elif c.kind is CursorKind.CLASS_TEMPLATE:
-                    if settings.rule.process_class_template is not None:
-                        settings.rule.process_class_template(c, replacementlist, settings)
-                elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
-                    if settings.rule.process_class_template_partial_specialization is not None:
-                        settings.rule.process_class_template_partial_specialization(c, replacementlist, settings)
-                elif c.kind is CursorKind.CONSTRUCTOR:
-                    #process_inline_constructor(c, replacementlist, settings)
-                    continue
-                elif c.kind is CursorKind.DESTRUCTOR:
-                    #process_inline_destructor(c, replacementlist, settings)
-                    continue
-                elif c.kind is CursorKind.CXX_METHOD:
-                    if settings.rule.process_cxxmethod_inline is not None:
-                        settings.rule.process_cxxmethod_inline(c, replacementlist, settings)
-                elif c.kind is CursorKind.FUNCTION_DECL:
-                    if settings.rule.process_cmethod is not None:
-                        settings.rule.process_cmethod(c, replacementlist, cstaticmethodlist, cmethodbufferlist, settings )
-                else:
-                    analyze_clang_tree(c, replacementlist, settings)
+            if c.kind is CursorKind.CLASS_DECL:
+                if settings.rule.process_class is not None:
+                    settings.rule.process_class(c, replacementlist, settings)
+            elif c.kind is CursorKind.STRUCT_DECL:
+                if settings.rule.process_class is not None:
+                    settings.rule.process_class(c, replacementlist, settings)
+            elif c.kind is CursorKind.CLASS_TEMPLATE:
+                if settings.rule.process_class_template is not None:
+                    settings.rule.process_class_template(c, replacementlist, settings)
+            elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
+                if settings.rule.process_class_template_partial_specialization is not None:
+                    settings.rule.process_class_template_partial_specialization(c, replacementlist, settings)
+            elif c.kind is CursorKind.CONSTRUCTOR:
+                #process_inline_constructor(c, replacementlist, settings)
+                continue
+            elif c.kind is CursorKind.DESTRUCTOR:
+                #process_inline_destructor(c, replacementlist, settings)
+                continue
+            elif c.kind is CursorKind.CXX_METHOD:
+                if settings.rule.process_cxxmethod_inline is not None:
+                    settings.rule.process_cxxmethod_inline(c, replacementlist, settings)
+            elif c.kind is CursorKind.FUNCTION_DECL:
+                if settings.rule.process_cmethod is not None:
+                    settings.rule.process_cmethod(c, replacementlist, cstaticmethodlist, cmethodbufferlist, settings )
+            else:
+                analyze_clang_tree(c, replacementlist, settings)
 
     if cstaticmethodlist != []:
         if settings.rule.process_cstaticmethod_list is not None:
@@ -212,6 +213,7 @@ def writeHeader( fwrite, settings ):
          fwrite.write( ("/* generated: " + datetime.datetime.now().strftime('%d %b %Y, %H:%M')).ljust(50) +"*/\n" )
      fwrite.write( "/**************************************************/\n\n" )
      if os.path.splitext(os.path.basename(fwrite.name))[1] == '.hpp':
+         # never include cpp headers inside c-type headers:
          fwrite.write("#include <gmock/gmock.h>\n")
          fwrite.write("#include <gtest/gtest.h>\n\n")
 if __name__ == '__main__':

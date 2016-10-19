@@ -18,17 +18,34 @@ from clang.cindex import AccessSpecifier
 from clang.cindex import SourceLocation
 from clang.cindex import SourceRange
 
-
 specifier_list = ["inline", "const", "override", "final", "virtual", "mutable", "explicit", "extern", "static",
                   "export", "friend", "noexcept"]
 
+########## these utilities should be abstracted in the future: ##########
+
+def remove_entity(cursor,replacementlist):
+    # create Replacement List Entry of subtype DELETION to remove clang entity pointed by clang cursor
+
+    extent = cursor.extent
+    entry = ReplacementListEntry(ReplacementListEntry.type.DELETION, extent.start, extent.end, "")
+    replacementlist.append(entry)
+
+
+def remove_comment(cursor,replacementlist):
+    # create Replacement List Entry of subtype DELETION to attempt removal of clang entity's associated comment
+    commentRange = cursor.getCommentRange()
+    if commentRange.start.line != 0:
+        entry = ReplacementListEntry(ReplacementListEntry.type.DELETION, commentRange.start, commentRange.end, "")
+        replacementlist.append(entry)
+
+#########################################################################
 
 class Rule(object):
     def process_cxxmethod_inline(self, cursor, replacementlist, settings):
         # remove inlines except for enGetType :)
         # enGetType (Continental-Corporation): Retain definition for enGetType
         if cursor.spelling != "enGetType":
-            replacementlist.remove_entity(cursor)
+            remove_entity(cursor, replacementlist)
 
 
     def process_cxxmethod(self, cursor, replacementlist, staticmethodlist, settings, is_template = False):
@@ -57,13 +74,18 @@ class Rule(object):
         while tokens[i] != '(':
             i = i + 1
         i = i + 1
-        while tokens[i] != ')':
+
+        while tokens[i] != ';' and tokens[i] != '{':
             # get rid of default values:
             if tokens[i] == '=':
                 i = i + 2
                 continue
-            argumentlist = argumentlist + tokens[i] + ' '
+            argumentlist = argumentlist + tokens[i]
+            argumentlist += ' '
             i = i + 1
+
+        #get rid of last space:
+        argumentlist=argumentlist[:-1]
 
         if argumentlist == 'void ':
             argumentlist = ''
@@ -82,7 +104,7 @@ class Rule(object):
         buffer = buffer + returntype
         buffer = buffer + '('
         buffer = buffer + argumentlist
-        buffer = buffer + '))'
+        buffer = buffer + ')'
         if tokens[len(tokens)-1] != ';':
             buffer = buffer + ';'
 
@@ -129,18 +151,21 @@ class Rule(object):
             returntype = returntype + tokens[i] + ' '
             i = i + 1
 
-        # todo: seeking '(' and ')' will not work everytime:
-
         while tokens[i] != '(':
             i = i + 1
         i = i + 1
-        while tokens[i] != ')':
+
+        while tokens[i] != ';' and tokens[i] != '{':
             # get rid of default values:
             if tokens[i] == '=':
                 i = i + 2
                 continue
-            argumentlist = argumentlist + tokens[i] + ' '
+            argumentlist = argumentlist + tokens[i]
+            argumentlist += ' '
             i = i + 1
+
+        #get rid of last space:
+        argumentlist=argumentlist[:-1]
 
         if argumentlist == 'void ':
             argumentlist = ''
@@ -157,9 +182,8 @@ class Rule(object):
         buffer = buffer + returntype
         buffer = buffer + '('
         buffer = buffer + argumentlist
-        buffer = buffer + '));'
+        buffer = buffer + ');'
         staticmethodlist.append(buffer)
-
 
         buffer = ""
         buffer2 = ""
@@ -196,8 +220,6 @@ class Rule(object):
             ', '.join(arguments) + ");\n}\n\n"
         staticmethodlist2.append( buffer2 )
 
-
-
     def process_class(self, cursor, replacementlist, settings):
         replacementlist_staticmethods = []
         if cursor.is_definition():
@@ -207,8 +229,8 @@ class Rule(object):
                 if c.kind is CursorKind.CXX_METHOD:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         # convert to Mocked method:
                         self.process_cxxmethod(c, replacementlist, replacementlist_staticmethods, settings)
@@ -219,32 +241,32 @@ class Rule(object):
                 elif c.kind is CursorKind.CLASS_DECL:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.STRUCT_DECL:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.CLASS_TEMPLATE:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class_template(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class_template_partial_specialization(cursor, settings)
 
@@ -259,8 +281,8 @@ class Rule(object):
                     print c.extent
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         # convert to Mocked method:
                         self.process_cxxmethod(c, replacementlist, replacementlist_staticmethods, settings, True)
@@ -268,38 +290,36 @@ class Rule(object):
                 elif c.kind is CursorKind.CLASS_DECL:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.STRUCT_DECL:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.CLASS_TEMPLATE:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class_template(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
                         # private methods will never be used by test framework so remove them.
-                        replacementlist.remove_entity(c)
-                        replacementlist.remove_comment(c)
+                        remove_entity(c, replacementlist)
+                        remove_comment(c, replacementlist)
                     else:
                         self.process_class_template_partial_specialization(cursor, settings)
 
             self.process_cxxstaticmethod_list( cursor, replacementlist, replacementlist_staticmethods )
-
-
 
     def process_cstaticmethod_list(self, cursor, replacementlist, replacementlist_staticmethods, additionalstring, setting):
         buffer = ''
@@ -333,11 +353,6 @@ class Rule(object):
 
         outfile.close()
 
-            #extent = cursor.extent
-            #entry = ReplacementListEntry(ReplacementListEntry.type.INSERTION, extent.start, extent.start, buffer)
-            #replacementlist.append(entry)
-
-
     def process_cxxstaticmethod_list(self, cursor, replacementlist, replacementlist_staticmethods):
         buffer = ''
         if len(replacementlist_staticmethods) != 0:
@@ -358,4 +373,3 @@ class Rule(object):
             extent = cursor.extent
             entry = ReplacementListEntry(ReplacementListEntry.type.INSERTION, extent.start, extent.start, buffer)
             replacementlist.append(entry)
-

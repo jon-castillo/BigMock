@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# ReplacementList.py
+# Text replacement based on source location.
+# jonCastillo October 10 2016
+# https://github.com/joncastillo/BigMock
+
 import os
 import sys
 
@@ -22,8 +28,8 @@ class ReplacementListEntry( object ):
         self.end = TextLocation(end.line, end.column)
         self.buffer = buffer
 
+    # for sorting
     def __lt__ (self, other):
-        #for sorting:
         if self.start.line == other.start.line:
             if self.start.column == other.start.column:
                 return self.type < other.type
@@ -36,20 +42,13 @@ class ReplacementList( object ):
     def __init__ (self):
         self.replacementListEntries = []
 
-    def remove_entity(self, cursor):
-        extent = cursor.extent
-        entry = ReplacementListEntry(ReplacementListEntry.type.DELETION, extent.start, extent.end, "" )
-        self.replacementListEntries.append(entry)
-
-    def remove_comment(self, cursor):
-        commentRange = cursor.getCommentRange()
-        if commentRange.start.line != 0:
-            entry = ReplacementListEntry(ReplacementListEntry.type.DELETION, commentRange.start, commentRange.end, "" )
-            self.replacementListEntries.append(entry)
     def append(self, entry):
         self.replacementListEntries.append(entry)
 
     def dump(self):
+
+        # Dump replacement entries inside replacement list. (does sort)
+
         self.replacementListEntries.sort()
 
         for i in self.replacementListEntries:
@@ -68,6 +67,9 @@ class ReplacementList( object ):
                     13) + " : " + i.buffer.replace("\n", "\\n")
 
     def perform_replace(self, sourcefile ):
+
+        # O(n^2) replacement subroutine: (does sort)
+
         self.replacementListEntries.sort()
         code = open(sourcefile).readlines()
         code_linecount = len(code)
