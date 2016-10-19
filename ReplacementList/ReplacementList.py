@@ -105,7 +105,7 @@ class ReplacementList( object ):
                                 current_line_length = len(code[i])
                             elif self.replacementListEntries[listindex].type == ReplacementListEntry.type.DELETION:
                                 i = self.replacementListEntries[ listindex ].end.line - 1
-                                j = self.replacementListEntries[ listindex ].end.column - 1
+                                j = self.replacementListEntries[ listindex ].end.column
                                 current_line = code[i]
                                 current_line_length = len(code[i])
 

@@ -45,6 +45,7 @@ class Rule(object):
         # remove inlines except for enGetType :)
         # enGetType (Continental-Corporation): Retain definition for enGetType
         if cursor.spelling != "enGetType":
+            remove_comment(cursor, replacementlist)
             remove_entity(cursor, replacementlist)
 
 
@@ -75,7 +76,7 @@ class Rule(object):
             i = i + 1
         i = i + 1
 
-        while tokens[i] != ';' and tokens[i] != '{':
+        while i<len(tokens) and tokens[i] != ';' and tokens[i] != '{':
             # get rid of default values:
             if tokens[i] == '=':
                 i = i + 2
@@ -155,7 +156,7 @@ class Rule(object):
             i = i + 1
         i = i + 1
 
-        while tokens[i] != ';' and tokens[i] != '{':
+        while i<len(tokens) and tokens[i] != ';' and tokens[i] != '{':
             # get rid of default values:
             if tokens[i] == '=':
                 i = i + 2
