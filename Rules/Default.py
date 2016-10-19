@@ -220,6 +220,15 @@ class Rule(object):
             ', '.join(arguments) + ");\n}\n\n"
         staticmethodlist2.append( buffer2 )
 
+    def process_CXXAccessSpecifier(self, cursor, replacementlist, settings):
+        if cursor.access_specifier is AccessSpecifier.PROTECTED:
+            extent = cursor.extent
+            buffer = ''
+            buffer += '/* BigMock: Protected Members are made accessible */\n'
+            buffer += 'public:\n'
+            entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent.start, extent.end, buffer)
+            replacementlist.append(entry)
+
     def process_class(self, cursor, replacementlist, settings):
         replacementlist_staticmethods = []
         if cursor.is_definition():
@@ -270,6 +279,9 @@ class Rule(object):
                     else:
                         self.process_class_template_partial_specialization(cursor, settings)
 
+                elif c.kind is CursorKind.CXX_ACCESS_SPEC_DECL:
+                    self.process_CXXAccessSpecifier(c, replacementlist, settings)
+
             self.process_cxxstaticmethod_list(cursor, replacementlist, replacementlist_staticmethods)
 
     def process_class_template(self, cursor, replacementlist, settings):
@@ -318,6 +330,9 @@ class Rule(object):
                         remove_comment(c, replacementlist)
                     else:
                         self.process_class_template_partial_specialization(cursor, settings)
+
+                elif c.kind is CursorKind.CXX_ACCESS_SPEC_DECL:
+                    self.process_CXXAccessSpecifier(c, replacementlist, settings)
 
             self.process_cxxstaticmethod_list( cursor, replacementlist, replacementlist_staticmethods )
 
