@@ -54,6 +54,15 @@ class Rule(object):
         # enGetType is better unmocked:
         if cursor.spelling == "enGetType":
             return
+        # this is a macro that should not be mocked:
+        if cursor.spelling == "DECLARE_EXTENSION":
+            return
+        # this is a macro that should not be mocked:
+        if cursor.spelling == "DECLARE_TYPEID":
+            return
+        # this is a macro that should not be mocked:
+        if cursor.spelling == "AUTIL_DISALLOW_COPY_AND_ASSIGN":
+            return
 
         tokens = [token.spelling for token in cursor.get_tokens()]
         arguments = [argument.spelling for argument in cursor.get_arguments()]

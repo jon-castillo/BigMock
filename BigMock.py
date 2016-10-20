@@ -149,6 +149,7 @@ def main():
     oSettings.destFile = get_out_filename(filename)
     oSettings.baseFile = os.path.basename(filename)
     oSettings.isolatedFile = '__isolation__\\' + oSettings.baseFile
+    oSettings.isolatedFile_noincludes = '__isolation__\\ni_' + oSettings.baseFile
 
     selected_rule = Rules.Default.Rule()
     oSettings.rule.initRules(selected_rule)
@@ -161,21 +162,31 @@ def main():
 
     if not os.path.exists("__isolation__"):
         os.makedirs("__isolation__")
+
     copyfile(filename,oSettings.isolatedFile)
-    args[0] = oSettings.isolatedFile
+    copyfile(filename, oSettings.isolatedFile_noincludes )
+
     #################################################################
 
     #################################################################
-    # remove tabs
     filedata = None
     with open(oSettings.isolatedFile, 'r') as file:
         filedata = file.read()
-    # Replace the target string
+
+    # remove tabs
     filedata = filedata.replace('\t', '    ')
     # Write the file out again
     with open(oSettings.isolatedFile, 'w') as file:
         file.write(filedata)
+
+    # remove includs
+    filedata = filedata.replace('#include', '//#include')
+    # Write the file out to a new file
+    with open(oSettings.isolatedFile_noincludes, 'w') as file:
+        file.write(filedata)
     ####################################################################
+
+    args[0] = oSettings.isolatedFile_noincludes
 
     Config.set_library_file(os.path.join(os.path.dirname(__file__), 'Clang/bin/libclang.dll'))
     Config.set_library_path('Clang/bin')
