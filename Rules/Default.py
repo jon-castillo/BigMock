@@ -51,6 +51,7 @@ class Rule(object):
 
     def process_cxxmethod(self, cursor, replacementlist, staticmethodlist, settings, is_template = False):
         force_singleton = settings.oFlag_MockOptions.makeSingleton
+        force_overriding_cpp = settings.oFlag_MockOptions.makeOverridingCpp
         # enGetType is better unmocked:
         if cursor.spelling == "enGetType":
             return
@@ -73,19 +74,20 @@ class Rule(object):
         while tokens[i] in specifier_list:
             i = i + 1
 
-        while tokens[i] != cursor.spelling \
+        while i<len(tokens) and tokens[i] != cursor.spelling \
                 and tokens[i] != 'operator':
             returntype = returntype + tokens[i] + ' '
             i = i + 1
 
-        if tokens[i] == 'operator':
+        if i<len(tokens) and tokens[i] == 'operator':
             return
 
-        while tokens[i] != '(':
+        while i<len(tokens) and tokens[i] != '(':
             i = i + 1
         i = i + 1
 
-        while i<len(tokens) and tokens[i] != ';' and tokens[i] != '{':
+        #while i<len(tokens) and tokens[i] != ';' and tokens[i] != '{':
+        while i < len(tokens) and tokens[i] != ')' :
             # get rid of default values:
             if tokens[i] == '=':
                 i = i + 2
@@ -95,11 +97,24 @@ class Rule(object):
             i = i + 1
 
         #get rid of last space:
-        argumentlist=argumentlist[:-1]
+        while len(argumentlist) != 0 and (argumentlist[-1] == ' ' or argumentlist[-1] == ')'):
+            argumentlist=argumentlist[:-1]
 
-        if argumentlist == 'void ':
+
+        if argumentlist == 'void' or argumentlist == '':
             argumentlist = ''
+
         buffer = ''
+
+
+        if force_overriding_cpp == True:
+            buffer += returntype + ' ' + os.path.splitext(os.path.basename(settings.sourceFile))[0] + "::" + cursor.spelling + '(' + argumentlist +") {\n"
+            buffer += "        " + os.path.splitext(os.path.basename(settings.sourceFile))[0] + "_Mocked::get_instance()." + cursor.spelling + "(" +','.join(arguments)+ ");\n"
+            buffer += "    }"
+            staticmethodlist.append(buffer)
+
+        buffer = ''
+
         if cursor.is_const_method():
             buffer = "MOCK_CONST_METHOD"
         else:
@@ -110,15 +125,20 @@ class Rule(object):
             buffer = buffer + "_T"
         buffer = buffer + '('
         buffer = buffer + cursor.spelling
+
+        if settings.oFlag_MockOptions.makeOverridingCpp:
+            if cursor.kind is CursorKind.CONSTRUCTOR:
+                buffer = buffer + '_Mocked'
+            elif cursor.kind is CursorKind.DESTRUCTOR:
+                buffer = buffer + '_Mocked'
+
         buffer = buffer + ','
         buffer = buffer + returntype
         buffer = buffer + '('
         buffer = buffer + argumentlist
-        buffer = buffer + ')'
-        if tokens[len(tokens)-1] != ';':
-            buffer = buffer + ';'
+        buffer = buffer + '));'
 
-        if cursor.is_static_method() or force_singleton == True:
+        if cursor.is_static_method() or force_singleton ==True:
             staticmethodlist.append(buffer)
 
         if cursor.is_static_method():
@@ -126,8 +146,8 @@ class Rule(object):
 
         if cursor.is_static_method() or force_singleton == True:
             buffer = returntype + \
-                     cursor.spelling + "( " + \
-                     argumentlist + " ) {\n" + \
+                     cursor.spelling + "(" + \
+                     argumentlist + ") {\n" + \
                      "\t/*  Shared Mock via Singleton Class */\n" + \
                      "\t"
 
@@ -166,6 +186,11 @@ class Rule(object):
         i = i + 1
 
         while i<len(tokens) and tokens[i] != ';' and tokens[i] != '{':
+            # get rid of specifiers:
+            if tokens[i] in specifier_list:
+                i = i + 1
+                continue
+
             # get rid of default values:
             if tokens[i] == '=':
                 i = i + 2
@@ -175,9 +200,10 @@ class Rule(object):
             i = i + 1
 
         #get rid of last space:
-        argumentlist=argumentlist[:-1]
+        while len(argumentlist) != 0 and (argumentlist[-1] == ' ' or argumentlist[-1] == ')'):
+            argumentlist=argumentlist[:-1]
 
-        if argumentlist == 'void ':
+        if argumentlist == 'void' or argumentlist == '':
             argumentlist = ''
 
         buffer = ''
@@ -192,15 +218,10 @@ class Rule(object):
         buffer = buffer + returntype
         buffer = buffer + '('
         buffer = buffer + argumentlist
-        buffer = buffer + ');'
+        buffer = buffer + '));'
         staticmethodlist.append(buffer)
 
         buffer = ""
-        buffer2 = ""
-
-        buffer += "extern " + returntype + os.path.splitext(settings.baseFile)[0] + "_Mocked" + "_" + \
-             cursor.spelling + "(" + argumentlist + ");\n"
-        buffer += 'inline '
 
         buffer += returntype + \
                  cursor.spelling + "( " + \
@@ -210,25 +231,25 @@ class Rule(object):
 
         if (not "void" in returntype) and (returntype != "") :
             buffer = buffer + "return "
-
-        buffer = buffer + \
-                 os.path.splitext(settings.baseFile)[0] + "_Mocked" + "_" + \
-             cursor.spelling + "(" + \
-             ', '.join(arguments) + ");\n" + \
+        if 0:
+            #jon - c methods are wrongly mocked
+            buffer = buffer + \
+                     os.path.splitext(settings.baseFile)[0] + "_Mocked" + "_" + \
+                 cursor.spelling + "(" + \
+                 ', '.join(arguments) + ");\n" + \
              "}"
+        else:
+            buffer = buffer + \
+                     os.path.splitext(settings.baseFile)[0] + "_Mocked" + "::get_instance()." + \
+                 cursor.spelling + "(" + \
+                 ', '.join(arguments) + ");\n" + \
+             "}"
+
 
         extent = cursor.extent
         entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent.start, extent.end, buffer);
         replacementlist.append(entry)
 
-        buffer2 += 'extern \"C\"\n' + returntype + os.path.splitext(settings.baseFile)[0] + "_Mocked" + "_" + cursor.spelling + "( " + argumentlist + " ) {\n" + \
-                 "\t";
-        if (not "void" in returntype) and (returntype != ""):
-            buffer2 = buffer2 + "return "
-
-        buffer2 = buffer2 + os.path.splitext(settings.baseFile)[0] + "_Mocked::get_instance()." + cursor.spelling + "(" + \
-            ', '.join(arguments) + ");\n}\n\n"
-        staticmethodlist2.append( buffer2 )
 
     def process_CXXAccessSpecifier(self, cursor, replacementlist, settings):
         if cursor.access_specifier is AccessSpecifier.PROTECTED:
@@ -239,7 +260,77 @@ class Rule(object):
             entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent.start, extent.end, buffer)
             replacementlist.append(entry)
 
+    def process_constructor(self, cursor, replacementlist, settings ):
+        if settings.oFlag_MockOptions.makeOverridingCpp:
+            tokens = [token for token in cursor.get_tokens()]
+
+            buffer = ''
+            i = 0
+            while i < len(tokens):
+                if cursor.spelling == tokens[i].spelling:
+                    buffer = buffer + cursor.spelling + '_Mocked' + ' '
+                else:
+                    buffer = buffer + tokens[i].spelling + ' '
+                i += 1
+
+            buffer = buffer[:-1]
+            extent = cursor.extent
+
+            entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent.start, extent.end,
+                                         buffer)
+            replacementlist.append(entry)
+
+    def process_destructor(self, cursor, replacementlist, settings):
+        if settings.oFlag_MockOptions.makeOverridingCpp:
+            tokens = [token for token in cursor.get_tokens()]
+
+            buffer = ''
+            i = 0
+            while i < len(tokens):
+                if cursor.spelling[1:] == tokens[i].spelling:
+                    buffer = buffer + tokens[i].spelling + '_Mocked' + ' '
+                else:
+                    buffer = buffer + tokens[i].spelling + ' '
+                i += 1
+
+            buffer = buffer[:-1]
+            extent = cursor.extent
+
+            entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extent.start, extent.end,
+                                         buffer)
+            replacementlist.append(entry)
+
+
     def process_class(self, cursor, replacementlist, settings):
+
+        if settings.oFlag_MockOptions.makeOverridingCpp:
+            tokens = [token for token in cursor.get_tokens()]
+
+            buffer = ''
+            i = 0
+            while tokens[i].spelling != '{':
+                buffer = buffer + tokens[i].spelling + ' '
+                i += 1
+
+            buffer = buffer[:-1]
+            buffer += "_Mocked\n{\n"
+
+
+            buffer = buffer + '\tpublic:\n'
+            buffer = buffer + '\tstatic ' + os.path.splitext(settings.baseFile)[0] + '_Mocked& get_instance()\n'
+            buffer = buffer + '\t{\n'
+            buffer = buffer + '\t\tstatic '+ os.path.splitext(settings.baseFile)[0] + '_Mocked oInstance;\n'
+            buffer = buffer + '\t\treturn oInstance;\n'
+            buffer = buffer + '\t}\n\n'
+
+
+            extentstart = cursor.extent
+            extentend = tokens[i].extent
+
+            entry = ReplacementListEntry(ReplacementListEntry.type.REPLACEMENT, extentstart.start, extentend.end, buffer)
+            replacementlist.append(entry)
+
+
         replacementlist_staticmethods = []
         if cursor.is_definition():
 
@@ -256,6 +347,12 @@ class Rule(object):
 
                         # elif c.kind is CursorKind.FIELD_DECL:
                         # Retain private Field Declarations so that initializer lists remain unchanged.
+
+                elif c.kind is CursorKind.CONSTRUCTOR:
+                    self.process_constructor(c, replacementlist, settings)
+
+                elif c.kind is CursorKind.DESTRUCTOR:
+                    self.process_destructor(c, replacementlist, settings)
 
                 elif c.kind is CursorKind.CLASS_DECL:
                     if c.access_specifier is AccessSpecifier.PRIVATE:
@@ -292,7 +389,10 @@ class Rule(object):
                 elif c.kind is CursorKind.CXX_ACCESS_SPEC_DECL:
                     self.process_CXXAccessSpecifier(c, replacementlist, settings)
 
-            self.process_cxxstaticmethod_list(cursor, replacementlist, replacementlist_staticmethods)
+            if settings.oFlag_MockOptions.makeOverridingCpp:
+                self.process_overridingcpp_list(cursor, replacementlist, replacementlist_staticmethods, settings)
+            else:
+                self.process_cxxstaticmethod_list(cursor, replacementlist, replacementlist_staticmethods)
 
     def process_class_template(self, cursor, replacementlist, settings):
         replacementlist_staticmethods = []
@@ -346,15 +446,57 @@ class Rule(object):
 
             self.process_cxxstaticmethod_list( cursor, replacementlist, replacementlist_staticmethods )
 
+    def process_overridingcpp_list(self, cursor, replacementlist, replacementlist_staticmethods, setting):
+        buffer = ''
+
+        outfilename2= os.path.splitext((setting.baseFile))[0]+'.cpp'
+        outfile = open(outfilename2, 'w')
+
+        namespace_hierarchy = []
+        c = cursor.lexical_parent
+        while c.kind is not CursorKind.TRANSLATION_UNIT:
+            namespace_hierarchy.append(c.spelling)
+            c = c.lexical_parent
+        namespace_hierarchy.reverse()
+
+
+        buffer = buffer + "/* This file was generated by BigMock.py */ \n\n"
+        buffer = buffer + "/* Please take #include directives from source HPP and place them here */ \n\n"
+
+        buffer = buffer + "#include \"" + os.path.splitext(setting.baseFile)[0] +'_Mocked.hpp' +"\"\n\n"
+
+        if len(replacementlist_staticmethods) != 0:
+
+            for namespace in namespace_hierarchy:
+                buffer = buffer + 'namespace ' +namespace + '{\n'
+
+            buffer = buffer + '\n'
+
+            for entry in replacementlist_staticmethods:
+                buffer = buffer + "    " + entry
+                buffer = buffer + '\n'
+            buffer = buffer + '};\n'
+
+            buffer = buffer + '\n'
+
+            for namespace in namespace_hierarchy:
+                buffer = buffer + '}\n'
+
+
+            outfile.write(buffer)
+
+        outfile.close()
+
     def process_cstaticmethod_list(self, cursor, replacementlist, replacementlist_staticmethods, additionalstring, setting):
         buffer = ''
 
-        outfilename2= os.path.splitext((setting.baseFile))[0]+'_Mocked.cpp'
+        outfilename2= os.path.splitext((setting.baseFile))[0]+'_Mocked.hpp'
         outfile = open(outfilename2, 'w')
 
         buffer = buffer + "/* This file was generated by BigMock.py */ \n\n"
         buffer = buffer + "#include <gmock/gmock.h>\n"
         buffer = buffer + "#include <gtest/gtest.h>\n\n"
+
         buffer = buffer + "/* << Manually insert #includes from original file here >> */ \n\n"
 
         if len(replacementlist_staticmethods) != 0:

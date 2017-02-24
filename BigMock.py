@@ -12,6 +12,8 @@ import sys
 import os
 import datetime
 import Rules.Default
+import re
+
 
 from shutil import copyfile
 from shutil import rmtree
@@ -43,10 +45,13 @@ class Rule(object):
         self.process_class_template_partial_specialization = getattr(ruleClass, 'process_class_template_partial_specialization', None)
         self.process_cstaticmethod_list = getattr(ruleClass, 'process_cstaticmethod_list', None)
 
-def get_out_filename(source_filename):
-    basename = os.path.basename(source_filename)
-    outfilename = os.path.join(os.getcwd(), basename)
-    return outfilename
+def get_out_filename(source_filename, oSettings):
+    if oSettings.oFlag_MockOptions.makeOverridingCpp == True:
+        basename = os.path.splitext(os.path.basename(source_filename))[0]+'_Mocked.hpp'
+    else:
+        basename = os.path.basename(source_filename)
+    outFilename = os.path.join(os.getcwd(), basename)
+    return outFilename
 
 class flag_heading:
     def __init__(self):
@@ -56,6 +61,7 @@ class flag_heading:
 class flag_mockOptions:
     def __init__(self):
         self.makeSingleton = False
+        self.makeOverridingCpp = False
 
 class options:
     def __init__(self):
@@ -120,6 +126,8 @@ def main():
     parser = OptionParser("usage: %prog [options] {filename}")
     parser.add_option("-s", "--make-singleton", action="store_true",  default = False,
                       help="Share properties of this class for all instances")
+    parser.add_option("-o", "--make-overriding-cpp", action="store_true",  default = False,
+                      help="Create a separate cpp to override headers found in the MUT's folder")
     parser.add_option("-n", "--no-header", action="store_true", default=False,
                       help="Don't add heading comment to output file")
     parser.add_option("-d", "--no-datetime", action="store_true", default=False,
@@ -141,12 +149,13 @@ def main():
             return
 
     oSettings = options()
+    oSettings.oFlag_MockOptions.makeOverridingCpp = opts.make_overriding_cpp
     oSettings.oFlag_MockOptions.makeSingleton = opts.make_singleton
     oSettings.oFlag_Heading.noDateTime = opts.no_datetime
     oSettings.oFlag_Heading.noHeader = opts.no_header
     oSettings.quiet = opts.quiet
     oSettings.sourceFile = filename
-    oSettings.destFile = get_out_filename(filename)
+    oSettings.destFile = get_out_filename(filename, oSettings)
     oSettings.baseFile = os.path.basename(filename)
     oSettings.isolatedFile = '__isolation__\\' + oSettings.baseFile
     oSettings.isolatedFile_noincludes = '__isolation__\\ni_' + oSettings.baseFile
@@ -213,8 +222,29 @@ def main():
     fwrite = open(oSettings.destFile,'w')
     writeHeader(fwrite,oSettings)
     fwrite.write(buffer)
+    fwrite.close()
+
+    postprocess(oSettings)
+
 
     rmtree("__isolation__")
+
+def postprocess( settings ):
+    if settings.oFlag_MockOptions.makeOverridingCpp == True:
+        myfile = open(settings.destFile,'r')
+        buffer = ''
+        for line in myfile:
+            line = re.sub(r"#ifndef\s*(.*HPP)\s*$",
+                          r"#ifndef \1_MOCKED\n",
+                          line)
+            line = re.sub(r"#define\s*(.*HPP)\s*$",
+                          r"#define \1_MOCKED\n",
+                          line)
+            buffer += line
+        myfile.close()
+        myfile = open(settings.destFile,'w')
+        myfile.write(buffer)
+        myfile.close()
 
 def writeHeader( fwrite, settings ):
      fwrite.write( "/**************************************************/\n" )
