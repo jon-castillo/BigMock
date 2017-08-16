@@ -1,7 +1,7 @@
 # BigMock
 Automated Google Mock Header converter. A source to source transformation tool based on Clang's AST.
 
-This tool is used for generating mock headers directly from C++ production codes. It is more powerful than the script found inside the google mock project as it uses the Clang compiler to generate an Abstract Syntax Tree and create mocked methods from them based on configurable rules. The tool runs very fast with little or no need of further processing.
+This tool is used for generating mock headers directly from C++ production codes. It is more powerful than the script found inside the google mock project as it uses the Clang compiler to generate an Abstract Syntax Tree and create mocked methods from them based on configurable rules. The tool runs very fast with little or no need of further processing. All features of the original header such as comments, diretives and formatting will remain intact.
 
 There are some limitations most of which is caused by the fact the AST generation is supposed to be carried out after Pre Processing. But doing so will expand our headers into huge sources. For example, the usage of strange directives such as 
 
