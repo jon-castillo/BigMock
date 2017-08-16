@@ -14,3 +14,5 @@ Compiles fine without the semicolon but when parsed by Clang, will cause the AST
 The main reason for the creation of this tool is a common situation wherein test interfaces are not planned nor created upon the design of the system. Months later, when the project is realized, It has becomes extremely huge and the creation of test platforms becomes a difficult task. If the google mock test platform is selected, then this tool can parse entire project folders to automate the creation of mocked headers that would be almost impossible to create by hand.
 
 The rules may be modified such that output files would work with any customized test platform.
+
+This project, though functions very well, is in the working prototype stage and do not expect it to be beautifully modularly designed.
